@@ -11,23 +11,50 @@ $(".filter-block-room-tabs").click(function(event) {
 
 function getBlockedRooms() {
 	let url =  hostname + "/api/blockedroom/get";
-	$.getJSON(url + "?callback=?", null, function(data) {
-		$("#block-list").html(data.html);
-		$(".deleteBlockRoom").click(function(event) {
-			deleteBlockRoom(event);
-		});
+	$.ajax({
+		type: "get",
+		url: url,
+		crossDomain: true,
+		cache: false,
+		dataType: "jsonp",
+		contentType: "application/json; charset=UTF-8",
+		success: function (data) {
+			$("#block-list").html(data.html);
+			$(".deleteBlockRoom").click(function(event) {
+				deleteBlockRoom(event);
+			});
+		},
+		error: function (xhr) {
+			console.log("request for getBlockedRooms is " + xhr.status);
+			if (xhr.status > 400) {
+				getBlockedRooms();
+			}
+		}
 	});
 }
 
 function deleteBlockRoom(event) {
 	const id = event.target.id.replace("delete_blocked_", "");
-
 	let url =  hostname + "/api/blockedroom/delete/" +  id;
-	$.getJSON(url + "?callback=?", null, function(data) {
-		const jsonObj = response[0];
-		if (jsonObj.result_code === 0) {
-			getCalendar("future");
-			getBlockedRooms();
+	$.ajax({
+		type: "get",
+		url: url,
+		crossDomain: true,
+		cache: false,
+		dataType: "jsonp",
+		contentType: "application/json; charset=UTF-8",
+		success: function (response) {
+			const jsonObj = response[0];
+			if (jsonObj.result_code === 0) {
+				getCalendar("future");
+				getBlockedRooms();
+			}
+		},
+		error: function (xhr) {
+			console.log("request for deleteBlockRoom is " + xhr.status);
+			if (xhr.status > 400) {
+				getOverallOccupancy(period, elementId)
+			}
 		}
 	});
 }

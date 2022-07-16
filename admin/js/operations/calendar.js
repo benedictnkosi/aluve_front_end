@@ -5,11 +5,25 @@ $(document).ready(function() {
 
 function getCalendar() {
 	let url =  hostname + "/api/calendar";
-	$.getJSON(url + "?callback=?", null, function(data) {
-		$("#calendar-table").html(data.html);
-		$(".booked").click(function(event) {
-			jumpToBooking(event);
-		});
+	$.ajax({
+		type: "get",
+		url: url,
+		crossDomain: true,
+		cache: false,
+		dataType: "jsonp",
+		contentType: "application/json; charset=UTF-8",
+		success: function (data) {
+			$("#calendar-table").html(data.html);
+			$(".booked").click(function(event) {
+				jumpToBooking(event);
+			});
+		},
+		error: function (xhr) {
+			console.log("request for getCalendar is " + xhr.status);
+			if (xhr.status > 400) {
+				getCalendar();
+			}
+		}
 	});
 }
 

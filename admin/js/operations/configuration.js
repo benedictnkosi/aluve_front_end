@@ -120,14 +120,25 @@ function createUpdateRoom() {
 
 
     let url = hostname + "/api/createroom/" + room_id + "/" + room_name + "/" + room_price + "/" + room_sleeps + "/" + select_room_status + "/" + select_linked_room + "/" + room_size + "/" + select_bed + "/" + select_Stairs + "/" + encodeURIComponent(room_description);
-    $.getJSON(url + "?callback=?", null, function (data) {
-        $("body").removeClass("loading");
-        const jsonObj = data[0];
-        if (jsonObj.result_code === 0) {
-            showResSuccessMessage("configuration", jsonObj.result_message)
-            getConfigRooms();
-        } else {
-            showResErrorMessage("configuration", jsonObj.result_message)
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("body").removeClass("loading");
+            const jsonObj = data[0];
+            if (jsonObj.result_code === 0) {
+                showResSuccessMessage("configuration", jsonObj.result_message)
+                getConfigRooms();
+            } else {
+                showResErrorMessage("configuration", jsonObj.result_message)
+            }
+        },
+        error: function (xhr) {
+            showResErrorMessage("configuration", "Server error occurred")
         }
     });
 
@@ -161,33 +172,92 @@ function filterConfiguration(event) {
 
 function getConfigRooms() {
     let url = hostname + "/api/configurationrooms";
-    $.getJSON(url + "?callback=?", null, function (data) {
-        $("#config_rooms_list").html(data.html);
-        $('.roomsMenu').unbind('click')
-        $(".roomsMenu").click(function (event) {
-            populateFormWithRoom(event);
-        });
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#config_rooms_list").html(data.html);
+            $('.roomsMenu').unbind('click')
+            $(".roomsMenu").click(function (event) {
+                populateFormWithRoom(event);
+            });
+        },
+        error: function (xhr) {
+            console.log("request for getConfigRooms is " + xhr.status);
+            if (xhr.status > 400) {
+                getConfigRooms();
+            }
+        }
     });
 }
 
 function getConfigRoomsDropDown() {
     let url = hostname + "/api/combolistrooms";
-    $.getJSON(url + "?callback=?", null, function (data) {
-        $("#select_linked_room").html(data.html);
+
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#select_linked_room").html(data.html);
+        },
+        error: function (xhr) {
+            console.log("request for getConfigRoomsDropDown is " + xhr.status);
+            if (xhr.status > 400) {
+                getConfigRoomsDropDown();
+            }
+        }
     });
 }
 
 function getConfigRoomStatusesDropDown() {
     let url = hostname + "/api/combolistroomstatuses";
-    $.getJSON(url + "?callback=?", null, function (data) {
-        $("#select_room_status").html(data.html);
+
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#select_room_status").html(data.html);
+        },
+        error: function (xhr) {
+            console.log("request for getConfigRoomStatusesDropDown is " + xhr.status);
+            if (xhr.status > 400) {
+                getConfigRoomStatusesDropDown();
+            }
+        }
     });
 }
 
 function getConfigRoomBedSizesDropDown() {
     let url = hostname + "api/combolistroombedsizes";
-    $.getJSON(url + "?callback=?", null, function (data) {
-        $("#select_bed").html(data.html);
+
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#select_bed").html(data.html);
+        },
+        error: function (xhr) {
+            console.log("request for getConfigRoomBedSizesDropDown is " + xhr.status);
+            if (xhr.status > 400) {
+                getConfigRoomBedSizesDropDown();
+            }
+        }
     });
 }
 
@@ -260,6 +330,10 @@ function populateFormWithRoom(event) {
             } else {
                 showResErrorMessage("reservation", response[0].result_message);
             }
+        }).fail(function(d) {
+            if(d.status === 500){
+                populateFormWithRoom(event);
+            }
         });
     }
 
@@ -274,15 +348,30 @@ function setCookie(name, value) {
 
 function getAddOns() {
     let url =  hostname + "/api/addon/configaddons";
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $("#add_ons_div").html(data.html);
-        $(".addon_field").change(function (event) {
-            updateAddOn(event);
-        });
 
-        $(".remove_addon_button").click(function (event) {
-            deleteAddOn(event);
-        });
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#add_ons_div").html(data.html);
+            $(".addon_field").change(function (event) {
+                updateAddOn(event);
+            });
+
+            $(".remove_addon_button").click(function (event) {
+                deleteAddOn(event);
+            });
+        },
+        error: function (xhr) {
+            console.log("request for getAddOns is " + xhr.status);
+            if (xhr.status > 400) {
+                getAddOns();
+            }
+        }
     });
 }
 
@@ -339,15 +428,30 @@ function deleteAddOn(event) {
 function getEmployees() {
 
     let url =  hostname + "/api/config/employees";
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $("#employee_div").html(data.html);
-        $(".employee_field").change(function (event) {
-            updateEmployee(event);
-        });
 
-        $(".remove_employee_button").click(function (event) {
-            deleteEmployee(event);
-        });
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#employee_div").html(data.html);
+            $(".employee_field").change(function (event) {
+                updateEmployee(event);
+            });
+
+            $(".remove_employee_button").click(function (event) {
+                deleteEmployee(event);
+            });
+        },
+        error: function (xhr) {
+            console.log("request for getEmployees is " + xhr.status);
+            if (xhr.status > 400) {
+                getEmployees();
+            }
+        }
     });
 }
 
@@ -403,50 +507,110 @@ function deleteEmployee(event) {
 function getTemplates() {
 
     let url =  hostname + "/api/schedulemessages/templates" ;
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $("#template_name_select").html(data.html);
-        $(".template_option").change(function (event) {
-            getTemplateMessage(event);
-        });
-        getTemplateMessage($("#template_name_select").find("option:first-child").val());
+
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#template_name_select").html(data.html);
+            $(".template_option").change(function (event) {
+                getTemplateMessage(event);
+            });
+            getTemplateMessage($("#template_name_select").find("option:first-child").val());
+        },
+        error: function (xhr) {
+            console.log("request for getTemplates is " + xhr.status);
+            if (xhr.status > 400) {
+                getTemplates();
+            }
+        }
     });
 }
 
 function getSchedules() {
     let url =  hostname +  "/api/schedulemessages/schedules";
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $('#schedule_name')
-            .find('option')
-            .remove();
 
-        $.each(data, function (i, schedule) {
-            $('#schedule_name').append($('<option/>').attr({
-                "value": schedule.id,
-                "data-price": schedule.name
-            }).text(schedule.name));
-        });
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $('#schedule_name')
+                .find('option')
+                .remove();
+
+            $.each(data, function (i, schedule) {
+                $('#schedule_name').append($('<option/>').attr({
+                    "value": schedule.id,
+                    "data-price": schedule.name
+                }).text(schedule.name));
+            });
+        },
+        error: function (xhr) {
+            console.log("request for getSchedules is " + xhr.status);
+            if (xhr.status > 400) {
+                getSchedules();
+            }
+        }
     });
 }
 
 function getVariables() {
     let url =  hostname + "/api/schedulemessages/variables";
-    $.getJSON(url + "?callback=?", null, function(data) {
-        let variables = "<b>Variables</b>: ";
-        $.each(data, function (i, schedule) {
-            variables += schedule.name + ", ";
-        });
-        $('#message_variables').html(variables.substring(0, variables.length - 2));
+
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            let variables = "<b>Variables</b>: ";
+            $.each(data, function (i, schedule) {
+                variables += schedule.name + ", ";
+            });
+            $('#message_variables').html(variables.substring(0, variables.length - 2));
+        },
+        error: function (xhr) {
+            console.log("request for getVariables " + xhr.status);
+            if (xhr.status > 400) {
+                getVariables();
+            }
+        }
     });
 }
 
 function getRoomsForMessages() {
     let url =  hostname + "/api/rooms/all" ;
 
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $.each(data, function (i, room) {
-            addCheckbox(room.name, room.id);
-        });
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $.each(data, function (i, room) {
+                addCheckbox(room.name, room.id);
+            });
+        },
+        error: function (xhr) {
+            console.log("request for getRoomsForMessages is " + xhr.status);
+            if (xhr.status > 400) {
+                getRoomsForMessages();
+            }
+        }
     });
+
 }
 
 function addCheckbox(name, room_id) {
@@ -487,12 +651,26 @@ function createScheduleMessage() {
 function getScheduledMessages() {
 
     let url =  hostname + "/api/schedulemessages" ;
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $("#messages_div").html(data.html);
-        $('.deleteScheduledMessage').unbind('click')
-        $(".deleteScheduledMessage").click(function (event) {
-            deleteScheduledMessage(event);
-        });
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#messages_div").html(data.html);
+            $('.deleteScheduledMessage').unbind('click')
+            $(".deleteScheduledMessage").click(function (event) {
+                deleteScheduledMessage(event);
+            });
+        },
+        error: function (xhr) {
+            console.log("request for getScheduledMessages is " + xhr.status);
+            if (xhr.status > 400) {
+                getScheduledMessages();
+            }
+        }
     });
 }
 
@@ -534,8 +712,25 @@ function createMessageTemplate() {
 
 function getTemplateMessage() {
     const templateId = $('#template_name_select').find(":selected").val();
-    let url =  hostname + "/api/schedulemessages/template/" + templateId ;
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $("#template_message_text").html(data.html);
-    });
+    if(templateId != null){
+        let url =  hostname + "/api/schedulemessages/template/" + templateId ;
+
+        $.ajax({
+            type: "get",
+            url: url,
+            crossDomain: true,
+            cache: false,
+            dataType: "jsonp",
+            contentType: "application/json; charset=UTF-8",
+            success: function (data) {
+                $("#template_message_text").html(data.html);
+            },
+            error: function (xhr) {
+                console.log("request for getTemplateMessage is " + xhr.status);
+                if (xhr.status > 400) {
+                    getTemplateMessage();
+                }
+            }
+        });
+    }
 }

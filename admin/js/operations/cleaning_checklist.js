@@ -7,9 +7,25 @@ $(document).ready(function() {
 
 function getCleaning(room) {
 	let url =  hostname + "/api/cleanings/"+room;
-	$.getJSON(url + "?callback=?", null, function(data) {
-		$("#cleaning-list").html(data.html);
+
+	$.ajax({
+		type: "get",
+		url: url,
+		crossDomain: true,
+		cache: false,
+		dataType: "jsonp",
+		contentType: "application/json; charset=UTF-8",
+		success: function (data) {
+			$("#cleaning-list").html(data.html);
+		},
+		error: function (xhr) {
+			console.log("request for getCleaning  is " + xhr.status);
+			if (xhr.status > 400) {
+				getCleaning(room);
+			}
+		}
 	});
+
 }
 
 
