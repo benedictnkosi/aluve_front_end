@@ -40,6 +40,7 @@ const guid = a => (a ?
 
 
 function updateView(selectedDiv) {
+	//check if javascript loaded for div
 	$(".toggleable").addClass("display-none");
 	$("#div-" + selectedDiv).removeClass("display-none");
 	sessionStorage.setItem("current_page", selectedDiv);

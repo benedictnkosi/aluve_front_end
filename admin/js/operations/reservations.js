@@ -7,37 +7,106 @@ $(document).ready(function () {
     });
 });
 
-function refreshReservations(){
-    let url =  hostname +  "/api/reservations/future";
-    $.getJSON(url + "?callback=?", null, function() {
-        $("#reservations-list").html(data.html);
-        let url =  hostname +  "/api/reservations/stayover";
-        $.getJSON(url + "?callback=?", null, function() {
-            $("#stayOver-list").html(data.html);
-            let url =  hostname +  "/api/reservations/checkout";
-            $.getJSON(url + "?callback=?", null, function() {
-                $("#checkouts-list").html(data.html);
-                let url =  hostname +  "/api/reservations/past";
-                $.getJSON(url + "?callback=?", null, function() {
-                    $("#past-res-list").html(data.html);
-                    let url =  hostname +  "/api/reservations/pending";
-                    $.getJSON(url + "?callback=?", null, function() {
-                        $("#pending-res-list").html(data.html);
-                        setBindings()
+function refreshReservations() {
+    let url = hostname + "/api/reservations/future";
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#reservations-list").html(data.html);
+            let url = hostname + "/api/reservations/stayover";
+            $.ajax({
+                type: "get",
+                url: url,
+                crossDomain: true,
+                cache: false,
+                dataType: "jsonp",
+                contentType: "application/json; charset=UTF-8",
+                success: function (data) {
+                    $("#stayOver-list").html(data.html);
+                    let url = hostname + "/api/reservations/checkout";
+                    $.ajax({
+                        type: "get",
+                        url: url,
+                        crossDomain: true,
+                        cache: false,
+                        dataType: "jsonp",
+                        contentType: "application/json; charset=UTF-8",
+                        success: function (data) {
+                            $("#checkouts-list").html(data.html);
+                            let url = hostname + "/api/reservations/past";
+                            $.ajax({
+                                type: "get",
+                                url: url,
+                                crossDomain: true,
+                                cache: false,
+                                dataType: "jsonp",
+                                contentType: "application/json; charset=UTF-8",
+                                success: function (data) {
+                                    $("#past-res-list").html(data.html);
+                                    let url = hostname + "/api/reservations/pending";
+                                    $.ajax({
+                                        type: "get",
+                                        url: url,
+                                        crossDomain: true,
+                                        cache: false,
+                                        dataType: "jsonp",
+                                        contentType: "application/json; charset=UTF-8",
+                                        success: function (data) {
+                                            $("#pending-res-list").html(data.html);
+                                        },
+                                        error: function (xhr) {
+                                            console.log("request for refreshReservations is " + xhr.status);
+                                            if (xhr.status > 400) {
+                                                refreshReservations();
+                                            }
+                                        }
+                                    });
+                                },
+                                error: function (xhr) {
+                                    console.log("request for refreshReservations is " + xhr.status);
+                                    if (xhr.status > 400) {
+                                        refreshReservations();
+                                    }
+                                }
+                            });
+                        },
+                        error: function (xhr) {
+                            console.log("request for refreshReservations is " + xhr.status);
+                            if (xhr.status > 400) {
+                                refreshReservations();
+                            }
+                        }
                     });
-                });
+                },
+                error: function (xhr) {
+                    console.log("request for refreshReservations is " + xhr.status);
+                    if (xhr.status > 400) {
+                        refreshReservations();
+                    }
+                }
             });
-        });
+        },
+        error: function (xhr) {
+            console.log("request for refreshReservations is " + xhr.status);
+            if (xhr.status > 400) {
+                refreshReservations();
+            }
+        }
     });
 }
 
-function setBindings(){
+function setBindings() {
     $('.changeBookingStatus').unbind('click')
     $(".changeBookingStatus").click(function (event) {
         changeBookingStatus(event);
     });
 
-    $.getScript("js/jquery.timepicker.min.js", function(){
+    $.getScript("js/jquery.timepicker.min.js", function () {
         $('.time-picker').timepicker({
             'minTime': '8:00',
             'maxTime': '23:00',
@@ -46,21 +115,21 @@ function setBindings(){
         });
     });
 
-    $.getScript("https://cdn.jsdelivr.net/jquery/latest/jquery.min.js", function(){
-        $.getScript("https://cdn.jsdelivr.net/momentjs/latest/moment.min.js", function(){
-            $.getScript("https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js", function(){
+    $.getScript("https://cdn.jsdelivr.net/jquery/latest/jquery.min.js", function () {
+        $.getScript("https://cdn.jsdelivr.net/momentjs/latest/moment.min.js", function () {
+            $.getScript("https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js", function () {
                 $('input[name="check_in_date"]').daterangepicker({
                     opens: 'left',
-                    autoApply:true
-                }, function(start, end, label) {
+                    autoApply: true
+                }, function (start, end, label) {
                     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
                 });
 
-                $('input[name="check_in_date"]').on('apply.daterangepicker', function(event, picker) {
-                    updateCheckInDate(event,  picker.startDate.format('YYYY-MM-DD'), picker.endDate.format('YYYY-MM-DD'));
+                $('input[name="check_in_date"]').on('apply.daterangepicker', function (event, picker) {
+                    updateCheckInDate(event, picker.startDate.format('YYYY-MM-DD'), picker.endDate.format('YYYY-MM-DD'));
                 });
 
-                $('input[name="check_in_date"]').on('show.daterangepicker', function(event, picker) {
+                $('input[name="check_in_date"]').on('show.daterangepicker', function (event, picker) {
                     localStorage.setItem('original_check_in_date', picker.startDate.format('MM/DD/YYYY'));
                     localStorage.setItem('original_check_out_date', picker.endDate.format('MM/DD/YYYY'));
                 });
@@ -142,13 +211,12 @@ function setBindings(){
     $(".reservations_actions_link").click(function (event) {
         showRightDivForMobile(event);
     });
-
 }
 
-function showRightDivForMobile(event){
+function showRightDivForMobile(event) {
     let reservationID = event.target.getAttribute("data-res-id");
     $('.right-div').css("display", "none");
-    $('#right-div-'+reservationID).css("display", "block");
+    $('#right-div-' + reservationID).css("display", "block");
 }
 
 function changeBookingStatus(event) {
@@ -184,15 +252,15 @@ function changeBookingStatus(event) {
 
 
     $("body").addClass("loading");
-    let url =  hostname +  "/api/reservations/" + data["reservation_id"] + "/update/status/" + data["new_value"];
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/reservations/" + data["reservation_id"] + "/update/status/" + data["new_value"];
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         if (response[0].result_code === 0) {
             $("#" + event.target.id).val(newButtonText);
             getCalendar("future");
             refreshReservations();
-            showResSuccessMessage("reservation",response[0].result_message);
-        }else{
+            showResSuccessMessage("reservation", response[0].result_message);
+        } else {
             showResErrorMessage("reservation", jsonObj.result_message);
         }
     });
@@ -206,14 +274,14 @@ function blockGuest(event) {
     } else {
         const note = $("#block_note_" + article.dataset.resid).val();
         $("body").addClass("loading");
-        let url =  hostname + "/api/reservation/" + res_id + "/blockguest/" + note ;
-        $.getJSON(url + "?callback=?", null, function(response) {
+        let url = hostname + "/api/reservation/" + res_id + "/blockguest/" + note;
+        $.getJSON(url + "?callback=?", null, function (response) {
             $("body").removeClass("loading");
             $("#res_message_div_" + event.target.id).removeClass("display-none");
 
             if (response[0].result_code === 0) {
                 refreshReservations();
-                showResSuccessMessage("reservation",response[0].result_message);
+                showResSuccessMessage("reservation", response[0].result_message);
             } else {
                 showResErrorMessage("reservation", response[0].result_message);
             }
@@ -256,12 +324,12 @@ function markReservationAsCheckedInOut(event, status) {
     let reservationID = event.target.getAttribute("reservation_id");
     $("body").addClass("loading");
 
-    let url =  hostname +  "/api/reservations/" + reservationID + "/update/check_in_status/" + status;
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/reservations/" + reservationID + "/update/check_in_status/" + status;
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         if (response[0].result_code === 0) {
             refreshReservations();
-            showResSuccessMessage("reservation",response[0].result_message);
+            showResSuccessMessage("reservation", response[0].result_message);
         } else {
             refreshReservations();
             showResErrorMessage("reservation", response[0].result_message);
@@ -279,13 +347,13 @@ function captureGuestPhoneNumber(event) {
     }
 
     $("body").addClass("loading");
-    let url =  hostname +  "/api/guests/" + guestID + "/phone/" + phoneNumber;
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/guests/" + guestID + "/phone/" + phoneNumber;
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         const jsonObj = response[0];
         if (jsonObj.result_code === 0) {
             refreshReservations();
-            showResSuccessMessage("reservation",response[0].result_message);
+            showResSuccessMessage("reservation", response[0].result_message);
         } else {
             showResErrorMessage("reservation", response[0].result_message);
         }
@@ -297,13 +365,13 @@ function updateCheckInOutTime(event, $field) {
     let checkinTime = event.target.value;
     $("body").addClass("loading");
 
-    let url =  hostname + "/api/reservations/" + reservationID + "/update/"+$field+"/" + checkinTime ;
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/reservations/" + reservationID + "/update/" + $field + "/" + checkinTime;
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         var jsonObj = response[0];
         if (jsonObj.result_code === 0) {
             refreshReservations();
-            showResSuccessMessage("reservation",response[0].result_message);
+            showResSuccessMessage("reservation", response[0].result_message);
         } else {
             showResErrorMessage("reservation", response[0].result_message);
         }
@@ -314,13 +382,13 @@ function updateCheckInDate(event, checkInDate, checkOutDate) {
     let reservationID = event.target.getAttribute("data-res-id");
     $("body").addClass("loading");
 
-    let url =  hostname + "/api/reservations/" + reservationID + "/update/dates/" + checkInDate +"/" + checkOutDate  ;
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/reservations/" + reservationID + "/update/dates/" + checkInDate + "/" + checkOutDate;
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         var jsonObj = response[0];
         if (jsonObj.result_code === 0) {
             refreshReservations();
-            showResSuccessMessage("reservation",response[0].result_message);
+            showResSuccessMessage("reservation", response[0].result_message);
         } else {
             refreshReservations();
             showResErrorMessage("reservation", response[0].result_message);
@@ -332,13 +400,13 @@ function updateReservationRoom(event, roomId) {
     let reservationID = event.target.getAttribute("data-res-id");
     $("body").addClass("loading");
 
-    let url =  hostname +  "/api/reservations/"+reservationID+"/update_room/" + roomId ;
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/reservations/" + reservationID + "/update_room/" + roomId;
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         var jsonObj = response[0];
         if (jsonObj.result_code === 0) {
             refreshReservations();
-            showResSuccessMessage("reservation",response[0].result_message);
+            showResSuccessMessage("reservation", response[0].result_message);
         } else {
             refreshReservations();
             showResErrorMessage("reservation", response[0].result_message);
@@ -353,19 +421,19 @@ function markAsCleaned(event) {
     } else {
         const employee_id = $("#select_employee_" + id).val();
 
-        if(employee_id.localeCompare("none") === 0){
+        if (employee_id.localeCompare("none") === 0) {
             showResErrorMessage("reservation", "Please select cleaner");
             return;
         }
 
         $("body").addClass("loading");
-        let url =  hostname +  "/api/cleaning/"+id+"/cleaner/" +employee_id;
-        $.getJSON(url + "?callback=?", null, function(response) {
+        let url = hostname + "/api/cleaning/" + id + "/cleaner/" + employee_id;
+        $.getJSON(url + "?callback=?", null, function (response) {
             $("body").removeClass("loading");
 
             if (response[0].result_code === 0) {
                 refreshReservations();
-                showResSuccessMessage("reservation",response[0].result_message);
+                showResSuccessMessage("reservation", response[0].result_message);
             } else {
                 showResErrorMessage("reservation", response[0].result_message);
             }
@@ -381,18 +449,18 @@ function addAddOn(event) {
         const add_on_id = $("#select_add_on_" + id).val();
         const quantity = $("#add_on_quantity_" + id).val();
 
-        if(add_on_id.localeCompare("none") === 0){
+        if (add_on_id.localeCompare("none") === 0) {
             showResErrorMessage("reservation", "Please select an add on");
             return;
         }
 
         $("body").addClass("loading");
-        let url =  hostname + "/api/addon/" + add_on_id + "/reservation/" + id + "/quantity/" + quantity;
-        $.getJSON(url + "?callback=?", null, function(response) {
+        let url = hostname + "/api/addon/" + add_on_id + "/reservation/" + id + "/quantity/" + quantity;
+        $.getJSON(url + "?callback=?", null, function (response) {
             $("body").removeClass("loading");
             if (response[0].result_code === 0) {
                 refreshReservations();
-                showResSuccessMessage("reservation",response[0].result_message);
+                showResSuccessMessage("reservation", response[0].result_message);
             } else {
                 showResErrorMessage("reservation", response[0].result_message);
             }
@@ -408,16 +476,16 @@ function addGuestID(event) {
     } else {
         const idNumber = $("#guest_id_" + article.dataset.resid).val();
         $("body").addClass("loading");
-        let url =  hostname + "/api/reservation/" + id +"/idnumber/"+idNumber ;
-        $.getJSON(url + "?callback=?", null, function(response) {
+        let url = hostname + "/api/reservation/" + id + "/idnumber/" + idNumber;
+        $.getJSON(url + "?callback=?", null, function (response) {
             $("body").removeClass("loading");
 
             if (response[0].result_code === 0) {
                 refreshReservations();
                 getBlockedRooms();
-                showResSuccessMessage("reservation",response[0].result_message);
+                showResSuccessMessage("reservation", response[0].result_message);
             } else {
-                showResErrorMessage("reservation",response[0].result_message);
+                showResErrorMessage("reservation", response[0].result_message);
             }
         });
     }
@@ -430,21 +498,21 @@ function addPayment(event) {
         $("#amount_" + article.dataset.resid).removeClass("display-none");
     } else {
         const amount = $("#amount_" + article.dataset.resid).val();
-        if(isNaN(amount)){
-            showResErrorMessage(reservation,"Please provide numbers only for payment");
+        if (isNaN(amount)) {
+            showResErrorMessage(reservation, "Please provide numbers only for payment");
             return;
         }
         $("body").addClass("loading");
-        let url =  hostname + "/api/payment/" + id +"/amount/"+amount;
-        $.getJSON(url + "?callback=?", null, function(response) {
+        let url = hostname + "/api/payment/" + id + "/amount/" + amount;
+        $.getJSON(url + "?callback=?", null, function (response) {
             $("body").removeClass("loading");
 
             if (response[0].result_code === 0) {
                 refreshReservations();
                 getBlockedRooms();
-                showResSuccessMessage("reservation",response[0].result_message);
+                showResSuccessMessage("reservation", response[0].result_message);
             } else {
-                showResErrorMessage("reservation",response[0].result_message);
+                showResErrorMessage("reservation", response[0].result_message);
             }
         });
     }
@@ -458,13 +526,13 @@ function addNote(event) {
     } else {
         const note = $("#note_" + article.dataset.resid).val();
         $("body").addClass("loading");
-        let url =  hostname +  "/api/note/"+id+"/text/" +note;
-        $.getJSON(url + "?callback=?", null, function(response) {
+        let url = hostname + "/api/note/" + id + "/text/" + note;
+        $.getJSON(url + "?callback=?", null, function (response) {
             $("body").removeClass("loading");
 
             if (response[0].result_code === 0) {
                 refreshReservations();
-                showResSuccessMessage("reservation",response[0].result_message);
+                showResSuccessMessage("reservation", response[0].result_message);
             } else {
                 $("#reservation_error_message_div").removeClass("display-none");
                 $("#reservation_error_message").text(jsonObj.result_message)
@@ -480,23 +548,36 @@ function addNote(event) {
 }
 
 function getRooms(id) {
+    let url = hostname + "/api/rooms/all";
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $('#' + id)
+                .find('option')
+                .remove();
 
-    let url =  hostname + "/api/rooms/all" ;
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $('#' + id)
-            .find('option')
-            .remove();
-
-        $('#' + id).append($('<option/>').attr({
-            "value": "none",
-            "data-price": 0
-        }).text("Select Room"));
-
-        $.each(data, function (i, room) {
             $('#' + id).append($('<option/>').attr({
-                "value": room.id,
-                "data-price": room.price
-            }).text(room.name));
-        });
+                "value": "none",
+                "data-price": 0
+            }).text("Select Room"));
+
+            $.each(data, function (i, room) {
+                $('#' + id).append($('<option/>').attr({
+                    "value": room.id,
+                    "data-price": room.price
+                }).text(room.name));
+            });
+        },
+        error: function (xhr) {
+            console.log("request for getRooms is " + xhr.status);
+            if (xhr.status > 400) {
+                getRooms();
+            }
+        }
     });
 }

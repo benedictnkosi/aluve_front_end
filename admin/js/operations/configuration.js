@@ -86,7 +86,7 @@ $(document).ready(function () {
 
 
 const uploader = $('#ssi-upload').ssi_uploader({
-    url: 'http://aluveapp.co.za/api/doUpload',
+    url: '/admin/UploadController.php',
     allowed: ['jpg', 'jpeg', 'png', 'bmp', 'gif'],
     maxNumberOfFiles: '10',
     errorHandler: {
@@ -103,7 +103,6 @@ uploader.on('onEachUpload.ssi-uploader', function () {
     uploader.data('ssi_upload').uploadFiles();
 });
 
-
 function createUpdateRoom() {
     const room_id = $("#room_id").val().trim();
     const room_name = $("#room_name").val().trim();
@@ -117,7 +116,6 @@ function createUpdateRoom() {
     const select_Stairs = $('#select_Stairs').find(":selected").val();
 
     $("body").addClass("loading");
-
 
     let url = hostname + "/api/createroom/" + room_id + "/" + room_name + "/" + room_price + "/" + room_sleeps + "/" + select_room_status + "/" + select_linked_room + "/" + room_size + "/" + select_bed + "/" + select_Stairs + "/" + encodeURIComponent(room_description);
     $.ajax({
@@ -261,6 +259,28 @@ function getConfigRoomBedSizesDropDown() {
     });
 }
 
+function getConfigRoomTvsDropDown() {
+    let url = hostname + "api/combolistroomtvs";
+
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#select_tv").html(data.html);
+        },
+        error: function (xhr) {
+            console.log("request for getConfigRoomTvsDropDown is " + xhr.status);
+            if (xhr.status > 400) {
+                getConfigRoomTvsDropDown();
+            }
+        }
+    });
+}
+
 function populateFormWithRoom(event) {
     let roomId = event.target.getAttribute("data-roomid");
     $('#room_id').val(roomId);
@@ -277,6 +297,7 @@ function populateFormWithRoom(event) {
         $("#select_linked_room").val($("#select_linked_room option:first").val());
         $('#room_size').val("");
         $("#select_bed").val($("#select_bed option:first").val());
+        $("#select_tv").val($("#select_tv option:first").val());
         $("#select_Stairs").val($("#select_Stairs option:first").val());
     } else {
         let url = hostname + "/api/rooms/" + roomId;
@@ -291,6 +312,7 @@ function populateFormWithRoom(event) {
                 $('#select_linked_room').val(response[0].linked_room);
                 $('#room_size').val(response[0].room_size);
                 $('#select_bed').val(response[0].bed);
+                $('#select_tv').val(response[0].tv);
                 $('#select_Stairs').val(response[0].stairs);
 
                 //show uploaded images

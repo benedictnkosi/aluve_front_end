@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Hotels a Hotels Category Responsive Web Template | Contact </title>
+
+    <link href="//fonts.googleapis.com/css?family=Spartan:400,500,600,700,900&display=swap" rel="stylesheet">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/style-liberty.css">
+    <script src="assets/js/jquery-1.11.1.min.js"></script>
+    <script src="../variables.js"></script>
+    <script src="assets/js/jquery.validate.js" type="text/javascript"></script>
+</head>
+<body>
+<!--w3l-header-->
+
+<header class="w3l-header-nav">
+    <div w3-include-html="menu.html"></div>
+</header>
+<!-- //w3l-header -->
+<section class="w3l-breadcrumb">
+    <div class="breadcrum-bg py-sm-5 py-4">
+        <div class="container py-lg-3">
+            <h2>Contact Us</h2>
+            <p><a href="index.html">Home</a> &nbsp; / &nbsp; Contact</p>
+
+        </div>
+    </div>
+</section>
+<!-- contact1 -->
+<section class="w3l-contact-1 py-5">
+    <div class="contacts-9 py-lg-5 py-sm-4">
+        <div class="container">
+            <div class="d-grid contact-view">
+                <div class="cont-details">
+                    <p>Get in touch</p>
+                    <h3 class="title-big">Contact and Access</h3>
+                </div>
+                <div class="map-content-9">
+
+                </div>
+            </div>
+            <div class="map-iframe my-5">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14320.532080292405!2d28.0903795!3d-26.1923508!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf07d0319b4f8555!2sAluve%20Guest%20House!5e0!3m2!1sen!2sza!4v1656533515996!5m2!1sen!2sza"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="d-grid contact-view">
+                <div class="cont-details">
+                    <div class="cont-top">
+                        <div class="cont-left text-center">
+                            <span class="fa fa-phone text-primary"></span>
+                        </div>
+                        <div class="cont-right">
+                            <h6>Call Us</h6>
+                            <p><a href="tel:+27 79 634 7610" id="contact_number">+27 79 634 7610</a></p>
+                        </div>
+                    </div>
+                    <div class="cont-top margin-up">
+                        <div class="cont-left text-center">
+                            <span class="fa fa-envelope-o text-primary"></span>
+                        </div>
+                        <div class="cont-right">
+                            <h6>Email Us</h6>
+                            <p><a href="mailto:info@aluvegh.co.za" class="mail"
+                                  id="contact_email">info@aluvegh.co.za</a></p>
+                        </div>
+                    </div>
+                    <div class="cont-top margin-up">
+                        <div class="cont-left text-center">
+                            <span class="fa fa-map-marker text-primary"></span>
+                        </div>
+                        <div class="cont-right">
+                            <h6>Address</h6>
+                            <p id="contact_address">Aluve Guesthouse
+                                187 Kitchener Avenue, Kensington, Johannesburg, South Africa</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-content-9 mt-lg-0 mt-4">
+                    <form action="" method="" id="contact_us_form">
+                        <div class="twice-two">
+                            <input type="text" class="form-control" name="w3lName" placeholder="Name"
+                                   id="guestName"
+                                   required="">
+                            <input type="email" class="form-control" name="w3lSender" placeholder="Email"
+                                   id="email"
+                                   required="">
+                        </div>
+                        <div class="twice">
+                            <input type="text" class="form-control" name="w3lSubject"
+                                   placeholder="Phone Number" required="" id="phoneNumber">
+                        </div>
+                        <textarea name="w3lMessage" class="form-control" placeholder="Message"
+                                  required="" id="message"></textarea>
+
+                        <div class="flexible">
+                            <div class="flex-bottom">
+                                <div id="error_message_div"
+                                     class="flex2 display-none">
+                                    <h5 id="error_message"></h5>
+                                </div>
+                                <div id="success_message_div"
+                                     class="flex2 display-none">
+                                    <h5 id="success_message"></h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-contact" id="send_message">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /contact1 -->
+<div w3-include-html="footer.html"></div>
+<script>
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+        scrollFunction()
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("movetop").style.display = "block";
+        } else {
+            document.getElementById("movetop").style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+<!-- /move top -->
+</section>
+
+<!-- Template JavaScript -->
+<script src="assets/js/owl.carousel.js"></script>
+<!-- script for banner slider-->
+<script>
+    $(document).ready(function () {
+        $('.owl-one').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: false,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                480: {
+                    items: 1,
+                    nav: false
+                },
+                667: {
+                    items: 1,
+                    nav: true
+                },
+                1000: {
+                    items: 1,
+                    nav: true
+                }
+            }
+        })
+    })
+</script>
+<!-- //script -->
+
+<!-- script for owlcarousel -->
+<script>
+    $(document).ready(function () {
+        $('.owl-testimonial').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                480: {
+                    items: 1,
+                    nav: false
+                },
+                667: {
+                    items: 1,
+                    nav: true
+                },
+                1000: {
+                    items: 1,
+                    nav: true
+                }
+            }
+        })
+    })
+</script>
+<!-- //script for owlcarousel -->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+        $('.popup-with-move-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-slide-bottom'
+        });
+    });
+</script>
+
+
+<!-- disable body scroll which navbar is in active -->
+<script>
+    $(function () {
+        $('.navbar-toggler').click(function () {
+            $('body').toggleClass('noscroll');
+        })
+    });
+</script>
+<!-- disable body scroll which navbar is in active -->
+
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/common/onPageLoad.js"></script>
+<script src="assets/js/src/menu.js"></script>
+<script src="assets/js/src/contact.js"></script>
+
+<script>
+    includeHTML();
+</script>
+</body>
+
+</html>

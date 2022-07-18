@@ -43,18 +43,46 @@ $(document).ready(function () {
 
 
 function getAllRooms(){
-
     let url =  hostname + "/api/allrooms" ;
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $("#rooms_parent_div").html(data.html);
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#rooms_parent_div").html(data.html);
+        },
+        error: function (xhr) {
+            console.log("request for getConfigRooms is " + xhr.status);
+            if (xhr.status > 400) {
+                getAllRooms();
+            }
+        }
     });
 }
 
 function filterRooms(checkIn, checkOut){
     $("body").addClass("loading");
     let url =  hostname + "/api/roomspage/"+checkIn+"/"+checkOut ;
-    $.getJSON(url + "?callback=?", null, function(data) {
-        $("#rooms_parent_div").html(data.html);
-        $("body").removeClass("loading");
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#rooms_parent_div").html(data.html);
+            $("body").removeClass("loading");
+        },
+        error: function (xhr) {
+            console.log("request for getConfigRooms is " + xhr.status);
+            if (xhr.status > 400) {
+                filterRooms();
+            }
+        }
     });
+
 }

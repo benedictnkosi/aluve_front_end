@@ -47,7 +47,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- //font -->
     <link rel="stylesheet" href="css/jquery.timepicker.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
-    <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/ssi-uploader.css"/>
 
     <script src="js/jquery-1.11.1.min.js"></script>
@@ -264,45 +263,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="profile-w3layouts dashboard-div toggleable"
              id="div-calendar">
 
-            <div class="profile-top">
-                <div class="col-md-7 profile-top-right">
-                    <h5>
-                        What's happening <i id="today-tomorrow">TODAY</i>
-                    </h5>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="weather-bottom">
-                <div class="weather-bottom-wthree">
-                    <a href="javascript:void(0)" onclick="getStatsForToday();">Today</a>
-                </div>
-                <div class="weather-bottom-wthree">
-                    <a href="javascript:void(0)" onclick="getStatsForTomorrow();">Tomorrow</a>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="profile-ser">
-                <div class="profile-ser-grids">
-						<span class="glyphicon glyphicon-log-in clickable"
-                              aria-hidden="true"></span>
-                    <h4>Check-ins</h4>
-                    <h2 id="stats_checkin_count"></h2>
-                </div>
-                <div class="profile-ser-grids agileinfo">
-						<span class="glyphicon glyphicon-log-out clickable"
-                              aria-hidden="true"></span>
-                    <h4>Checkouts</h4>
-                    <h2 id="stats_checkout_count"></h2>
-                </div>
-                <div class="profile-ser-grids no-border">
-						<span class="glyphicon glyphicon-briefcase clickable"
-                              aria-hidden="true"></span>
-                    <h4>Stay Over</h4>
-
-                    <h2 id="stats_overstays_count"></h2>
-                </div>
-                <div class="clearfix"></div>
-            </div>
 
             <div class="profile-top">
                 <div class="col-md-7 profile-top-right">
@@ -491,6 +451,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div>
                             <select id="select_bed">
 
+                            </select>
+                        </div>
+
+                        <label>TV</label>
+                        <div>
+                            <select id="select_tv">
                             </select>
                         </div>
 
@@ -863,9 +829,7 @@ Ref: Name or invoice Number</textarea>
 <!--  player js -->
 
 <div class="overlay"></div>
-<script>
-    let hostname = "http://localhost:8080";
-</script>
+<script src="../variables.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script>

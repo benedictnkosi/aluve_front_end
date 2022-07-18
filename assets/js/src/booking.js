@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-
     $("#new-res-form").validate({
         // Specify validation rules
         rules: {
@@ -12,7 +10,6 @@ $(document).ready(function () {
     $("#new-res-form").submit(function (event) {
         event.preventDefault();
     });
-
 
     $("#bookNowButton").click(function (event) {
         event.preventDefault();
@@ -90,21 +87,24 @@ function displayTotal(){
 function getAvailableRooms(checkInDate, checkOutDate){
     let url =  hostname +  "/api/rooms/"+checkInDate+"/"+checkOutDate;
     $.getJSON(url + "?callback=?", null, function(data) {
+        let roomIndex;
         $("#availableRoomsDropdown").html(data.html);
-        var langArray = [];
+        const roomArray = [];
+        const roomIdsArray = [];
         $('.vodiapicker option').each(function(){
             var img = $(this).attr("data-thumbnail");
             var price = $(this).attr("data-price");
             var room_id = $(this).attr("data-roomId");
             var room_name = this.innerText;
             var item = '<li><img src="'+ img +'" data-price="'+price+'" data-roomId="'+room_id+'" data-roomName="'+room_name+'"/><div class="div-select-room-name">'+ room_name +'<div class="select_sleeps"><span class="fa fa-users">2 Guests</span><span>ZAR '+price+'</span></div></div></li>';
-            langArray.push(item);
+            roomArray.push(item);
+            roomIdsArray.push(room_id);
         })
 
-        $('#a').html(langArray);
+        $('#a').html(roomArray);
 
 //Set the button value to the first el of the array
-        $('.btn-select').html(langArray[0]);
+        $('.btn-select').html(roomArray[0]);
         $('.btn-select').attr('value', 'en');
 
 //change button stuff on click
@@ -126,17 +126,17 @@ function getAvailableRooms(checkInDate, checkOutDate){
         });
 
         //check local storage for the lang
-        const sessionLang = localStorage.getItem('lang');
-        if (sessionLang){
-            //find an item with value of sessionLang
-            var langIndex = langArray.indexOf(sessionLang);
-            $('.btn-select').html(langArray[langIndex]);
-            $('.btn-select').attr('value', sessionLang);
+        const roomId = getUrlParameter("id");
+        if (roomId){
+            //find an item with value of roomId
+            roomIndex = roomIdsArray.indexOf(roomId);
+            $('.btn-select').html(roomArray[roomIndex]);
+            $('.btn-select').attr('value', roomId);
         } else {
-            var langIndex = langArray.indexOf('ch');
-            console.log(langIndex);
-            $('.btn-select').html(langArray[langIndex]);
-            //$('.btn-select').attr('value', 'en');
+            roomIndex = roomArray.indexOf('ch');
+            console.log(roomIndex);
+            $('.btn-select').html(roomArray[roomIndex]);
+            $('.btn-select').attr('value', roomId);
         }
         let checkInDateDate = new Date(checkInDate);
         let checkOutDateDate = new Date(checkOutDate)
@@ -188,4 +188,20 @@ function createReservation() {
             window.location.href = "/confirmation.html";
         }
     });
+}
+
+function getUrlParameter(sParam) {
+    let sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
 }

@@ -16965,6 +16965,7 @@ div#small-dialog iframe {
 .w3l-roomsingleblock1 img {
     border-radius: 10px;
     width: 100%;
+    max-height: 400px;
 }
 
 .w3l-roomsingleblock1 ul.w3l-right-book li {

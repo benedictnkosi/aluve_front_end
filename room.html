@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <title>Aluve Guest House</title>
-      <link rel="shortcut icon" href="assets/images/website.png"/>
+    <title>Aluve Guest House</title>
+    <link rel="shortcut icon" href="assets/images/website.png"/>
 
     <title>Hotels a Hotels Category Responsive Web Template | Room single </title>
 
@@ -14,18 +14,17 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/style-liberty.css">
-      <link rel="stylesheet" href="assets/css/w3.css">
-      <style>
-          .mySlides {display:none;}
-      </style>
+    <link rel="stylesheet" href="assets/css/w3.css">
+    <link rel="stylesheet" href="assets/css/image-slide.css">
 
-      <script src="assets/js/jquery-1.11.1.min.js"></script>
-  </head>
-  <body>
+    <script src="assets/js/jquery-1.11.1.min.js"></script>
+    <script src="../variables.js"></script>
+</head>
+<body>
 <!--w3l-header-->
 
 <header class="w3l-header-nav">
-	<div w3-include-html="menu.html"></div>
+    <div w3-include-html="menu.html"></div>
 </header>
 <!-- //w3l-header -->
 <!-- room-single-block -->
@@ -35,26 +34,26 @@
             <div class="content-photo-1 d-grid">
                 <div class="content-photo-left text-center">
                     <h4>Aluve Guesthouse</h4>
-                    <h6>{{room_name}}</h6>
+                    <h6 id="room_name"></h6>
                     <div class="border-line">
                         <div class="bg">
-                            <span class="price">R{{price}}</span>
+                            <span class="price" id="room_price"></span>
                             <p> Per night</p>
                         </div>
                         <div class="book-btn px-2">
-                            <a href="booking.html" class="btn btn-style btn-secondary mt-3">Book Now</a>
+                            <a href="" id="room_book_button" class="btn btn-style btn-secondary mt-3">Book Now</a>
                         </div>
                     </div>
                     <ul class="room-amenities">
-                        <li><a href="#url"><span class="fa fa-tv"></span> Smart TV</a></li>
-                        <li><a href="#url"><span class="fa fa-users"></span> {{sleeps}} Guests</a></li>
-                        <li><a href="#url"><span class="fa fa-bed"></span>{{bed}}</a></li>
+                        <li><a href="javascript:void(0)"><span id="room_tv" class="fa fa-tv"></span></a></li>
+                        <li><a href="javascript:void(0)l"><span id="room_sleeps" class="fa fa-users"></span> </a></li>
+                        <li><a href="javascript:void(0)"><span id="room_bed" class="fa fa-bed"></span></a></li>
                     </ul>
                     <a href="rooms.html" class="back"> <span class="fa fa-long-arrow-left"></span> Back to all rooms</a>
                 </div>
                 <div class="col-lg-9 roomsingle mt-lg-0 mt-4">
                     <h3 class="title-small">The Room</h3>
-                    <pre>{{description}}</pre>
+                    <pre id="room_description"></pre>
                 </div>
             </div>
         </div>
@@ -62,12 +61,11 @@
 </section>
 <!-- //room-single-block -->
 <section class="w3l-roomsingleblock1 py-5">
-	<div class="container py-sm-4">
-        <div class="w3-content w3-display-container">
-            {{images_slide|raw }}
-
+    <div class="container py-sm-4">
+        <div class="image-container">
+            <!-- Next and Previous icon to change images -->
         </div>
-	</div>
+    </div>
 
     <section class="room-single-block">
 
@@ -76,25 +74,26 @@
 </section>
 
 <div w3-include-html="footer.html"></div>
+
 <script>
-  // When the user scrolls down 20px from the top of the document, show the button
-  window.onscroll = function () {
-    scrollFunction()
-  };
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () {
+        scrollFunction()
+    };
 
-  function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      document.getElementById("movetop").style.display = "block";
-    } else {
-      document.getElementById("movetop").style.display = "none";
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("movetop").style.display = "block";
+        } else {
+            document.getElementById("movetop").style.display = "none";
+        }
     }
-  }
 
-  // When the user clicks on the button, scroll to the top of the document
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
 </script>
 <!-- /move top -->
 </section>
@@ -103,145 +102,133 @@
 <script src="assets/js/owl.carousel.js"></script>
 <!-- script for banner slider-->
 <script>
-  $(document).ready(function () {
-    $('.owl-one').owlCarousel({
-      loop: true,
-      margin: 0,
-      nav: false,
-      responsiveClass: true,
-      autoplay: false,
-      autoplayTimeout: 5000,
-      autoplaySpeed: 1000,
-      autoplayHoverPause: false,
-      responsive: {
-        0: {
-          items: 1,
-          nav: false
-        },
-        480: {
-          items: 1,
-          nav: false
-        },
-        667: {
-          items: 1,
-          nav: true
-        },
-        1000: {
-          items: 1,
-          nav: true
-        }
-      }
+    $(document).ready(function () {
+        $('.owl-one').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: false,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                480: {
+                    items: 1,
+                    nav: false
+                },
+                667: {
+                    items: 1,
+                    nav: true
+                },
+                1000: {
+                    items: 1,
+                    nav: true
+                }
+            }
+        })
     })
-  })
 </script>
 <!-- //script -->
 
 <!-- script for owlcarousel -->
 <script>
-  $(document).ready(function () {
-    $('.owl-testimonial').owlCarousel({
-      loop: true,
-      margin: 0,
-      nav: true,
-      responsiveClass: true,
-      autoplay: false,
-      autoplayTimeout: 5000,
-      autoplaySpeed: 1000,
-      autoplayHoverPause: false,
-      responsive: {
-        0: {
-          items: 1,
-          nav: false
-        },
-        480: {
-          items: 1,
-          nav: false
-        },
-        667: {
-          items: 1,
-          nav: true
-        },
-        1000: {
-          items: 1,
-          nav: true
-        }
-      }
+    $(document).ready(function () {
+        $('.owl-testimonial').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            responsiveClass: true,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplaySpeed: 1000,
+            autoplayHoverPause: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                480: {
+                    items: 1,
+                    nav: false
+                },
+                667: {
+                    items: 1,
+                    nav: true
+                },
+                1000: {
+                    items: 1,
+                    nav: true
+                }
+            }
+        })
     })
-  })
 </script>
 <!-- //script for owlcarousel -->
 <script src="assets/js/jquery.magnific-popup.min.js"></script>
 <script>
-  $(document).ready(function () {
-    $('.popup-with-zoom-anim').magnificPopup({
-      type: 'inline',
+    $(document).ready(function () {
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
 
-      fixedContentPos: false,
-      fixedBgPos: true,
+            fixedContentPos: false,
+            fixedBgPos: true,
 
-      overflowY: 'auto',
+            overflowY: 'auto',
 
-      closeBtnInside: true,
-      preloader: false,
+            closeBtnInside: true,
+            preloader: false,
 
-      midClick: true,
-      removalDelay: 300,
-      mainClass: 'my-mfp-zoom-in'
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+        $('.popup-with-move-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-slide-bottom'
+        });
     });
-
-    $('.popup-with-move-anim').magnificPopup({
-      type: 'inline',
-
-      fixedContentPos: false,
-      fixedBgPos: true,
-
-      overflowY: 'auto',
-
-      closeBtnInside: true,
-      preloader: false,
-
-      midClick: true,
-      removalDelay: 300,
-      mainClass: 'my-mfp-slide-bottom'
-    });
-  });
 </script>
 
 
 <!-- disable body scroll which navbar is in active -->
 <script>
-$(function () {
-  $('.navbar-toggler').click(function () {
-    $('body').toggleClass('noscroll');
-  })
-});
+    $(function () {
+        $('.navbar-toggler').click(function () {
+            $('body').toggleClass('noscroll');
+        })
+    });
 </script>
 <!-- disable body scroll which navbar is in active -->
 
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/common/onPageLoad.js"></script>
 <script src="assets/js/src/room.js"></script>
+
 <script>
-includeHTML();
+    includeHTML();
 </script>
+
 <script>
     var slideIndex = 1;
-showDivs(slideIndex);
+</script>
 
-function plusDivs(n) {
-    showDivs(slideIndex += n);
-}
-
-function showDivs(n) {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    if (n > x.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = x.length} ;
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-    }
-    x[slideIndex-1].style.display = "block";
-}</script>
 </body>
 
 </html>

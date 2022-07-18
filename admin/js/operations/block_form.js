@@ -1,37 +1,5 @@
 $(document).ready(function() {
-	getBlockRooms();
 
-	$("#block-form").validate({
-		// Specify validation rules
-		rules: {
-			block_notes: "required"
-		},
-		// Specify validation error messages
-		messages: {
-			block_notes: "Please enter notes",
-		}
-	});
-
-	$("#block-form").submit(function (event) {
-		event.preventDefault();
-		blockRoom();
-	});
-
-	$.getScript("https://cdn.jsdelivr.net/jquery/latest/jquery.min.js", function(){
-		$.getScript("https://cdn.jsdelivr.net/momentjs/latest/moment.min.js", function(){
-			$.getScript("https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js", function(){
-				const date = new Date();
-
-				$('input[name="block_date"]').daterangepicker({
-					opens: 'left',
-					autoApply:true,
-					minDate: date
-				}, function(start, end, label) {
-					console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-				});
-			});
-		});
-	});
 });
 
 function blockRoom() {
