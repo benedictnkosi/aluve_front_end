@@ -4,7 +4,7 @@ $(document).ready(function() {
 });
 
 function getNotifications() {
-	let url =  hostname +  "/api/notifications";
+	let url =  hostname +  "/api/notifications" + "/" + sessionStorage.getItem("PROPERTY_UID");
 	$.ajax({
 		type: "get",
 		url: url,
@@ -27,12 +27,10 @@ function getNotifications() {
 		},
 		error: function (xhr) {
 			console.log("request for getNotifications is " + xhr.status);
-			if (xhr.status > 400) {
-				if (!isRetry("getNotifications")) {
-					return;
-				}
-				getNotifications();
+			if (!isRetry("getNotifications")) {
+				return;
 			}
+			getNotifications();
 		}
 	});
 }

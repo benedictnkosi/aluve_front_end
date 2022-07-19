@@ -20,12 +20,10 @@ function getCalendar() {
 		},
 		error: function (xhr) {
 			console.log("request for getCalendar is " + xhr.status);
-			if (xhr.status > 400) {
-				if (!isRetry("getCalendar")) {
-					return;
-				}
-				getCalendar();
+			if (!isRetry("getCalendar")) {
+				return;
 			}
+			getCalendar();
 		}
 	});
 }

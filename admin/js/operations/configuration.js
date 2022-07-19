@@ -186,9 +186,10 @@ function getConfigRooms() {
         },
         error: function (xhr) {
             console.log("request for getConfigRooms is " + xhr.status);
-            if (xhr.status > 400) {
-                getConfigRooms();
+            if (!isRetry("getConfigRooms")) {
+                return;
             }
+            getConfigRooms();
         }
     });
 }
@@ -208,9 +209,10 @@ function getConfigRoomsDropDown() {
         },
         error: function (xhr) {
             console.log("request for getConfigRoomsDropDown is " + xhr.status);
-            if (xhr.status > 400) {
-                getConfigRoomsDropDown();
+            if (!isRetry("getConfigRoomsDropDown")) {
+                return;
             }
+            getConfigRoomsDropDown();
         }
     });
 }
@@ -238,7 +240,7 @@ function getConfigRoomStatusesDropDown() {
 }
 
 function getConfigRoomBedSizesDropDown() {
-    let url = hostname + "api/combolistroombedsizes";
+    let url = hostname + "/api/combolistroombedsizes";
 
     $.ajax({
         type: "get",
@@ -252,9 +254,10 @@ function getConfigRoomBedSizesDropDown() {
         },
         error: function (xhr) {
             console.log("request for getConfigRoomBedSizesDropDown is " + xhr.status);
-            if (xhr.status > 400) {
-                getConfigRoomBedSizesDropDown();
+            if (!isRetry("getConfigRoomBedSizesDropDown")) {
+                return;
             }
+            getConfigRoomBedSizesDropDown();
         }
     });
 }
@@ -274,9 +277,10 @@ function getConfigRoomTvsDropDown() {
         },
         error: function (xhr) {
             console.log("request for getConfigRoomTvsDropDown is " + xhr.status);
-            if (xhr.status > 400) {
-                getConfigRoomTvsDropDown();
+            if (!isRetry("getConfigRoomTvsDropDown")) {
+                return;
             }
+            getConfigRoomTvsDropDown();
         }
     });
 }
@@ -390,9 +394,10 @@ function getAddOns() {
         },
         error: function (xhr) {
             console.log("request for getAddOns is " + xhr.status);
-            if (xhr.status > 400) {
-                getAddOns();
+            if (!isRetry("getAddOns")) {
+                return;
             }
+            getAddOns();
         }
     });
 }
@@ -470,9 +475,10 @@ function getEmployees() {
         },
         error: function (xhr) {
             console.log("request for getEmployees is " + xhr.status);
-            if (xhr.status > 400) {
-                getEmployees();
+            if (!isRetry("getEmployees")) {
+                return;
             }
+            getEmployees();
         }
     });
 }
@@ -549,9 +555,8 @@ function getTemplates() {
             if (!isRetry("getTemplates")) {
                 return;
             }
-            if (xhr.status > 400) {
-                getTemplates();
-            }
+            getTemplates();
+
         }
     });
 }
@@ -580,12 +585,10 @@ function getSchedules() {
         },
         error: function (xhr) {
             console.log("request for getSchedules is " + xhr.status);
-            if (xhr.status > 400) {
-                if (!isRetry("getSchedules")) {
-                    return;
-                }
-                getSchedules();
+            if (!isRetry("getSchedules")) {
+                return;
             }
+            getSchedules();
         }
     });
 }
@@ -609,12 +612,10 @@ function getVariables() {
         },
         error: function (xhr) {
             console.log("request for getVariables " + xhr.status);
-            if (xhr.status > 400) {
-                if (!isRetry("getVariables")) {
-                    return;
-                }
-                getVariables();
+            if (!isRetry("getVariables")) {
+                return;
             }
+            getVariables();
         }
     });
 }
@@ -636,12 +637,10 @@ function getRoomsForMessages() {
         },
         error: function (xhr) {
             console.log("request for getRoomsForMessages is " + xhr.status);
-            if (xhr.status > 400) {
-                if (!isRetry("getRoomsForMessages")) {
-                    return;
-                }
-                getRoomsForMessages();
+            if (!isRetry("getRoomsForMessages")) {
+                return;
             }
+            getRoomsForMessages();
         }
     });
 
@@ -701,12 +700,10 @@ function getScheduledMessages() {
         },
         error: function (xhr) {
             console.log("request for getScheduledMessages is " + xhr.status);
-            if (xhr.status > 400) {
-                if (!isRetry("getScheduledMessages")) {
-                    return;
-                }
-                getScheduledMessages();
+            if (!isRetry("getScheduledMessages")) {
+                return;
             }
+            getScheduledMessages();
         }
     });
 }
@@ -764,12 +761,10 @@ function getTemplateMessage() {
             },
             error: function (xhr) {
                 console.log("request for getTemplateMessage is " + xhr.status);
-                if (xhr.status > 400) {
-                    if (!isRetry("getTemplateMessage")) {
-                        return;
-                    }
-                    getTemplateMessage();
+                if (!isRetry("getTemplateMessage")) {
+                    return;
                 }
+                getTemplateMessage();
             }
         });
     }

@@ -74,33 +74,37 @@ function refreshReservations() {
                                 },
                                 error: function (xhr) {
                                     console.log("request for refreshReservations is " + xhr.status);
-                                    if (xhr.status > 400) {
-                                        refreshReservations();
+                                    if (!isRetry("refreshReservations")) {
+                                        return;
                                     }
+                                    refreshReservations();
                                 }
                             });
                         },
                         error: function (xhr) {
                             console.log("request for refreshReservations is " + xhr.status);
-                            if (xhr.status > 400) {
-                                refreshReservations();
+                            if (!isRetry("refreshReservations")) {
+                                return;
                             }
+                            refreshReservations();
                         }
                     });
                 },
                 error: function (xhr) {
                     console.log("request for refreshReservations is " + xhr.status);
-                    if (xhr.status > 400) {
-                        refreshReservations();
+                    if (!isRetry("refreshReservations")) {
+                        return;
                     }
+                    refreshReservations();
                 }
             });
         },
         error: function (xhr) {
             console.log("request for refreshReservations is " + xhr.status);
-            if (xhr.status > 400) {
-                refreshReservations();
+            if (!isRetry("refreshReservations")) {
+                return;
             }
+            refreshReservations();
         }
     });
 }
@@ -580,12 +584,10 @@ function getRooms(id) {
         },
         error: function (xhr) {
             console.log("request for getRooms is " + xhr.status);
-            if (xhr.status > 400) {
-                if (!isRetry("getRooms")) {
-                    return;
-                }
-                getRooms();
+            if (!isRetry("getRooms")) {
+                return;
             }
+            getRooms();
         }
     });
 }
