@@ -58,6 +58,7 @@ function refreshReservations() {
                                         contentType: "application/json; charset=UTF-8",
                                         success: function (data) {
                                             $("#pending-res-list").html(data.html);
+                                            setBindings();
                                         },
                                         error: function (xhr) {
                                             console.log("request for refreshReservations is " + xhr.status);
