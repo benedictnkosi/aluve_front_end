@@ -305,7 +305,9 @@ function populateFormWithRoom(event) {
         $("#select_Stairs").val($("#select_Stairs option:first").val());
     } else {
         let url = hostname + "/api/rooms/" + roomId;
+        $("body").addClass("loading");
         $.getJSON(url + "?callback=?", null, function (response) {
+            $("body").removeClass("loading");
             if (response[0].result_code === 0) {
                 $('#manage_room_h3').html("Update " + response[0].name + " Details");
                 $('#room_name').val(response[0].name);

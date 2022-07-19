@@ -13,7 +13,7 @@
 	top: 0;
 	left: 0;
 	z-index: 999;
-	background: rgba(255, 255, 255, 0.8) url("images/loader.gif") center no-repeat;
+	background: rgba(255, 255, 255, 0.8) url(/admin/images/loader.gif) center no-repeat;
 }
 
 .startup-overlay{
@@ -24,7 +24,7 @@
 	top: 0;
 	left: 0;
 	z-index: 999;
-	background: rgba(255, 255, 255, 0.8) url("images/startup-loader.gif") center no-repeat;
+	background: rgba(255, 255, 255, 0.8) url(/admin/images/startup-loader.gif) center no-repeat;
 }
 
 /* Turn off scrollbar when body element has the loading class */

@@ -49,7 +49,6 @@ function updateView(selectedDiv) {
 	$(".toggleable").addClass("display-none");
 	$("#div-" + selectedDiv).removeClass("display-none");
 	sessionStorage.setItem("current_page", selectedDiv);
-	toggleMenu();
 	isUserLoggedIn();
 }
 
