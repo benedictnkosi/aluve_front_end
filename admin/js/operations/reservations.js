@@ -105,6 +105,9 @@ function refreshReservations() {
                 return;
             }
             refreshReservations();
+        },
+        done: function (xhr) {
+            console.log("request for future reservations is " + xhr.status);
         }
     });
 }
