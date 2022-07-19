@@ -18,6 +18,7 @@ function refreshReservations() {
         contentType: "application/json; charset=UTF-8",
         success: function (data) {
             $("#reservations-list").html(data.html);
+            setBindings();
             let url = hostname + "/api/reservations/stayover/" + sessionStorage.getItem("PROPERTY_UID");
             $.ajax({
                 type: "get",
@@ -28,6 +29,7 @@ function refreshReservations() {
                 contentType: "application/json; charset=UTF-8",
                 success: function (data) {
                     $("#stayOver-list").html(data.html);
+                    setBindings();
                     let url = hostname + "/api/reservations/checkout/" + sessionStorage.getItem("PROPERTY_UID");
                     $.ajax({
                         type: "get",
@@ -48,6 +50,7 @@ function refreshReservations() {
                                 contentType: "application/json; charset=UTF-8",
                                 success: function (data) {
                                     $("#past-res-list").html(data.html);
+                                    setBindings();
                                     let url = hostname + "/api/reservations/pending/"+ sessionStorage.getItem("PROPERTY_UID");
                                     $.ajax({
                                         type: "get",

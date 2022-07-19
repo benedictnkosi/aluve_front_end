@@ -50,15 +50,9 @@ function updateView(selectedDiv) {
 
 function logout(){
 	$("body").addClass("loading");
-
-	let url =  hostname + "/api/logout";
-	$.getJSON(url + "?callback=?", null, function(data) {
-		$("body").removeClass("loading");
-		if (data[0].result_code === 0) {
-			sessionStorage.removeItem( 'PROPERTY_ID');
-			window.location.href = "/admin/login.html";
-		}
-	});
+	sessionStorage.removeItem( 'PROPERTY_ID');
+	sessionStorage.removeItem( 'PROPERTY_UID');
+	window.location.href = "/admin/login.html";
 }
 
 function isUserLoggedIn() {
