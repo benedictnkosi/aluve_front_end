@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 
 function getCalendar() {
-	let url =  hostname + "/api/calendar";
+	let url =  hostname + "/api/calendar/" + sessionStorage.getItem("PROPERTY_UID");
 	$.ajax({
 		type: "get",
 		url: url,
