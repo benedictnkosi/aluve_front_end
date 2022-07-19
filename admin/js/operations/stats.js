@@ -58,7 +58,6 @@ function getcheckins(period) {
     });
 }
 
-
 function getcheckouts(period) {
     let url = hostname + "/api/stats/getreservationcount/checkOut/" + period;
 
@@ -83,7 +82,6 @@ function getcheckouts(period) {
         }
     });
 }
-
 
 function getstayovers(period) {
     let url = hostname + "/api/stats/getstayovercount/" + period;
@@ -111,7 +109,7 @@ function getstayovers(period) {
 
 
 function getOverallOccupancy(period, elementId) {
-    let url = hostname + "/api/occupancy/" + period;
+    let url = hostname + "/api/occupancy/" + period+ "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -143,7 +141,7 @@ function getOccupancyPerRoomForMonth() {
 
 
 function getOccupancyPerRoom(period) {
-    let url = hostname + "/api/occupancy/perroom/" + period;
+    let url = hostname + "/api/occupancy/perroom/" + period+ "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "GET",
         url: url,

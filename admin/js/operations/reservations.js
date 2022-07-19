@@ -62,6 +62,7 @@ function refreshReservations() {
                                         success: function (data) {
                                             $("#pending-res-list").html(data.html);
                                             setBindings();
+                                            $("body").removeClass("startup-loading");
                                         },
                                         error: function (xhr) {
                                             console.log("request for refreshReservations is " + xhr.status);
@@ -552,7 +553,7 @@ function addNote(event) {
 }
 
 function getRooms(id) {
-    let url = hostname + "/api/rooms/all";
+    let url = hostname + "/api/rooms/all" + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,

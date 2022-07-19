@@ -1,5 +1,7 @@
 
 $(document).ready(function() {
+	$("body").addClass("startup-loading");
+	window.setTimeout(hideLoader, 15000);
 	if (sessionStorage.getItem("current_page") === null) {
 		updateView(sessionStorage.getItem("calendar"));
 	} else {
@@ -34,6 +36,9 @@ $(document).ready(function() {
 
 });
 
+function hideLoader(){
+	$("body").removeClass("startup-loading");
+}
 const guid = a => (a ?
     (a ^ ((16 * Math.random()) >> (a / 4))).toString(16) :
     ([1E7] + -1E3 + -4E3 + -8E3 + -1E11).replace(/[018]/g, guid));
