@@ -8,7 +8,7 @@ $(document).ready(function () {
 });
 
 function refreshReservations() {
-    let url = hostname + "/api/reservations/future";
+    let url = hostname + "/api/reservations/future/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -18,7 +18,7 @@ function refreshReservations() {
         contentType: "application/json; charset=UTF-8",
         success: function (data) {
             $("#reservations-list").html(data.html);
-            let url = hostname + "/api/reservations/stayover";
+            let url = hostname + "/api/reservations/stayover/" + sessionStorage.getItem("PROPERTY_UID");
             $.ajax({
                 type: "get",
                 url: url,
@@ -28,7 +28,7 @@ function refreshReservations() {
                 contentType: "application/json; charset=UTF-8",
                 success: function (data) {
                     $("#stayOver-list").html(data.html);
-                    let url = hostname + "/api/reservations/checkout";
+                    let url = hostname + "/api/reservations/checkout/" + sessionStorage.getItem("PROPERTY_UID");
                     $.ajax({
                         type: "get",
                         url: url,
@@ -38,7 +38,7 @@ function refreshReservations() {
                         contentType: "application/json; charset=UTF-8",
                         success: function (data) {
                             $("#checkouts-list").html(data.html);
-                            let url = hostname + "/api/reservations/past";
+                            let url = hostname + "/api/reservations/past/"+ sessionStorage.getItem("PROPERTY_UID");
                             $.ajax({
                                 type: "get",
                                 url: url,
@@ -48,7 +48,7 @@ function refreshReservations() {
                                 contentType: "application/json; charset=UTF-8",
                                 success: function (data) {
                                     $("#past-res-list").html(data.html);
-                                    let url = hostname + "/api/reservations/pending";
+                                    let url = hostname + "/api/reservations/pending/"+ sessionStorage.getItem("PROPERTY_UID");
                                     $.ajax({
                                         type: "get",
                                         url: url,

@@ -44,7 +44,7 @@ $(".filter-block-room-tabs").click(function(event) {
 
 
 function getBlockedRooms() {
-	let url =  hostname + "/api/blockedroom/get";
+	let url =  hostname + "/api/blockedroom/get/" + sessionStorage.getItem("PROPERTY_UID");
 	$.ajax({
 		type: "get",
 		url: url,

@@ -55,23 +55,34 @@ function logout(){
 	$.getJSON(url + "?callback=?", null, function(data) {
 		$("body").removeClass("loading");
 		if (data[0].result_code === 0) {
-			delete_cookie( 'PROPERTY_ID');
+			sessionStorage.removeItem( 'PROPERTY_ID');
 			window.location.href = "/admin/login.html";
 		}
 	});
 }
 
-function delete_cookie( name ) {
-	document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-}
-
 function isUserLoggedIn() {
-	let url =  hostname + "/api/isloggedin";
-	$.getJSON(url + "?callback=?", null, function(data) {
-		$("body").removeClass("loading");
-		if (data[0].logged_in === false) {
-			delete_cookie( 'PROPERTY_ID');
-			window.location.href = "/admin/login.html";
+	let url =  hostname + "/api/isloggedin/" +sessionStorage.getItem("PROPERTY_UID");
+	$.ajax({
+		type: "get",
+		url: url,
+		crossDomain: true,
+		cache: false,
+		dataType: "jsonp",
+		contentType: "application/json; charset=UTF-8",
+		success: function (data) {
+			$("body").removeClass("loading");
+			if (data[0].logged_in === false) {
+				sessionStorage.removeItem( 'PROPERTY_ID');
+				sessionStorage.removeItem( 'PROPERTY_UID');
+				window.location.href = "/admin/login.html";
+			}
+		},
+		error: function (xhr) {
+			console.log("request for isUserLoggedIn is " + xhr.status);
+			if (xhr.status > 400) {
+				isUserLoggedIn();
+			}
 		}
 	});
 }

@@ -9,14 +9,6 @@ function isEmptyOrSpaces(str) {
 	return str === null || str.match(/^ *$/) !== null;
 }
 
-function setCookie(name, value) {
-	//expires in one hour
-	var now = new Date();
-	now.setTime(now.getTime() + 1 * 3600 * 1000);
-	document.cookie = name + '=' + value + '; ' + now.toUTCString() + '; path=/';
-}
-
-
 
 function login() {
 	if (isEmptyOrSpaces($("#secret").val())) {
@@ -33,8 +25,8 @@ function login() {
 	$.getJSON(url + "?callback=?", null, function(data) {
 		$("body").removeClass("loading");
 		if (data[0].result_code === 0) {
-			setCookie("PROPERTY_ID", data[0].property_id);
-			setCookie("PROPERTY_UID", data[0].property_uid);
+			sessionStorage.setItem("PROPERTY_ID", data[0].property_id);
+			sessionStorage.setItem("PROPERTY_UID", data[0].property_uid);
 			window.location.href = "/admin/admin.html";
 		} else {
 			showResErrorMessage("login", data[0].result_message)

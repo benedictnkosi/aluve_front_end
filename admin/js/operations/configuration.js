@@ -169,7 +169,7 @@ function filterConfiguration(event) {
 }
 
 function getConfigRooms() {
-    let url = hostname + "/api/configurationrooms";
+    let url = hostname + "/api/configurationrooms/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -194,7 +194,7 @@ function getConfigRooms() {
 }
 
 function getConfigRoomsDropDown() {
-    let url = hostname + "/api/combolistrooms";
+    let url = hostname + "/api/combolistrooms/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.ajax({
         type: "get",
@@ -369,7 +369,7 @@ function setCookie(name, value) {
 }
 
 function getAddOns() {
-    let url =  hostname + "/api/addon/configaddons";
+    let url =  hostname + "/api/addon/configaddons/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.ajax({
         type: "get",
@@ -418,7 +418,7 @@ function createAddOn() {
     const addon_price = $("#addon_price").val().trim();
     $("body").addClass("loading");
 
-    let url = hostname + "/api/createaddon/" + addon_name + "/" + addon_price;
+    let url = hostname + "/api/createaddon/" + addon_name + "/" + addon_price + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.getJSON(url + "?callback=?", null, function (data) {
         $("body").removeClass("loading");
         const jsonObj = data[0];
@@ -449,7 +449,7 @@ function deleteAddOn(event) {
 
 function getEmployees() {
 
-    let url =  hostname + "/api/config/employees";
+    let url =  hostname + "/api/config/employees"+ "/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.ajax({
         type: "get",
@@ -496,7 +496,7 @@ function createEmployee() {
     const employee_name = $("#employee_name").val().trim();
     $("body").addClass("loading");
 
-    let url =  hostname + "/api/createemployee/" + employee_name;
+    let url =  hostname + "/api/createemployee/" + employee_name + "/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.getJSON(url + "?callback=?", null, function(data) {
         $("body").removeClass("loading");
@@ -528,7 +528,7 @@ function deleteEmployee(event) {
 
 function getTemplates() {
 
-    let url =  hostname + "/api/schedulemessages/templates" ;
+    let url =  hostname + "/api/schedulemessages/templates" + "/" + sessionStorage.getItem("PROPERTY_UID") ;
 
     $.ajax({
         type: "get",
@@ -611,7 +611,7 @@ function getVariables() {
 }
 
 function getRoomsForMessages() {
-    let url =  hostname + "/api/rooms/all" ;
+    let url =  hostname + "/api/rooms/all" + "/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.ajax({
         type: "get",
@@ -672,7 +672,7 @@ function createScheduleMessage() {
 
 function getScheduledMessages() {
 
-    let url =  hostname + "/api/schedulemessages" ;
+    let url =  hostname + "/api/schedulemessages" + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -719,7 +719,7 @@ function createMessageTemplate() {
     const name = $("#template_name_input").val().trim();
     const message = $("#template_message").val().trim();
 
-    let url =  hostname +  "/api/schedulemessages/createtemplate/" + name + "/" + encodeURIComponent(message);
+    let url =  hostname +  "/api/schedulemessages/createtemplate/" + name + "/" + encodeURIComponent(message) + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.getJSON(url + "?callback=?", null, function(response) {
         $("body").removeClass("loading");
         var jsonObj = response[0];

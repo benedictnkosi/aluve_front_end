@@ -43,7 +43,7 @@ $(document).ready(function () {
 
 
 function getAllRooms(){
-    let url =  hostname + "/api/allrooms" ;
+    let url =  hostname + "/api/allrooms/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
