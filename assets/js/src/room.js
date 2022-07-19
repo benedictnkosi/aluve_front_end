@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("body").addClass("loading");
     getRoomSlide();
     getRoomDetails();
 });
@@ -21,10 +22,14 @@ function getRoomDetails() {
             $('#room_bed').html(response[0].bed_name);
             $('#room_tv').html(response[0].tv);
             $('#room_book_button').attr("href","/booking.html?id=" +response[0].id);
+            $("body").removeClass("loading");
         },
         error: function (xhr) {
             console.log("request for getRoomDetails is " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getRoomDetails")) {
+                    return;
+                }
                 getRoomDetails();
             }
         }
@@ -48,6 +53,9 @@ function getRoomSlide() {
         error: function (xhr) {
             console.log("request for getRoomSlide is " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getRoomSlide")) {
+                    return;
+                }
                 getRoomSlide();
             }
         }

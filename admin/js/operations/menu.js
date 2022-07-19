@@ -80,6 +80,9 @@ function isUserLoggedIn() {
 		error: function (xhr) {
 			console.log("request for isUserLoggedIn is " + xhr.status);
 			if (xhr.status > 400) {
+				if (!isRetry("isUserLoggedIn")) {
+					return;
+				}
 				isUserLoggedIn();
 			}
 		}

@@ -546,6 +546,9 @@ function getTemplates() {
         },
         error: function (xhr) {
             console.log("request for getTemplates is " + xhr.status);
+            if (!isRetry("getTemplates")) {
+                return;
+            }
             if (xhr.status > 400) {
                 getTemplates();
             }
@@ -578,6 +581,9 @@ function getSchedules() {
         error: function (xhr) {
             console.log("request for getSchedules is " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getSchedules")) {
+                    return;
+                }
                 getSchedules();
             }
         }
@@ -604,6 +610,9 @@ function getVariables() {
         error: function (xhr) {
             console.log("request for getVariables " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getVariables")) {
+                    return;
+                }
                 getVariables();
             }
         }
@@ -628,6 +637,9 @@ function getRoomsForMessages() {
         error: function (xhr) {
             console.log("request for getRoomsForMessages is " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getRoomsForMessages")) {
+                    return;
+                }
                 getRoomsForMessages();
             }
         }
@@ -690,6 +702,9 @@ function getScheduledMessages() {
         error: function (xhr) {
             console.log("request for getScheduledMessages is " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getScheduledMessages")) {
+                    return;
+                }
                 getScheduledMessages();
             }
         }
@@ -750,6 +765,9 @@ function getTemplateMessage() {
             error: function (xhr) {
                 console.log("request for getTemplateMessage is " + xhr.status);
                 if (xhr.status > 400) {
+                    if (!isRetry("getTemplateMessage")) {
+                        return;
+                    }
                     getTemplateMessage();
                 }
             }

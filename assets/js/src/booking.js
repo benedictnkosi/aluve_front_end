@@ -62,7 +62,7 @@ $(document).ready(function () {
                     console.log("date diff is " + totalDays);
                     localStorage.setItem('numberOfNights',totalDays);
                 });
-                $("body").removeClass("loading");
+
             });
         });
     });
@@ -146,6 +146,7 @@ function getAvailableRooms(checkInDate, checkOutDate){
         localStorage.setItem('numberOfNights',totalDays);
 
         displayTotal();
+        $("body").removeClass("loading");
     });
 }
 

@@ -581,6 +581,9 @@ function getRooms(id) {
         error: function (xhr) {
             console.log("request for getRooms is " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getRooms")) {
+                    return;
+                }
                 getRooms();
             }
         }

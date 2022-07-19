@@ -21,6 +21,9 @@ function getCleaning(room) {
 		error: function (xhr) {
 			console.log("request for getCleaning  is " + xhr.status);
 			if (xhr.status > 400) {
+				if (!isRetry("getCleaning")) {
+					return;
+				}
 				getCleaning(room);
 			}
 		}

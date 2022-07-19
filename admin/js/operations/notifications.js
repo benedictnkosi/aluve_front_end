@@ -28,6 +28,9 @@ function getNotifications() {
 		error: function (xhr) {
 			console.log("request for getNotifications is " + xhr.status);
 			if (xhr.status > 400) {
+				if (!isRetry("getNotifications")) {
+					return;
+				}
 				getNotifications();
 			}
 		}

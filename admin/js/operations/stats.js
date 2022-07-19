@@ -126,6 +126,9 @@ function getOverallOccupancy(period, elementId) {
         error: function (xhr) {
             console.log("request for getOverallOccupancy is " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getOverallOccupancy")) {
+                    return;
+                }
                 getOverallOccupancy(period, elementId);
             }
         }
@@ -158,6 +161,9 @@ function getOccupancyPerRoom(period) {
         error: function (xhr) {
             console.log("request for getOccupancyPerRoom is " + xhr.status);
             if (xhr.status > 400) {
+                if (!isRetry("getOccupancyPerRoom")) {
+                    return;
+                }
                 getOccupancyPerRoom(period);
             }
         }

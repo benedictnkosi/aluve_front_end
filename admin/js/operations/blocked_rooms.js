@@ -61,6 +61,9 @@ function getBlockedRooms() {
 		error: function (xhr) {
 			console.log("request for getBlockedRooms is " + xhr.status);
 			if (xhr.status > 400) {
+				if (!isRetry("getBlockedRooms")) {
+					return;
+				}
 				getBlockedRooms();
 			}
 		}
