@@ -30,7 +30,7 @@ pre{
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
-	background-color: #34495E;
+	background-color: #1B74DA;
 	color: white;
 }
 
@@ -216,7 +216,7 @@ select:focus, .focus {
 	background: #ECECEC;
 }
 .reservation-date-divider{
-	background-color: #34495E !important;
+	background-color: #1B74DA !important;
 	color: #f5f5f5;
 }
 
@@ -314,7 +314,7 @@ padding:0.3em;
 
 .ClickableButton {
 	margin-top: 2%;
-	background: #34495E !important;
+	background: #1B74DA !important;
 	border: none;
 	-webkit-transition: all 0.3s ease-out;
 	-moz-transition: all 0.3s ease-out;
@@ -377,7 +377,7 @@ padding:0.3em;
 
 .information-h3 {
 	margin-top: 2em;
-	color:#34495E;
+	color:#1B74DA;
 }
 
 .info-input-box {
@@ -546,7 +546,7 @@ padding:0.3em;
 }
 
 .fixedElement {
-	background-color: #34495E;
+	background-color: #1B74DA;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -555,7 +555,7 @@ padding:0.3em;
 
 /* Style the active link (or home/logo) */
 .active {
-	background-color: #34495E;
+	background-color: #1B74DA;
 	color: white;
 }
 
@@ -571,7 +571,7 @@ padding:0.3em;
 .stays-div {
 	display: inline;
 	border-radius: 25px;
-	background: #34495E;
+	background: #1B74DA;
 	color: white;
 	padding: 5px;
 }
@@ -581,7 +581,7 @@ padding:0.3em;
 }
 
 .weekend {
-	/*background-color: #34495E;
+	/*background-color: #1B74DA;
 	color:white;*/
 }
 
@@ -846,8 +846,7 @@ body {
 }
 
 .profile-top {
-	padding: 30px;
-	background: #34495E;
+	background: #1B74DA;
 }
 
 .profile-top-left {
@@ -1001,7 +1000,7 @@ input.pw {
 .login-agile input[type="submit"], .subscribe-agileits-w3layouts input[type="submit"]
 {
 	width: 100%;
-	background: #34495E;
+	background: #1B74DA;
 	color: #fff;
 	padding: 10px 0px;
 	border: none;
@@ -1017,7 +1016,7 @@ input.pw {
 .menu-top, .login-top, .sub-top, .skills-top, .flex-top, .circular-top,
 .toggle-top, .acrdn-top {
 	padding: 15px 0px;
-	background: #34495E;
+	background: #1B74DA;
 	color:white;
 }
 
@@ -1098,7 +1097,7 @@ input.email {
 }
 
 .progress-bar {
-	background-color: #34495E;
+	background-color: #1B74DA;
 }
 
 .bar-grids h6 {
@@ -1199,7 +1198,7 @@ input.email {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: #34495E;
+	background: #1B74DA;
 	-webkit-transform: scale(0);
 	transform: scale(0);
 	-webkit-transition-property: transform;
@@ -1231,7 +1230,7 @@ input.email {
 	backface-visibility: hidden;
 	-moz-osx-font-smoothing: grayscale;
 	position: relative;
-	background: #34495E;
+	background: #1B74DA;
 	-webkit-transition-property: color;
 	transition-property: color;
 	-webkit-transition-duration: 0.3s;
@@ -1297,7 +1296,7 @@ input.email {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: #34495E;
+	background: #1B74DA;
 	border-radius: 100%;
 	-webkit-transform: scale(0);
 	transform: scale(0);
@@ -1345,7 +1344,7 @@ input.email {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: #34495E;
+	background: #1B74DA;
 	-webkit-transform: scaleX(0);
 	transform: scaleX(0);
 	-webkit-transform-origin: 100% 50%;
@@ -1397,7 +1396,7 @@ input.email {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: #34495E;
+	background: #1B74DA;
 	-webkit-transform: scaleY(0);
 	transform: scaleY(0);
 	-webkit-transform-origin: 50% 0;
@@ -1454,7 +1453,7 @@ a.hvr-radial-out {
 }
 
 .weather-bottom {
-	background: #34495E;
+	background: #1B74DA;
 }
 
 .weather-bottom-wthree {
@@ -1929,13 +1928,13 @@ canvas {
 }
 
 .resp-tab-item:hover {
-	background: #34495E;
+	background: #1B74DA;
 	text-shadow: none;
 	color: #FFF;
 }
 
 .resp-tab-active {
-	background: #34495E;
+	background: #1B74DA;
 	text-shadow: none;
 	color: #ffffff;
 }
@@ -2109,7 +2108,7 @@ a.mail:hover {
 
 .contact-form input[type="submit"] {
 	margin-top: 2%;
-	background: #34495E;
+	background: #1B74DA;
 	color: #ffffff;
 	font-size: 1em;
 	text-transform: uppercase;
@@ -2576,7 +2575,7 @@ span.radio-circle input[type="radio"]:checked+label i:first-child:before
 /*--//radio end here--*/
 a.pay-pal {
 	font-size: 1em;
-	background: #34495E;
+	background: #1B74DA;
 	padding: 5px 15px;
 	color: #fff;
 	font-weight: 100;
@@ -2656,7 +2655,7 @@ input.checkout.pin {
 	border: none;
 	color: #fff;
 	cursor: pointer;
-	background: #34495E;
+	background: #1B74DA;
 	transition: .5s all;
 	-webkit-transition: .5s all;
 	-moz-transition: .5s all;
