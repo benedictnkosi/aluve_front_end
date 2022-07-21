@@ -66,6 +66,7 @@ function clearSessionData(){
 
 function loadDataOnFirstClick(selectedDiv){
 	if(sessionStorage.getItem(selectedDiv) === null){
+		sessionStorage.setItem(selectedDiv,"loaded");
 		switch(selectedDiv) {
 			case 'calendar':
 				loadCalendarPageData();
