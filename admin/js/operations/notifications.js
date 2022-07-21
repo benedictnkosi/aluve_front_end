@@ -1,9 +1,13 @@
 $(document).ready(function() {
-	console.log("ready!");
-	getNotifications();
+
 });
 
+function loadNotificationsPageData(){
+	getNotifications();
+}
+
 function getNotifications() {
+	$("body").addClass("loading");
 	let url =  hostname +  "/api/notifications" + "/" + sessionStorage.getItem("PROPERTY_UID");
 	$.ajax({
 		type: "get",
@@ -13,6 +17,7 @@ function getNotifications() {
 		dataType: "jsonp",
 		contentType: "application/json; charset=UTF-8",
 		success: function (data) {
+			$("body").removeClass("loading");
 			$("#notifications-list").html(data.html);
 			const numNotifications = $('.notification_message').length;
 			if(numNotifications > 0){
@@ -26,6 +31,7 @@ function getNotifications() {
 			}
 		},
 		error: function (xhr) {
+			$("body").removeClass("loading");
 			console.log("request for getNotifications is " + xhr.status);
 			if (!isRetry("getNotifications")) {
 				return;

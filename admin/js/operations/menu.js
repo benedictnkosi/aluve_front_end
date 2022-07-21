@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-	$("body").addClass("startup-loading");
+	//$("body").addClass("startup-loading");
 	window.setTimeout(hideLoader, 15000);
 	if (sessionStorage.getItem("current_page") === null) {
 		updateView(sessionStorage.getItem("calendar"));
@@ -31,13 +31,13 @@ $(document).ready(function() {
 
 		var text = document.createTextNode("Copied");
 		copyText.parentNode.insertBefore(text, copyText.nextSibling)
-
 	});
 
 });
 
 function hideLoader(){
 	$("body").removeClass("startup-loading");
+	$("body").removeClass("loading");
 }
 const guid = a => (a ?
     (a ^ ((16 * Math.random()) >> (a / 4))).toString(16) :
@@ -51,7 +51,49 @@ function updateView(selectedDiv) {
 	$("#div-" + selectedDiv).removeClass("display-none");
 	sessionStorage.setItem("current_page", selectedDiv);
 	isUserLoggedIn();
+	loadDataOnFirstClick(selectedDiv);
 }
+
+function clearSessionData(){
+	sessionStorage.removeItem("calendar");
+	sessionStorage.removeItem("notifications");
+	sessionStorage.removeItem("upcoming-reservations");
+	sessionStorage.removeItem("blocked-rooms");
+	sessionStorage.removeItem("occupancy");
+	sessionStorage.removeItem("cleaning");
+	sessionStorage.removeItem("configuration");
+}
+
+function loadDataOnFirstClick(selectedDiv){
+	if(sessionStorage.getItem(selectedDiv) === null){
+		switch(selectedDiv) {
+			case 'calendar':
+				loadCalendarPageData();
+				break;
+			case 'notifications':
+				loadNotificationsPageData();
+				break;
+			case 'upcoming-reservations':
+				loadReservationsPageData();
+				break;
+			case 'blocked-rooms':
+				loadBlockedRoomsPageData();
+				break;
+			case 'occupancy':
+				loadOccupancyPageData();
+				break;
+			case 'cleaning':
+				loadCleaningPageData();
+				break;
+			case 'configuration':
+				loadConfigurationPageData();
+				break;
+			default:
+			// code block
+		}
+	}
+}
+
 
 function logout(){
 	$("body").addClass("loading");

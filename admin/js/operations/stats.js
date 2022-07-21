@@ -3,9 +3,7 @@ $(document).ready(function () {
     //get day of month
     var d = new Date();
     var date = d.getDate();
-    getOverallOccupancy("30", "overall-30-occupancy");
-    getOverallOccupancy(date, "overall-month-occupancy");
-    getOccupancyPerRoom("30");
+
 
     $(".glyphicon-log-in").click(function () {
         $([document.documentElement, document.body]).animate({
@@ -33,6 +31,11 @@ $(document).ready(function () {
 
 });
 
+function loadOccupancyPageData(){
+    getOverallOccupancy("30", "overall-30-occupancy");
+    getOverallOccupancy(date, "overall-month-occupancy");
+    getOccupancyPerRoom("30");
+}
 
 function getcheckins(period) {
     let url = hostname + "/api/stats/getreservationcount/checkIn/" + period;
@@ -143,6 +146,7 @@ function getOccupancyPerRoomForMonth() {
 
 function getOccupancyPerRoom(period) {
     let url = hostname + "/api/occupancy/perroom/" + period+ "/" + sessionStorage.getItem("PROPERTY_UID");
+    $("body").addClass("loading");
     $.ajax({
         type: "GET",
         url: url,
@@ -154,9 +158,11 @@ function getOccupancyPerRoom(period) {
         },
         dataType: "jsonp",
         success: function (data) {
+            $("body").removeClass("loading");
             $("#occupancy-div").html(data.html);
         },
         error: function (xhr) {
+            $("body").removeClass("loading");
             console.log("request for getOccupancyPerRoom is " + xhr.status);
             if (!isRetry("getOccupancyPerRoom")) {
                 return;

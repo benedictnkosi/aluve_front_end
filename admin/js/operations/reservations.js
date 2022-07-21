@@ -1,11 +1,15 @@
 $(document).ready(function () {
-    refreshReservations();
-
     $('.filter-reservations').unbind('click')
     $(".filter-reservations").click(function (event) {
         filterReservations(event);
     });
 });
+
+function loadReservationsPageData(){
+    $("body").addClass("loading");
+    refreshReservations();
+    window.setTimeout(hideLoader, 5000);
+}
 
 function refreshReservations() {
     getReservationsByPeriod("future");

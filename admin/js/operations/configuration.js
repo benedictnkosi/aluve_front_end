@@ -1,17 +1,4 @@
 $(document).ready(function () {
-    getConfigRooms();
-    getConfigRoomsDropDown();
-    getConfigRoomStatusesDropDown();
-    getConfigRoomBedSizesDropDown();
-    getAddOns();
-    getEmployees();
-    getScheduledMessages();
-    getSchedules();
-    getVariables();
-    getRoomsForMessages();
-    getConfigRoomTvsDropDown();
-    getTemplates();
-
     $('.filter-configuration').unbind('click')
     $(".filter-configuration").click(function (event) {
         filterConfiguration(event);
@@ -82,8 +69,22 @@ $(document).ready(function () {
             createMessageTemplate();
         }
     });
-
 });
+
+function loadConfigurationPageData(){
+    getConfigRooms();
+    getConfigRoomsDropDown();
+    getConfigRoomStatusesDropDown();
+    getConfigRoomBedSizesDropDown();
+    getAddOns();
+    getEmployees();
+    getScheduledMessages();
+    getSchedules();
+    getVariables();
+    getRoomsForMessages();
+    getConfigRoomTvsDropDown();
+    getTemplates();
+}
 
 
 const uploader = $('#ssi-upload').ssi_uploader({
@@ -537,7 +538,7 @@ function deleteEmployee(event) {
 }
 
 function getTemplates() {
-
+    $("body").addClass("loading");
     let url =  hostname + "/api/schedulemessages/templates" + "/" + sessionStorage.getItem("PROPERTY_UID") ;
 
     $.ajax({
@@ -548,6 +549,7 @@ function getTemplates() {
         dataType: "jsonp",
         contentType: "application/json; charset=UTF-8",
         success: function (data) {
+            $("body").removeClass("loading");
             $("#template_name_select").html(data.html);
             $(".template_option").change(function (event) {
                 getTemplateMessage(event);
@@ -555,6 +557,7 @@ function getTemplates() {
             getTemplateMessage($("#template_name_select").find("option:first-child").val());
         },
         error: function (xhr) {
+            $("body").removeClass("loading");
             console.log("request for getTemplates is " + xhr.status);
             if (!isRetry("getTemplates")) {
                 return;

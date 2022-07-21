@@ -1,8 +1,5 @@
 $(document).ready(function() {
 	console.log("ready in blocked rooms!");
-	getBlockedRooms();
-
-	getBlockRooms();
 
 	$("#block-form").validate({
 		// Specify validation rules
@@ -26,7 +23,6 @@ $(document).ready(function() {
 				const date = new Date();
 
 				$('input[name="block_date"]').daterangepicker({
-					opens: 'left',
 					autoApply:false,
 					minDate: date,
 					autoUpdateInput: false,
@@ -49,8 +45,13 @@ $(".filter-block-room-tabs").click(function(event) {
 	
 });
 
+function loadBlockedRoomsPageData(){
+	getBlockedRooms();
+	getBlockRooms();
+}
 
 function getBlockedRooms() {
+	$("body").addClass("loading");
 	let url =  hostname + "/api/blockedroom/get/" + sessionStorage.getItem("PROPERTY_UID");
 	$.ajax({
 		type: "get",
@@ -60,12 +61,14 @@ function getBlockedRooms() {
 		dataType: "jsonp",
 		contentType: "application/json; charset=UTF-8",
 		success: function (data) {
+			$("body").removeClass("loading");
 			$("#block-list").html(data.html);
 			$(".deleteBlockRoom").click(function(event) {
 				deleteBlockRoom(event);
 			});
 		},
 		error: function (xhr) {
+			$("body").removeClass("loading");
 			console.log("request for getBlockedRooms is " + xhr.status);
 			if (!isRetry("getBlockedRooms")) {
 				return;

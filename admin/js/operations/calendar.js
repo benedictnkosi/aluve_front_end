@@ -1,9 +1,13 @@
 $(document).ready(function() {
-	getCalendar();
+
 });
 
+function loadCalendarPageData(){
+	getCalendar();
+}
 
 function getCalendar() {
+	$("body").addClass("loading");
 	let url =  hostname + "/api/calendar/" + sessionStorage.getItem("PROPERTY_UID");
 	$.ajax({
 		type: "get",
@@ -13,12 +17,14 @@ function getCalendar() {
 		dataType: "jsonp",
 		contentType: "application/json; charset=UTF-8",
 		success: function (data) {
+			$("body").removeClass("loading");
 			$("#calendar-table").html(data.html);
 			$(".booked").click(function(event) {
 				jumpToBooking(event);
 			});
 		},
 		error: function (xhr) {
+			$("body").removeClass("loading");
 			console.log("request for getCalendar is " + xhr.status);
 			if (!isRetry("getCalendar")) {
 				return;
