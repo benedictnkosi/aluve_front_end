@@ -92,7 +92,7 @@ function displayTotal() {
 }
 
 function getAvailableRooms(checkInDate, checkOutDate) {
-    let url = hostname + "/api/rooms/" + checkInDate + "/" + checkOutDate;
+    let url = hostname + "/api/availablerooms/" + checkInDate + "/" + checkOutDate;
     $.getJSON(url + "?callback=?", null, function (data) {
         let roomIndex;
         $("#availableRoomsDropdown").html(data.html);

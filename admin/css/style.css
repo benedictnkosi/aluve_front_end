@@ -738,6 +738,13 @@ padding:0.3em;
 	overflow: auto;
 }
 
+.block-room-details {
+	background: #ECECEC;
+	padding: 1em;
+	overflow: auto;
+	border-bottom: 1px solid #000;
+}
+
 .topMargin {
 	margin-top: 1em;
 }

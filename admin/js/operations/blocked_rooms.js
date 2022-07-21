@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	console.log("ready!");
+	console.log("ready in blocked rooms!");
 	getBlockedRooms();
 
 	getBlockRooms();
@@ -27,10 +27,17 @@ $(document).ready(function() {
 
 				$('input[name="block_date"]').daterangepicker({
 					opens: 'left',
-					autoApply:true,
-					minDate: date
+					autoApply:false,
+					minDate: date,
+					autoUpdateInput: false,
 				}, function(start, end, label) {
 					console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+				});
+
+				$('input[name="block_date"]').on('apply.daterangepicker', function (event, picker) {
+					$(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+					localStorage.setItem('blockStartDate', picker.startDate.format("YYYY-MM-DD"));
+					localStorage.setItem('blockEndDate', picker.endDate.format("YYYY-MM-DD"));
 				});
 			});
 		});
@@ -111,7 +118,6 @@ function filterBlockedRoomsTabs(event) {
 }
 
 function blockRoom() {
-	const block_date = $("#block_date").val().replaceAll("/","-");
 	const block_room = $("#block_rooms_select").val();
 	const block_note = $("#block_notes").val().trim();
 
@@ -127,7 +133,7 @@ function blockRoom() {
 
 	$("body").addClass("loading");
 
-	let url =  hostname + "/api/blockroom/"+ block_room+ "/" + block_date + "/"+ block_note;
+	let url =  hostname + "/api/blockroom/"+ block_room+ "/" + localStorage.getItem("blockStartDate") + "/" + localStorage.getItem("blockEndDate") + "/"+ block_note;
 	$.getJSON(url + "?callback=?", null, function(data) {
 		$("body").removeClass("loading");
 		const jsonObj = data[0];
