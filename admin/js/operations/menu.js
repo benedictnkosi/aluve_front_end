@@ -3,7 +3,7 @@ $(document).ready(function() {
 	//$("body").addClass("startup-loading");
 	window.setTimeout(hideLoader, 15000);
 	if (sessionStorage.getItem("current_page") === null) {
-		updateView(sessionStorage.getItem("calendar"));
+		updateView('calendar');
 	} else {
 		updateView(sessionStorage.getItem("current_page"));
 	}
