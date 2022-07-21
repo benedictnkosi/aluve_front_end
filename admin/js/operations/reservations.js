@@ -8,7 +8,15 @@ $(document).ready(function () {
 });
 
 function refreshReservations() {
-    let url = hostname + "/api/reservations/future/" + sessionStorage.getItem("PROPERTY_UID");
+    getReservationsByPeriod("future");
+    getReservationsByPeriod("stayover");
+    getReservationsByPeriod("checkout");
+    getReservationsByPeriod("pending");
+    getReservationsByPeriod("past");
+}
+
+function getReservationsByPeriod(period) {
+    let url = hostname + "/api/reservations/" +period+ "/" +  sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -17,97 +25,18 @@ function refreshReservations() {
         dataType: "jsonp",
         contentType: "application/json; charset=UTF-8",
         success: function (data) {
-            $("#reservations-list").html(data.html);
+            $("#" + period + "-list").html(data.html);
             setBindings();
-            let url = hostname + "/api/reservations/stayover/" + sessionStorage.getItem("PROPERTY_UID");
-            $.ajax({
-                type: "get",
-                url: url,
-                crossDomain: true,
-                cache: false,
-                dataType: "jsonp",
-                contentType: "application/json; charset=UTF-8",
-                success: function (data) {
-                    $("#stayOver-list").html(data.html);
-                    setBindings();
-                    let url = hostname + "/api/reservations/checkout/" + sessionStorage.getItem("PROPERTY_UID");
-                    $.ajax({
-                        type: "get",
-                        url: url,
-                        crossDomain: true,
-                        cache: false,
-                        dataType: "jsonp",
-                        contentType: "application/json; charset=UTF-8",
-                        success: function (data) {
-                            $("#checkouts-list").html(data.html);
-                            let url = hostname + "/api/reservations/past/"+ sessionStorage.getItem("PROPERTY_UID");
-                            $.ajax({
-                                type: "get",
-                                url: url,
-                                crossDomain: true,
-                                cache: false,
-                                dataType: "jsonp",
-                                contentType: "application/json; charset=UTF-8",
-                                success: function (data) {
-                                    $("#past-res-list").html(data.html);
-                                    setBindings();
-                                    let url = hostname + "/api/reservations/pending/"+ sessionStorage.getItem("PROPERTY_UID");
-                                    $.ajax({
-                                        type: "get",
-                                        url: url,
-                                        crossDomain: true,
-                                        cache: false,
-                                        dataType: "jsonp",
-                                        contentType: "application/json; charset=UTF-8",
-                                        success: function (data) {
-                                            $("#pending-res-list").html(data.html);
-                                            setBindings();
-                                            $("body").removeClass("startup-loading");
-                                        },
-                                        error: function (xhr) {
-                                            console.log("request for refreshReservations is " + xhr.status);
-                                            if (xhr.status > 400) {
-                                                refreshReservations();
-                                            }
-                                        }
-                                    });
-                                },
-                                error: function (xhr) {
-                                    console.log("request for refreshReservations is " + xhr.status);
-                                    if (!isRetry("refreshReservations")) {
-                                        return;
-                                    }
-                                    refreshReservations();
-                                }
-                            });
-                        },
-                        error: function (xhr) {
-                            console.log("request for refreshReservations is " + xhr.status);
-                            if (!isRetry("refreshReservations")) {
-                                return;
-                            }
-                            refreshReservations();
-                        }
-                    });
-                },
-                error: function (xhr) {
-                    console.log("request for refreshReservations is " + xhr.status);
-                    if (!isRetry("refreshReservations")) {
-                        return;
-                    }
-                    refreshReservations();
-                }
-            });
         },
         error: function (xhr) {
-            console.log("request for refreshReservations is " + xhr.status);
-            if (!isRetry("refreshReservations")) {
+            console.log("request for "+period+" is " + xhr.status);
+            if (!isRetry(""+period+"")) {
                 return;
             }
-            refreshReservations();
+            getReservationsByPeriod(period);
         },
         done: function (xhr) {
-            console.log("request for future reservations is " + xhr.status);
+            console.log("request for "+period+" is " + xhr.status);
         }
     });
 }
@@ -308,7 +237,7 @@ function filterReservations(event) {
 
     switch (id) {
         case "reservations_all":
-            $('#reservations-list').removeClass("display-none");
+            $('#future-list').removeClass("display-none");
             $('#reservations-heading').text("Upcoming Reservations");
             break;
         case "reservations_checkouts":
@@ -316,15 +245,15 @@ function filterReservations(event) {
             $('#reservations-heading').text("Check Outs");
             break;
         case "reservations_stay_overs":
-            $('#stayOver-list').removeClass("display-none");
+            $('#stayover-list').removeClass("display-none");
             $('#reservations-heading').text("Stay Overs");
             break;
         case "reservations_past_reservations":
-            $('#past-res-list').removeClass("display-none");
+            $('#past-list').removeClass("display-none");
             $('#reservations-heading').text("Past Reservations");
             break;
         case "reservations_pending_reservations":
-            $('#pending-res-list').removeClass("display-none");
+            $('#pending-list').removeClass("display-none");
             $('#reservations-heading').text("Pending Reservations");
             break;
         default:

@@ -104,12 +104,6 @@ input[type="checkbox"]{
 	width: auto;
 }
 
-
-.menu_icon_image {
-	width: 1em;
-	height: 1em;
-}
-
 .remove_employee_button, .remove_addon_button{
 	display: inline !important;
 }
@@ -322,23 +316,6 @@ padding:0.3em;
 	font-weight: 800;
 }
 
-.inner-left-div {
-	float: left;
-	width: 70%;
-	border-radius: 1em;
-	padding: 1em;
-	border: none;
-}
-
-.inner-right-div {
-	float: right;
-	width: 30%;
-	border-radius: 1em;
-	padding: 1em;
-	border: none;
-}
-
-
 .small-font-italic {
 	font-size: 0.8em;
 	font-style: italic;
@@ -450,7 +427,28 @@ padding:0.3em;
 	color: black !important;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 993px) {
+
+	.menu_icon_image {
+		width: 1em;
+		height: 1em;
+	}
+
+	.inner-left-div {
+		float: left;
+		width: 70%;
+		border-radius: 1em;
+		padding: 1em;
+		border: none;
+	}
+
+	.inner-right-div {
+		float: right;
+		width: 30%;
+		border-radius: 1em;
+		padding: 1em;
+		border: none;
+	}
 
 	.reservations_actions_link{
 		display: none !important;
@@ -499,61 +497,31 @@ padding:0.3em;
 		width: 80%;
 		height: 100%;
 	}
-}
-/* On screens that are 992px or less, set the background color to blue */
-@media screen and (max-width: 992px) and (min-width: 600px) {
-	.reservations_actions_link{
-		cursor: pointer;
-	}
-
-	.configuration-left-div {
-		float: left;
-		width: 100%;
-		padding: 1em;
-		background: #fff;
-	}
-
-	.configuration-right-div {
-		float: right;
-		width: 100%;
-		border-radius: 1em;
-		padding: 1em;
-		border: 1px solid #cdc5c5d1;
-		background: #fff;
-	}
-
-	.left-div {
-		float: left;
-		width: 100%;
-		border-radius: 1em;
-		padding: 1em;
-		border: 1px solid #cdc5c5d1;
-	}
-
-	.right-div {
-		float: right;
-		width: 100%;
-		border-radius: 1em;
-		padding: 1em;
-		border: 1px solid #cdc5c5d1;
-        display: none;
-	}
 
 
-	#leftbox {
-		float: left;
-		width: 20%;
-		height: 100%;
-	}
-	#rightbox {
-		float: right;
-		width: 80%;
-		height: 100%;
-	}
 }
 
+
 /* On screens that are 992px or less, set the background color to blue */
-@media screen and (max-width: 559px) {
+@media screen and (max-width: 992px) {
+	.menu_icon_image {
+		width: 3em;
+		height: 3em;
+	}
+	.desktopOnlyMenu{
+		display:none;
+	}
+	.inner-left-div {
+		float: left;
+		width: 100%;
+		border-radius: 1em;
+		padding: 1em;
+		border: none;
+	}
+
+	.inner-right-div {
+		display:none;
+	}
 
 	.reservations_actions_link{
 		cursor: pointer;
@@ -2189,9 +2157,6 @@ a.mail:hover {
 	outline: none;
 }
 
-.contact-form input[type="submit"]:hover {
-	background: #56CCC8;
-}
 /*-----radio-switch-buttons-----*/
 .toggle {
 	margin: 20px 0 0em 0;

@@ -1,3 +1,15 @@
+/* UTILITIES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
 
 /* NAVBAR STYLING STARTS */
 .navbar {
@@ -70,7 +82,7 @@ input[type=checkbox]{
     .menu {
         display:none;
         position: absolute;
-        background-color:teal;
+        background-color:#1B74DA;
         right: 0;
         left: 0;
         text-align: center;

@@ -121,7 +121,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <div class="clearfix"></div>
     <div class="col-md-4 left-w3l">
-        <div class="profile-w3layouts dashboard-div toggleable"
+        <div class="profile-w3layouts dashboard-div toggleable display-none"
              id="div-whatapp-chat">
             <div class="profile-top">
                 <div class="col-md-7 profile-top-right">
@@ -151,7 +151,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
 
 
-        <div class="profile-w3layouts dashboard-div toggleable"
+        <div class="profile-w3layouts dashboard-div toggleable display-none"
              id="div-calendar">
 
 
@@ -175,7 +175,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 
     <div class="col-md-12 middle-w3l">
-        <div class="profile-w3layouts toggleable"
+        <div class="profile-w3layouts toggleable display-none"
              id="div-upcoming-reservations">
 
             <div class="profile-top">
@@ -191,29 +191,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="profile-ser">
                 <div class="profile-ser-grids-20 filter-reservations clickable"
                      id="reservations_all">
-                    <img class="menu_icon_image" src="images/menu_bookings.png"></img>
-                    <i class="desktopOnlyMenu">Up
-                        Comming</i>
+                    <img class="menu_icon_image" src="images/menu_bookings.png" title="Up Coming"></img>
+                    <i class="desktopOnlyMenu">Up Coming</i>
                 </div>
                 <div class="profile-ser-grids-20 filter-reservations clickable"
                      id="reservations_checkouts">
-                    <img class="menu_icon_image" src="images/menu_checkout.png"></img><i class="desktopOnlyMenu">Checkouts</i>
+                    <img class="menu_icon_image" src="images/menu_checkout.png" title="Checkouts"></img><i class="desktopOnlyMenu">Checkouts</i>
                 </div>
                 <div
                         class="profile-ser-grids-20 agileinfo  filter-reservations clickable"
                         id="reservations_stay_overs">
-                    <img class="menu_icon_image" src="images/menu_stayover.png"></img><i class="desktopOnlyMenu">Stay
+                    <img class="menu_icon_image" src="images/menu_stayover.png" title="Stay Overs"></img><i class="desktopOnlyMenu">Stay
                     Overs</i>
                 </div>
                 <div
                         class="profile-ser-grids-20 agileinfo  filter-reservations clickable"
                         id="reservations_past_reservations">
-                    <img class="menu_icon_image" src="images/history.png"></img><i class="desktopOnlyMenu">History
+                    <img class="menu_icon_image" src="images/history.png" title="History"></img><i class="desktopOnlyMenu">History
                 </i>
                 </div>
                 <div class="profile-ser-grids-20 agileinfo  filter-reservations clickable"
                      id="reservations_pending_reservations">
-                    <img class="menu_icon_image" src="images/pending.png"></img><i class="desktopOnlyMenu">Pending</i>
+                    <img class="menu_icon_image" src="images/pending.png" title="Pending"></img><i class="desktopOnlyMenu">Pending</i>
                 </div>
 
                 <div class="clearfix"></div>
@@ -229,15 +228,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                 </div>
             </div>
-            <div id="reservations-list" class='reservations_tabs'></div>
-            <div id="checkouts-list" class='reservations_tabs display-none'></div>
-            <div id="stayOver-list" class='reservations_tabs display-none'></div>
-            <div id="past-res-list" class='reservations_tabs display-none'></div>
-            <div id="pending-res-list" class='reservations_tabs display-none'></div>
+            <div id="future-list" class='reservations_tabs'></div>
+            <div id="checkout-list" class='reservations_tabs display-none'></div>
+            <div id="stayover-list" class='reservations_tabs display-none'></div>
+            <div id="past-list" class='reservations_tabs display-none'></div>
+            <div id="pending-list" class='reservations_tabs display-none'></div>
         </div>
 
 
-        <div class="profile-w3layouts toggleable"
+        <div class="profile-w3layouts toggleable display-none"
              id="div-configuration">
 
 
@@ -249,27 +248,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
 
             <div class="profile-ser">
-                <div class="profile-ser-grids-25 filter-configuration clickable"
+                <div class="profile-ser-grids filter-configuration clickable"
                      id="configuration_rooms">
-                    <img class="menu_icon_image" src="images/menu_rooms.png"></img>
+                    <img class="menu_icon_image" src="images/menu_rooms.png" title="Rooms"></img>
                     <i class="desktopOnlyMenu">Rooms</i>
                 </div>
-                <div class="profile-ser-grids-25 filter-configuration clickable"
+                <div class="profile-ser-grids filter-configuration clickable"
                      id="configuration_add_ons">
-                    <img class="menu_icon_image" src="images/menu_add_ons.png"></img><i class="desktopOnlyMenu">Add
+                    <img class="menu_icon_image" src="images/menu_add_ons.png" title="Add-Ons"></img><i class="desktopOnlyMenu">Add
                     Ons</i>
                 </div>
                 <div
-                        class="profile-ser-grids-25 agileinfo  filter-configuration clickable"
+                        class="profile-ser-grids agileinfo  filter-configuration clickable"
                         id="configuration_employees">
-                    <img class="menu_icon_image" src="images/employee.png"></img><i
+                    <img class="menu_icon_image" src="images/employee.png" title="Employees"></img><i
                         class="desktopOnlyMenu">Employees</i>
-                </div>
-                <div
-                        class="profile-ser-grids-25 agileinfo  filter-configuration clickable"
-                        id="configuration_messages">
-                    <img class="menu_icon_image" src="images/messages.jpg"></img><i
-                        class="desktopOnlyMenu">Messages</i>
                 </div>
 
                 <div class="clearfix"></div>
@@ -474,7 +467,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
 
 
-        <div class="profile-w3layouts toggleable"
+        <div class="profile-w3layouts toggleable display-none"
              id="div-blocked-rooms">
             <div class="profile-top">
                 <div class="col-md-7 profile-top-right">
@@ -513,7 +506,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
             <div id="block-list" class="blocked_rooms_tab"></div>
 
-            <div class="profile-w3layouts toggleable blocked_rooms_tab"
+            <div class="profile-w3layouts toggleable blocked_rooms_tab display-none"
                  id="div-block-room">
                 <div class="resp-tabs-container">
 
@@ -563,7 +556,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
 
 
-        <div class="profile-w3layouts toggleable"
+        <div class="profile-w3layouts toggleable display-none"
              id="div-notifications">
             <div class="profile-top">
                 <div class="col-md-7 profile-top-right">
@@ -583,7 +576,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
 
 
-        <div class="profile-w3layouts topMargin toggleable"
+        <div class="profile-w3layouts topMargin toggleable display-none"
              id="div-occupancy">
             <div class="profile-top">
                 <div class="col-md-7 profile-top-right">
@@ -629,7 +622,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="col-md-4 right-w3l">
 
 
-        <div class="profile-w3layouts toggleable"
+        <div class="profile-w3layouts toggleable display-none"
              id="div-cleaning">
             <div class="profile-top">
                 <div class="col-md-7 profile-top-right">
@@ -652,7 +645,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         </div>
 
-        <div class="profile-w3layouts toggleable"
+        <div class="profile-w3layouts toggleable display-none"
              id="div-information">
             <div class="profile-top">
                 <div class="col-md-7 profile-top-right">

@@ -47,6 +47,7 @@ const guid = a => (a ?
 function updateView(selectedDiv) {
 	//check if javascript loaded for div
 	$(".toggleable").addClass("display-none");
+	$( "#checkbox_toggle" ).prop( "checked", false );
 	$("#div-" + selectedDiv).removeClass("display-none");
 	sessionStorage.setItem("current_page", selectedDiv);
 	isUserLoggedIn();

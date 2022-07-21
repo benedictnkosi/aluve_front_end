@@ -9,6 +9,7 @@ $(document).ready(function () {
     getSchedules();
     getVariables();
     getRoomsForMessages();
+    getConfigRoomTvsDropDown();
     getTemplates();
 
     $('.filter-configuration').unbind('click')
@@ -114,10 +115,11 @@ function createUpdateRoom() {
     const select_linked_room = $('#select_linked_room').find(":selected").val();
     const select_bed = $('#select_bed').find(":selected").val();
     const select_Stairs = $('#select_Stairs').find(":selected").val();
+    const select_tv = $('#select_tv').find(":selected").val();
 
     $("body").addClass("loading");
 
-    let url = hostname + "/api/createroom/" + room_id + "/" + room_name + "/" + room_price + "/" + room_sleeps + "/" + select_room_status + "/" + select_linked_room + "/" + room_size + "/" + select_bed + "/" + select_Stairs + "/" + encodeURIComponent(room_description);
+    let url = hostname + "/api/createroom/" + room_id + "/" + room_name + "/" + room_price + "/" + room_sleeps + "/" + select_room_status + "/" + select_linked_room + "/" + room_size + "/" + select_bed + "/" + select_Stairs + "/" + select_tv + "/"  + encodeURIComponent(room_description)  + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -263,7 +265,7 @@ function getConfigRoomBedSizesDropDown() {
 }
 
 function getConfigRoomTvsDropDown() {
-    let url = hostname + "api/combolistroomtvs";
+    let url = hostname + "/api/combolistroomtvs";
 
     $.ajax({
         type: "get",
