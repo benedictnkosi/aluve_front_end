@@ -122,8 +122,14 @@ function getAvailableRooms(checkInDate, checkOutDate) {
             room_id = $(this).attr("data-roomId");
             var sleeps = $(this).attr("data-sleeps");
             var room_name = this.innerText;
-            var item = '<li><img src="' + img + '" data-price="' + price + '" data-roomId="' + room_id + '" data-roomName="' + room_name + '"/><div class="div-select-room-name">' + room_name + '<div class="select_sleeps"><span class="fa fa-users">' + sleeps + ' Guests</span><span>ZAR ' + price + '</span></div><button class="btn btn-style btn-secondary book mt-3 add-room-button" data-roomId="' + room_id + '" data-roomName="' + room_name + '" data-roomPrice="' + price + '">Add</button></div>' +
-                '</li>';
+            if(price.localeCompare("0")===0){
+                var item = '<li><img src="' + img + '" data-price="' + price + '" data-roomId="' + room_id + '" data-roomName="' + room_name + '"/><div class="div-select-room-name">' + room_name + '<div class="select_sleeps"><span class="fa fa-users">' + sleeps + ' Guests</span><span>ZAR ' + price + '</span></div></div>' +
+                    '</li>';
+            }else{
+                var item = '<li><img src="' + img + '" data-price="' + price + '" data-roomId="' + room_id + '" data-roomName="' + room_name + '"/><div class="div-select-room-name">' + room_name + '<div class="select_sleeps"><span class="fa fa-users">' + sleeps + ' Guests</span><span>ZAR ' + price + '</span></div><button class="btn btn-style btn-secondary book mt-3 add-room-button" data-roomId="' + room_id + '" data-roomName="' + room_name + '" data-roomPrice="' + price + '">Add</button></div>' +
+                    '</li>';
+            }
+
             roomArray.push(item);
             roomIdsArray.push(room_id);
         })
