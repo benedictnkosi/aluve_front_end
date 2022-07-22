@@ -6,6 +6,14 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+.lang-select.add-room-button{
+    display:none;
+}
+
+.add-room-button{
+    font-size:12px;
+}
+
 .overlay {
     display: none;
     position: fixed;
@@ -18158,8 +18166,8 @@ button.btn-contact:hover {
 .w3l-booking-top .booking-top-gds {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 70px;
-    width: 90%;
+    grid-gap: 1px;
+    width: 100%;
     margin: 0 auto;
 }
 

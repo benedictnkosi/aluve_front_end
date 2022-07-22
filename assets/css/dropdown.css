@@ -1,6 +1,5 @@
 .div-select-room-name {
     /* display: inline; */
-    float: right;
     margin-top: 1em;
     margin-left: 2em;
     /* text-align: center; */
@@ -36,6 +35,7 @@
 
 #a li img{
     margin: 5px;
+    float:right;
 }
 
 #a li span, .btn-select li span{

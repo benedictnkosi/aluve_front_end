@@ -17,6 +17,8 @@ $(document).ready(function () {
         createReservation();
     });
 
+
+
     $("#phoneNumber").blur(function () {
         if (document.referrer.includes("admin")) {
             getCustomer();
@@ -75,6 +77,7 @@ $(document).ready(function () {
     });
 });
 
+
 function isEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
@@ -82,13 +85,27 @@ function isEmail(email) {
 
 function displayTotal() {
     let numberOfNights = parseInt(localStorage.getItem('numberOfNights'));
-    let selectedRoomPrice = parseInt($('#btn-select').find('img').attr("data-price"));
-    let total = numberOfNights * selectedRoomPrice;
+    let total = 0;
+    let nightsMessage = "";
+    let roomIdArray = [];
+    //find all rooms added
+    var buttons = document.getElementsByTagName("button");
+    for (var i = 0; i < buttons.length; i++) {
+        if (buttons[i].textContent == "Remove") {
+            roomId = buttons[i].getAttribute("data-roomId");
+            roomName = buttons[i].getAttribute("data-roomName");
+            roomPrice = buttons[i].getAttribute("data-roomPrice");
+            total += (numberOfNights * parseInt(roomPrice));
+            nightsMessage += roomName + " - " + numberOfNights + " x nights @ R" + roomPrice + ".00" + "<br>";
+            roomIdArray.push(roomId);
+        }
+
+    }
+    sessionStorage.setItem("selected_rooms_array", JSON.stringify(roomIdArray));
     let totalMessage = "Total: R" + total + ".00";
-    let nightsMessage = numberOfNights + " x nights @ R" + selectedRoomPrice + ".00";
 
     $('#total_message').html(totalMessage);
-    $('#nights_message').text(nightsMessage);
+    $('#nights_message').html(nightsMessage);
 }
 
 function getAvailableRooms(checkInDate, checkOutDate) {
@@ -105,7 +122,8 @@ function getAvailableRooms(checkInDate, checkOutDate) {
             room_id = $(this).attr("data-roomId");
             var sleeps = $(this).attr("data-sleeps");
             var room_name = this.innerText;
-            var item = '<li><img src="' + img + '" data-price="' + price + '" data-roomId="' + room_id + '" data-roomName="' + room_name + '"/><div class="div-select-room-name">' + room_name + '<div class="select_sleeps"><span class="fa fa-users">' + sleeps + ' Guests</span><span>ZAR ' + price + '</span></div></div></li>';
+            var item = '<li><img src="' + img + '" data-price="' + price + '" data-roomId="' + room_id + '" data-roomName="' + room_name + '"/><div class="div-select-room-name">' + room_name + '<div class="select_sleeps"><span class="fa fa-users">' + sleeps + ' Guests</span><span>ZAR ' + price + '</span></div><button class="btn btn-style btn-secondary book mt-3 add-room-button" data-roomId="' + room_id + '" data-roomName="' + room_name + '" data-roomPrice="' + price + '">Add</button></div>' +
+                '</li>';
             roomArray.push(item);
             roomIdsArray.push(room_id);
         })
@@ -113,29 +131,8 @@ function getAvailableRooms(checkInDate, checkOutDate) {
         $('#a').html(roomArray);
 
 //Set the button value to the first el of the array
-        $('.btn-select').html(roomArray[0]);
-        $('.btn-select').attr('value', 'en');
 
-//change button stuff on click
-        $('#a li').click(function () {
-            var img = $(this).find('img').attr("src");
-            var price = $(this).find('img').attr("data-price");
-             room_id = $(this).find('img').attr("data-roomId");
-            var value = $(this).find('img').attr('value');
-            var room_name = $(this).find('img').attr("data-roomName");
-            var sleeps = $(this).find('img').attr("data-sleeps");
-            var item = '<li><img src="' + img + '"  data-price="' + price + '" data-roomId="' + room_id + '" data-roomName="' + room_name + '"/><div class="div-select-room-name">' + room_name + '<div class="select_sleeps"><span class="fa fa-users">' + sleeps + ' Guests</span><span>ZAR ' + price + '</span></div></div></li>';
-            $('.btn-select').html(item);
-            $('.btn-select').attr('value', value);
-            $(".b").toggle();
-            if (room_id.localeCompare("0") !== 0) {
-                displayTotal();
-            }
-        });
-
-        $(".btn-select").click(function () {
-            $(".b").css("display", "block");
-        });
+        $(".b").css("display", "block");
 
         //check local storage for the lang
         const roomId = getUrlParameter("id");
@@ -160,6 +157,18 @@ function getAvailableRooms(checkInDate, checkOutDate) {
         if (room_id.localeCompare("0") !== 0) {
             displayTotal();
         }
+
+        $(".add-room-button").click(function (event) {
+            event.preventDefault();
+            if( $(this).text().localeCompare("Remove")===0){
+                $(this).text("Add");
+            }else{
+                $(this).text("Remove");
+            }
+
+            displayTotal();
+        });
+
         $("body").removeClass("loading");
     });
 }
@@ -167,11 +176,10 @@ function getAvailableRooms(checkInDate, checkOutDate) {
 function createReservation() {
     $("#reservation_error_message_div").addClass("display-none");
     const guestName = $('#guestName').val();
-    const phoneNumber = $('#phoneNumber').val().trim().repla;
+    const phoneNumber = $('#phoneNumber').val().trim().replaceAll(" ", "");
     const email = $('#email').val();
     const checkInDate = localStorage.getItem('checkInDate');
     const checkOutDate = localStorage.getItem('checkOutDate');
-    const roomId = $('#btn-select').find('img').attr("data-roomId");
 
     if (guestName.length < 1) {
         $("#reservation_message").text("Please provide guest name")
@@ -192,14 +200,14 @@ function createReservation() {
         }
     }
     $("body").addClass("loading");
-    let url = hostname + "/api/reservations/create/" + roomId + '/' + guestName + '/' + phoneNumber + '/' + checkInDate + '/' + checkOutDate + '/' + email;
+    let url = hostname + "/api/reservations/create/" + sessionStorage.getItem("selected_rooms_array") + '/' + guestName + '/' + phoneNumber + '/' + checkInDate + '/' + checkOutDate + '/' + email;
     $.getJSON(url + "?callback=?", null, function (data) {
         $("body").removeClass("loading");
         if (data[0].result_code !== 0) {
             $("#reservation_message").text(data[0].result_message)
             $("#reservation_error_message_div").removeClass("display-none");
         } else {
-            localStorage.setItem("reservation_id", data[0].reservation_id)
+            localStorage.setItem("reservation_id", JSON.stringify(data[0].reservation_id));
             window.location.href = "/confirmation.html";
         }
     });
@@ -235,8 +243,10 @@ function getCustomer() {
         dataType: "jsonp",
         contentType: "application/json; charset=UTF-8",
         success: function (response) {
-            $('#guestName').val(response[0].name);
             $("body").removeClass("loading");
+            if (response[0].result_code === 0) {
+                $('#guestName').val(response[0].name);
+            }
         },
         error: function (xhr) {
             $("body").removeClass("loading");
