@@ -1,5 +1,6 @@
 
 $(document).ready(function() {
+	clearSessionData();
 	//$("body").addClass("startup-loading");
 	window.setTimeout(hideLoader, 15000);
 	if (sessionStorage.getItem("current_page") === null) {

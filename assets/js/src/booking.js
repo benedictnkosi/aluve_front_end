@@ -17,8 +17,6 @@ $(document).ready(function () {
         createReservation();
     });
 
-
-
     $("#phoneNumber").blur(function () {
         if (document.referrer.includes("admin")) {
             getCustomer();
