@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     $('#viewReservation').click(function(){
         window.open(
-            "/reservation.html?reservation=" + localStorage.getItem("reservation_id").replace('[','').replace(']', ''),
+            "/invoice.html?id=" + localStorage.getItem("reservation_id").replace('[','').replace(']', ''),
             '_blank' // <- This is what makes it open in a new window.
         );
     });

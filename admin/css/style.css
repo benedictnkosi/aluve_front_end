@@ -5,6 +5,16 @@
 	License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
+#occupancy_days{
+	padding: inherit;
+	height: auto;
+	width: 25px !important;
+}
+
+#overall-30-occupancy, #overall-month-occupancy {
+	margin-top: auto !important;
+}
+
 .overlay {
 	display: none;
 	position: fixed;

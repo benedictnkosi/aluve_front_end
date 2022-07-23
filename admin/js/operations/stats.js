@@ -23,15 +23,25 @@ $(document).ready(function () {
         }, 2000);
     });
 
-    $('#occupancy_days').change(function (event) {
-        const days = $('#occupancy_days').val();
-        getOverallOccupancy(days, "overall-30-occupancy");
-        getOccupancyPerRoom(days);
+
+    $('#occupancy_days').click(function (event) {
+        sessionStorage.setItem("occupancy_days", event.target.value )
+    });
+
+    $('#occupancy_days').blur(function (event) {
+        const savedOccupancyDays = sessionStorage.getItem("occupancy_days");
+        if(savedOccupancyDays.localeCompare($('#occupancy_days').val()) !== 0 &&  !isNaN($('#occupancy_days').val())){
+            const days = $('#occupancy_days').val();
+            getOverallOccupancy(days, "overall-30-occupancy");
+            getOccupancyPerRoom(days);
+        }
     });
 
 });
 
-function loadOccupancyPageData(){
+function loadOccupancyPageData() {
+    var d = new Date();
+    var date = d.getDate();
     getOverallOccupancy("30", "overall-30-occupancy");
     getOverallOccupancy(date, "overall-month-occupancy");
     getOccupancyPerRoom("30");
@@ -112,7 +122,7 @@ function getstayovers(period) {
 
 
 function getOverallOccupancy(period, elementId) {
-    let url = hostname + "/api/occupancy/" + period+ "/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/occupancy/" + period + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -145,7 +155,7 @@ function getOccupancyPerRoomForMonth() {
 
 
 function getOccupancyPerRoom(period) {
-    let url = hostname + "/api/occupancy/perroom/" + period+ "/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/occupancy/perroom/" + period + "/" + sessionStorage.getItem("PROPERTY_UID");
     $("body").addClass("loading");
     $.ajax({
         type: "GET",
@@ -159,7 +169,7 @@ function getOccupancyPerRoom(period) {
         dataType: "jsonp",
         success: function (data) {
             $("body").removeClass("loading");
-            $("#occupancy-div").html(data.html);
+            $("#occupancy-div").html(data);
         },
         error: function (xhr) {
             $("body").removeClass("loading");
