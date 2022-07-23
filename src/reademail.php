@@ -8,9 +8,10 @@ function getTodayEmails()
     $emailAuthentication = getAirbnbEmailAndPassword();
     $email = $emailAuthentication[0]['email'];
     $password = $emailAuthentication[0]['password'];
+
     $mailConn = imap_open("{".EMAIL_SERVER.":".EMAIL_SERVER_PORT."/pop3/ssl/novalidate-cert}", $email, $password);
     $search = 'ON ' . date('d-M-Y'); // search for today's email only
-    $emails = imap_search($mailConn, $search);
+    $emails = imap_search($mailConn, 'ON ' . date('d-M-Y') . ' SUBJECT "Reservation confirmed"');
 
     if ($emails) {
         foreach ($emails as $emailID) {
@@ -71,7 +72,15 @@ function getStringByBoundary($string, $leftBoundary, $rightBoundary, ){
 
 function updateGuestName($confirmationCode, $guestName): bool|string
 {
-    $url = API_SERVER . "/api/guests/airbnbname/".$confirmationCode."/" .urlencode($guestName);
+    $whitelist = array( '127.0.0.1', '::1' );
+    // check if the server is in the array
+    if ( in_array( $_SERVER['REMOTE_ADDR'], $whitelist ) ) {
+        $url = "http://localhost:8080/api/guests/airbnbname/" .$confirmationCode."/" .urlencode($guestName);
+    }else{
+        $url = API_SERVER . "/api/guests/airbnbname/".$confirmationCode."/" .urlencode($guestName);
+    }
+
+
     echo $url;
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -84,7 +93,14 @@ function updateGuestName($confirmationCode, $guestName): bool|string
 
 function getAirbnbEmailAndPassword()
 {
-    $url = API_SERVER . "/api/airbnb/emailauth";
+    $whitelist = array( '127.0.0.1', '::1' );
+    // check if the server is in the array
+    if ( in_array( $_SERVER['REMOTE_ADDR'], $whitelist ) ) {
+        $url = "http://localhost:8080/api/airbnb/emailauth";
+    }else{
+        $url = API_SERVER . "/api/airbnb/emailauth";
+    }
+
     echo $url;
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
