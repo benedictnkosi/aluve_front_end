@@ -2,9 +2,13 @@
 require_once(__DIR__ . './app/application.php');
 
 getTodayEmails();
+
 function getTodayEmails()
 {
-    $mailConn = imap_open("{".EMAIL_SERVER.":".EMAIL_SERVER_PORT."/pop3/ssl/novalidate-cert}", EMAIL_ADDRESS, EMAIL_PASSWORD);
+    $emailAuthentication = getAirbnbEmailAndPassword();
+    $email = $emailAuthentication[0]['email'];
+    $password = $emailAuthentication[0]['password'];
+    $mailConn = imap_open("{".EMAIL_SERVER.":".EMAIL_SERVER_PORT."/pop3/ssl/novalidate-cert}", $email, $password);
     $search = 'ON ' . date('d-M-Y'); // search for today's email only
     $emails = imap_search($mailConn, $search);
 
@@ -16,8 +20,12 @@ function getTodayEmails()
             try {
                 $pos = strpos($emailSubject, 'Reservation confirmed');
                 if ($pos !== false) {
+
                     $emailMsgNumber = $overview[0]->msgno;
 
+                    $bodyText = imap_fetchbody($mailConn, $emailMsgNumber, 2);
+                    $messageThreadId = trim(getStringByBoundary($bodyText, 'hosting/thread/', '?'));
+                    echo "message thread is " . $messageThreadId . "-done";
                     $bodyText = imap_fetchbody($mailConn, $emailMsgNumber, 1);
                     if (! strlen($bodyText) > 0) {
                         echo 'body is empty';
@@ -55,8 +63,8 @@ function getTodayEmails()
     }
 }
 
-function getStringByBoundary($string, $leftBoundary, $rightBoundary){
-    preg_match('~'.$leftBoundary.'([^{]*)'.$rightBoundary.'~i', $string, $match);
+function getStringByBoundary($string, $leftBoundary, $rightBoundary, ){
+    preg_match('~'.$leftBoundary.'([^?]*)'.$rightBoundary.'~i', $string, $match);
     var_dump($match[1]); // string(9) "123456789"
     return $match[1];
 }
@@ -68,10 +76,24 @@ function updateGuestName($confirmationCode, $guestName): bool|string
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $resp = curl_exec($curl);
+    curl_exec($curl);
     curl_close($curl);
-    var_dump($resp);
+    //var_dump($resp);
     return true;
+}
+
+function getAirbnbEmailAndPassword()
+{
+    $url = API_SERVER . "/api/airbnb/emailauth";
+    echo $url;
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $response = json_decode(curl_exec($curl), true);
+    echo 'Airbnb email is ' . $response[0]['email'];
+    curl_close($curl);
+    //var_dump($resp);
+    return $response;
 }
 
 ?>
