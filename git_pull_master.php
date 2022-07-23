@@ -1,8 +1,6 @@
 <?php
-$command = "git pull origin master --force";
-//$command = "git clone https://github.com/benedictnkosi/propertymanager4721.git --branch master";
-
-
+$command = "git pull origin main --force";
+//$command = "git clone https://github.com/benedictnkosi/aluve_front_end.git --branch main";
 
 exec($command.' 2>&1', $tmp, $return_code); // Execute the command
 
