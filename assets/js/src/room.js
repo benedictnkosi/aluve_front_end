@@ -16,7 +16,7 @@ function getRoomDetails() {
         contentType: "application/json; charset=UTF-8",
         success: function (response) {
             $('#room_name').html(response[0].name)
-            $('#room_description').html(response[0].description);
+            $('#room_description').html(response[0].description_html);
             $('#room_price').html("R" + response[0].price + ".00");
             $('#room_sleeps').html(response[0].sleeps + " Guests");
             $('#room_bed').html(response[0].bed_name);

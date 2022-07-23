@@ -5,6 +5,9 @@
 	License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
+#room_description{
+	height: 25em;
+}
 #occupancy_days{
 	padding: inherit;
 	height: auto;

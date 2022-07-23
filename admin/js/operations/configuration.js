@@ -120,7 +120,7 @@ function createUpdateRoom() {
 
     $("body").addClass("loading");
 
-    let url = hostname + "/api/createroom/" + room_id + "/" + room_name + "/" + room_price + "/" + room_sleeps + "/" + select_room_status + "/" + select_linked_room + "/" + room_size + "/" + select_bed + "/" + select_Stairs + "/" + select_tv + "/"  + encodeURIComponent(room_description)  + "/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/createroom/" + room_id + "/" + room_name + "/" + room_price + "/" + room_sleeps + "/" + select_room_status + "/" + select_linked_room + "/" + room_size + "/" + select_bed + "/" + select_Stairs + "/" + select_tv + "/"  + encodeURIComponent(room_description.replace("/", "###"))  + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
