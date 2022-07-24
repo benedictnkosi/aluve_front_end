@@ -6,6 +6,31 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+
+.flex2 {
+    margin: 17px 0;
+    position: relative;
+    background: #ECECEC;
+}
+
+.flex3 {
+    position: relative;
+}
+
+.flex1 {
+    background: #ECECEC !important;
+}
+
+.flex1 h5, .flex3 h5 {
+    color: #07cbc9 !important;
+    border: 1px solid #07cbc9 !important;
+}
+
+.flex2 h5 {
+    color: #fc3955 !important;
+    border: 1px solid #fc3955;
+}
+
 .lang-select.add-room-button{
     display:none;
 }
@@ -125,8 +150,6 @@ body.loading .overlay {
 .flexible h5 {
     padding: 10px;
     font-size: 15px;
-    color: #fc3955 !important;
-    border: 1px solid #fc3955;
     margin-top: 1em !important;
     margin-bottom: 5px !important;
     border-radius: 5px;

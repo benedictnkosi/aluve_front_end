@@ -7,16 +7,8 @@ $(document).ready(function () {
         event.preventDefault();
         sendMessage();
     });
-
-    getPropertyId();
 });
 
-function getPropertyId(){
-    let url = hostname + "/api/property/getid";
-    $.getJSON(url + "?callback=?", null, function (data) {
-
-    });
-}
 function sendMessage() {
     const guestName = $('#guestName').val();
     const email = $('#email').val();
@@ -29,7 +21,6 @@ function sendMessage() {
     $("#error_message_div").addClass("display-none");
     $.getJSON(url + "?callback=?", null, function (data) {
         $("body").removeClass("loading");
-        $("#error_message_div").removeClass("display-none");
         if (data[0].result_code === 0) {
             $("#success_message_div").removeClass("display-none");
             $("#success_message").text(data[0].result_message)
