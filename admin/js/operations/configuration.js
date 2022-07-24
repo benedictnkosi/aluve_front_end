@@ -59,6 +59,34 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
+    $("#terms_form").submit(function (event) {
+        event.preventDefault();
+    });
+
+    $("#terms_form").validate({
+        // Specify validation rules
+        rules: {
+            terms_text: "required"
+        },
+        submitHandler: function () {
+            updateTerms();
+        }
+    });
+
+    $("#ical_form").submit(function (event) {
+        event.preventDefault();
+    });
+
+    $("#ical_form").validate({
+        // Specify validation rules
+        rules: {
+            icalLink: "required"
+        },
+        submitHandler: function () {
+            addNewChannel();
+        }
+    });
+
     $("#config_createMessageTemplate_form").validate({
         // Specify validation rules
         rules: {
@@ -71,7 +99,7 @@ $(document).ready(function () {
     });
 });
 
-function loadConfigurationPageData(){
+function loadConfigurationPageData() {
     getConfigRooms();
     getConfigRoomsDropDown();
     getConfigRoomStatusesDropDown();
@@ -84,6 +112,7 @@ function loadConfigurationPageData(){
     getRoomsForMessages();
     getConfigRoomTvsDropDown();
     getTemplates();
+    getTerms();
 }
 
 
@@ -120,7 +149,7 @@ function createUpdateRoom() {
 
     $("body").addClass("loading");
 
-    let url = hostname + "/api/createroom/" + room_id + "/" + room_name + "/" + room_price + "/" + room_sleeps + "/" + select_room_status + "/" + select_linked_room + "/" + room_size + "/" + select_bed + "/" + select_Stairs + "/" + select_tv + "/"  + encodeURIComponent(room_description.replace("/", "###"))  + "/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/createroom/" + room_id + "/" + room_name + "/" + room_price + "/" + room_sleeps + "/" + select_room_status + "/" + select_linked_room + "/" + room_size + "/" + select_bed + "/" + select_Stairs + "/" + select_tv + "/" + encodeURIComponent(room_description.replaceAll("/", "###")) + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -165,6 +194,10 @@ function filterConfiguration(event) {
         case "configuration_messages":
             $('#configuration-messages').removeClass("display-none");
             $('#configuration-heading').text("Schedule Messages");
+            break;
+        case "configuration_terms":
+            $('#configuration-terms').removeClass("display-none");
+            $('#configuration-heading').text("Terms & Conditions");
             break;
         default:
         // code block
@@ -289,7 +322,13 @@ function getConfigRoomTvsDropDown() {
 }
 
 function populateFormWithRoom(event) {
-    let roomId = event.target.getAttribute("data-roomid");
+    let roomId = "";
+    if (typeof event === 'string' || event instanceof String) {
+        roomId = event;
+    } else {
+        roomId = event.target.getAttribute("data-roomid");
+    }
+
     $('#room_id').val(roomId);
     setCookie("room_id", roomId);
     if (roomId.localeCompare("0") === 0) {
@@ -323,10 +362,11 @@ function populateFormWithRoom(event) {
                 $('#select_bed').val(response[0].bed);
                 $('#select_tv').val(response[0].tv);
                 $('#select_Stairs').val(response[0].stairs);
-
+                $("#links_div").html(response[0].ical_links);
                 //show uploaded images
                 $("#uploaded_images_div").html(response[0].uploaded_images);
                 $('#imageUploaderDiv').removeClass("display-none");
+                $('#icalDiv').removeClass("display-none");
 
                 $('.close').unbind('click')
                 $(".close").click(function (event) {
@@ -353,6 +393,10 @@ function populateFormWithRoom(event) {
                     });
                 });
 
+                $(".remove_link_button").click(function (event) {
+                    removeChannel(event);
+                });
+
                 $([document.documentElement, document.body]).animate({
                     scrollTop: $("#manage_room_h3").offset().top
                 }, 2000);
@@ -361,8 +405,8 @@ function populateFormWithRoom(event) {
             } else {
                 showResErrorMessage("reservation", response[0].result_message);
             }
-        }).fail(function(d) {
-            if(d.status === 500){
+        }).fail(function (d) {
+            if (d.status === 500) {
                 populateFormWithRoom(event);
             }
         });
@@ -378,7 +422,7 @@ function setCookie(name, value) {
 }
 
 function getAddOns() {
-    let url =  hostname + "/api/addon/configaddons/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/addon/configaddons/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.ajax({
         type: "get",
@@ -388,7 +432,7 @@ function getAddOns() {
         dataType: "jsonp",
         contentType: "application/json; charset=UTF-8",
         success: function (data) {
-            $("#add_ons_div").html(data.html);
+            $("#add_ons_div").html(data);
             $(".addon_field").change(function (event) {
                 updateAddOn(event);
             });
@@ -445,8 +489,8 @@ function deleteAddOn(event) {
     let addOnId = event.target.getAttribute("data-addon-id");
     $("body").addClass("loading");
 
-    let url =  hostname + "/api/addon/delete/" + addOnId;
-    $.getJSON(url + "?callback=?", null, function(data) {
+    let url = hostname + "/api/addon/delete/" + addOnId;
+    $.getJSON(url + "?callback=?", null, function (data) {
         $("body").removeClass("loading");
         if (response[0].result_code === 0) {
             getAddOns();
@@ -459,7 +503,7 @@ function deleteAddOn(event) {
 
 function getEmployees() {
 
-    let url =  hostname + "/api/config/employees"+ "/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/config/employees" + "/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.ajax({
         type: "get",
@@ -492,8 +536,8 @@ function updateEmployee(event) {
     let employeeId = event.target.getAttribute("data-employee-id");
     $("body").addClass("loading");
 
-    let url =  hostname + "/api/employee/update/" + employeeId + "/" + event.target.value;
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/employee/update/" + employeeId + "/" + event.target.value;
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         if (response[0].result_code === 0) {
             showResSuccessMessage("configuration", response[0].result_message);
@@ -507,9 +551,9 @@ function createEmployee() {
     const employee_name = $("#employee_name").val().trim();
     $("body").addClass("loading");
 
-    let url =  hostname + "/api/createemployee/" + employee_name + "/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/createemployee/" + employee_name + "/" + sessionStorage.getItem("PROPERTY_UID");
 
-    $.getJSON(url + "?callback=?", null, function(data) {
+    $.getJSON(url + "?callback=?", null, function (data) {
         $("body").removeClass("loading");
         const jsonObj = data[0];
         if (jsonObj.result_code === 0) {
@@ -525,8 +569,8 @@ function deleteEmployee(event) {
     let employeeId = event.target.getAttribute("data-employee-id");
     $("body").addClass("loading");
 
-    let url =  hostname + "/api/employee/delete/" + employeeId;
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/employee/delete/" + employeeId;
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         if (response[0].result_code === 0) {
             getEmployees();
@@ -539,7 +583,7 @@ function deleteEmployee(event) {
 
 function getTemplates() {
     $("body").addClass("loading");
-    let url =  hostname + "/api/schedulemessages/templates" + "/" + sessionStorage.getItem("PROPERTY_UID") ;
+    let url = hostname + "/api/schedulemessages/templates" + "/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.ajax({
         type: "get",
@@ -569,7 +613,7 @@ function getTemplates() {
 }
 
 function getSchedules() {
-    let url =  hostname +  "/api/schedulemessages/schedules";
+    let url = hostname + "/api/schedulemessages/schedules";
 
     $.ajax({
         type: "get",
@@ -601,7 +645,7 @@ function getSchedules() {
 }
 
 function getVariables() {
-    let url =  hostname + "/api/schedulemessages/variables";
+    let url = hostname + "/api/schedulemessages/variables";
 
     $.ajax({
         type: "get",
@@ -628,7 +672,7 @@ function getVariables() {
 }
 
 function getRoomsForMessages() {
-    let url =  hostname + "/api/rooms/all" + "/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/rooms/all" + "/" + sessionStorage.getItem("PROPERTY_UID");
 
     $.ajax({
         type: "get",
@@ -672,8 +716,8 @@ function createScheduleMessage() {
     if (selected.length > 0) {
         $("body").addClass("loading");
 
-        let url =  hostname + "/api/schedulemessages/create/" + template_name_select + "/" + schedule_name + "/" + selected.toString() ;
-        $.getJSON(url + "?callback=?", null, function(data) {
+        let url = hostname + "/api/schedulemessages/create/" + template_name_select + "/" + schedule_name + "/" + selected.toString();
+        $.getJSON(url + "?callback=?", null, function (data) {
             $("body").removeClass("loading");
             const jsonObj = data[0];
             if (jsonObj.result_code === 0) {
@@ -690,7 +734,7 @@ function createScheduleMessage() {
 
 function getScheduledMessages() {
 
-    let url =  hostname + "/api/schedulemessages" + "/" + sessionStorage.getItem("PROPERTY_UID");
+    let url = hostname + "/api/schedulemessages" + "/" + sessionStorage.getItem("PROPERTY_UID");
     $.ajax({
         type: "get",
         url: url,
@@ -719,9 +763,9 @@ function deleteScheduledMessage(event) {
     let scheduleMessageId = event.target.getAttribute("data-id");
     $("body").addClass("loading");
 
-    let url =  hostname +  "/api/schedulemessages/delete/" + scheduleMessageId;
+    let url = hostname + "/api/schedulemessages/delete/" + scheduleMessageId;
 
-    $.getJSON(url + "?callback=?", null, function(response) {
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         var jsonObj = response[0];
         if (jsonObj.result_code === 0) {
@@ -738,8 +782,8 @@ function createMessageTemplate() {
     const name = $("#template_name_input").val().trim();
     const message = $("#template_message").val().trim();
 
-    let url =  hostname +  "/api/schedulemessages/createtemplate/" + name + "/" + encodeURIComponent(message) + "/" + sessionStorage.getItem("PROPERTY_UID");
-    $.getJSON(url + "?callback=?", null, function(response) {
+    let url = hostname + "/api/schedulemessages/createtemplate/" + name + "/" + encodeURIComponent(message) + "/" + sessionStorage.getItem("PROPERTY_UID");
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         var jsonObj = response[0];
         if (jsonObj.result_code === 0) {
@@ -753,8 +797,8 @@ function createMessageTemplate() {
 
 function getTemplateMessage() {
     const templateId = $('#template_name_select').find(":selected").val();
-    if(templateId != null){
-        let url =  hostname + "/api/schedulemessages/template/" + templateId ;
+    if (templateId != null) {
+        let url = hostname + "/api/schedulemessages/template/" + templateId;
 
         $.ajax({
             type: "get",
@@ -775,4 +819,102 @@ function getTemplateMessage() {
             }
         });
     }
+}
+
+
+function getTerms() {
+    let url = hostname + "/api/property/terms/" + sessionStorage.getItem("PROPERTY_UID");
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#terms_text").val(data[0].terms);
+        },
+        error: function (xhr) {
+            console.log("request for getTerms is " + xhr.status);
+            if (!isRetry("getTerms")) {
+                return;
+            }
+            getTerms();
+        }
+    });
+
+}
+
+function updateTerms() {
+    const terms_text = $("#terms_text").val().trim();
+
+    $("body").addClass("loading");
+
+    let url = hostname + "/api/property/terms/update/" + sessionStorage.getItem("PROPERTY_UID") + "/" + encodeURIComponent(terms_text.replaceAll("/", "###"));
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("body").removeClass("loading");
+            const jsonObj = data[0];
+            if (jsonObj.result_code === 0) {
+                showResSuccessMessage("configuration", jsonObj.result_message)
+            } else {
+                showResErrorMessage("configuration", jsonObj.result_message)
+            }
+        },
+        error: function (xhr) {
+            showResErrorMessage("configuration", "Server error occurred")
+        }
+    });
+
+}
+
+function addNewChannel() {
+    const room_id = $("#room_id").val().trim();
+    const link = $("#icalLink").val().trim();
+    let url = hostname + "/api/ical/links/" + room_id + "/" + encodeURIComponent(link.replaceAll("/", "###"));
+    $("body").addClass("loading");
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("body").removeClass("loading");
+            const jsonObj = data[0];
+            if (jsonObj.result_code === 0) {
+                populateFormWithRoom(room_id);
+            } else {
+                showResErrorMessage("configuration", jsonObj.result_message)
+            }
+        },
+        error: function (xhr) {
+            $("body").removeClass("loading");
+            console.log("request for addNewChannel " + xhr.status);
+        }
+    });
+}
+
+function removeChannel(event) {
+    let channelId = event.target.getAttribute("data-link-id");
+    $("body").addClass("loading");
+
+    let url = hostname + "/api/ical/remove/" + channelId;
+    $.getJSON(url + "?callback=?", null, function (response) {
+        $("body").removeClass("loading");
+        if (response[0].result_code === 0) {
+            const parent = $(event.target).parent();
+            parent.remove();
+            showResSuccessMessage("configuration", response[0].result_message);
+        } else {
+            showResErrorMessage("configuration", response[0].result_message);
+        }
+    });
 }

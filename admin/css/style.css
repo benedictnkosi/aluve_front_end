@@ -5,7 +5,11 @@
 	License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
-#room_description{
+.guest-name{
+	margin-top: auto;
+}
+
+#room_description, #terms_text{
 	height: 25em;
 }
 #occupancy_days{
@@ -117,7 +121,7 @@ input[type="checkbox"]{
 	width: auto;
 }
 
-.remove_employee_button, .remove_addon_button{
+.remove_employee_button, .remove_addon_button, .remove_link_button{
 	display: inline !important;
 }
 
@@ -232,7 +236,6 @@ input, select, textarea {
 
 
 .new-reservation-link{
-float:right;
 	color:white;
 }
 
@@ -418,9 +421,11 @@ padding:0.3em;
 }
 
 .image_verified {
-	width: 5em;
-	height: 5em;
-	margin-top: 2em;
+	width: 2em;
+	height: 2em;
+	margin-right: 1em;
+	margin-left: 1px;
+	margin-top: -5px;
 }
 
 .information-h3 {

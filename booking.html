@@ -34,7 +34,7 @@
     <div class="booking-form-61">
         <div class="container">
             <div class="booking-top-gds">
-                <div class="booking-forms-16-info align-self">
+                <div class="booking-forms-16-info">
                     <h5>Your Reservation</h5>
                     <h3 class="title-big">Select date, choose your room and book it.</h3>
                     <p>Payment is offline only. An SMS will be sent with a link to the invoice for payment. The reservation is only confirmed upon payment.</p>
@@ -46,12 +46,12 @@
                             <div class="mt-3">
                                 <div class="hny-frm_grid">
                                     <h5>Name</h5>
-                                    <input class="name" name="guestName" id="guestName" type="text" placeholder="Your Name" required="">
+                                    <input class="name" name="guestName" id="guestName" type="text" placeholder="Your Name" required>
                                 </div>
                                 <div class="hny-frm_grid">
                                     <h5>Phone Number</h5>
                                     <input class="phone" name="phoneNumber" id="phoneNumber" type="phone" placeholder="Phone Number"
-                                           required="">
+                                           required>
                                 </div>
                                 <div class="hny-frm_grid">
                                     <h5>Email (Optional)</h5>
@@ -98,6 +98,9 @@
                                     <p id="nights_message"> </p>
                                 </div>
                             </div>
+
+                            <input type="checkbox" id="accept_terms" name="accept_terms" value="accept_terms">
+                            <label for="accept_terms"> I accept the <a href="terms.html" target="_blank">terms & conditions</a></label><br>
                             <button class="btn btn-style btn-secondary book mt-3" id="bookNowButton">Book Now</button>
 
                         </form>

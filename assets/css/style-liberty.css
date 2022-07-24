@@ -414,10 +414,12 @@ button::-moz-focus-inner,
     border-style: none;
 }
 
-input[type="radio"],
 input[type="checkbox"] {
+    -webkit-appearance: auto !important;
     box-sizing: border-box;
     padding: 0;
+    width: auto !important;
+    height: auto !important;
 }
 
 input[type="date"],

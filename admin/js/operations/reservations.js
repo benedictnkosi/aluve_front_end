@@ -110,13 +110,6 @@ function setBindings() {
         captureGuestPhoneNumber(event);
     });
 
-    $('.image_verified').off();
-    $('.image_verified').on('click', function (event) {
-        var customerID = event.target.id.replace("img_upload_", "");
-        $(".uploadImageInput").click();
-        $("#customer_image_id").val(customerID);
-    });
-
     $('.NotCheckedIn').unbind('click')
     $(".NotCheckedIn").click(function (event) {
         markReservationAsCheckedInOut(event, "checked_in");
@@ -215,7 +208,10 @@ function blockGuest(event) {
     const res_id = event.target.id.replace("block_guest_button_", "");
     const article = document.querySelector('#block_guest_button_' + res_id);
     if (!$("#block_note_" + article.dataset.resid).val()) {
+        //hide other opened reservation inputs
+        $(".reservation_input").addClass("display-none");
         $("#block_note_" + article.dataset.resid).removeClass("display-none");
+
     } else {
         const note = $("#block_note_" + article.dataset.resid).val();
         $("body").addClass("loading");
@@ -362,6 +358,8 @@ function updateReservationRoom(event, roomId) {
 function markAsCleaned(event) {
     const id = event.target.id.replace("mark_cleaned_button_", "");
     if ($("#div_mark_cleaned_" + id).hasClass("display-none")) {
+        //hide other opened reservation inputs
+        $(".reservation_input").addClass("display-none");
         $("#div_mark_cleaned_" + id).removeClass("display-none");
     } else {
         const employee_id = $("#select_employee_" + id).val();
@@ -387,8 +385,11 @@ function markAsCleaned(event) {
 }
 
 function addAddOn(event) {
+
     const id = event.target.id.replace("add_add_on_button_", "");
     if ($("#div_add_on_" + id).hasClass("display-none")) {
+        //hide other opened reservation inputs
+        $(".reservation_input").addClass("display-none");
         $("#div_add_on_" + id).removeClass("display-none");
     } else {
         const add_on_id = $("#select_add_on_" + id).val();
@@ -414,9 +415,12 @@ function addAddOn(event) {
 }
 
 function addGuestID(event) {
+
     const id = event.target.id.replace("add_guest_id_button_", "");
     const article = document.querySelector('#add_guest_id_button_' + id);
     if (!$("#guest_id_" + article.dataset.resid).val()) {
+        //hide other opened reservation inputs
+        $(".reservation_input").addClass("display-none");
         $("#guest_id_" + article.dataset.resid).removeClass("display-none");
     } else {
         const idNumber = $("#guest_id_" + article.dataset.resid).val();
@@ -437,9 +441,12 @@ function addGuestID(event) {
 }
 
 function addPayment(event) {
+
     const id = event.target.id.replace("add_payment_button_", "");
     const article = document.querySelector('#add_payment_button_' + id);
     if (!$("#amount_" + article.dataset.resid).val()) {
+        //hide other opened reservation inputs
+        $(".reservation_input").addClass("display-none");
         $("#amount_" + article.dataset.resid).removeClass("display-none");
     } else {
         const amount = $("#amount_" + article.dataset.resid).val();
@@ -464,9 +471,12 @@ function addPayment(event) {
 }
 
 function addNote(event) {
+
     const id = event.target.id.replace("add_note_button_", "");
     const article = document.querySelector('#add_note_button_' + id);
     if (!$("#note_" + article.dataset.resid).val()) {
+        //hide other opened reservation inputs
+        $(".reservation_input").addClass("display-none");
         $("#note_" + article.dataset.resid).removeClass("display-none");
     } else {
         const note = $("#note_" + article.dataset.resid).val();
