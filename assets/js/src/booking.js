@@ -271,6 +271,7 @@ function getCustomer() {
         success: function (response) {
             if (response[0].result_code === 0) {
                 $('#guestName').val(response[0].name);
+                $('#email').val(response[0].email);
             }
         },
         error: function (xhr) {
