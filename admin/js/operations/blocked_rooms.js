@@ -32,8 +32,8 @@ $(document).ready(function() {
 
 				$('input[name="block_date"]').on('apply.daterangepicker', function (event, picker) {
 					$(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-					localStorage.setItem('blockStartDate', picker.startDate.format("YYYY-MM-DD"));
-					localStorage.setItem('blockEndDate', picker.endDate.format("YYYY-MM-DD"));
+					sessionStorage.setItem('blockStartDate', picker.startDate.format("YYYY-MM-DD"));
+					sessionStorage.setItem('blockEndDate', picker.endDate.format("YYYY-MM-DD"));
 				});
 			});
 		});
@@ -136,7 +136,7 @@ function blockRoom() {
 
 	$("body").addClass("loading");
 
-	let url =  hostname + "/api/blockroom/"+ block_room+ "/" + localStorage.getItem("blockStartDate") + "/" + localStorage.getItem("blockEndDate") + "/"+ block_note;
+	let url =  hostname + "/api/blockroom/"+ block_room+ "/" + sessionStorage.getItem("blockStartDate") + "/" + sessionStorage.getItem("blockEndDate") + "/"+ block_note;
 	$.getJSON(url + "?callback=?", null, function(data) {
 		$("body").removeClass("loading");
 		const jsonObj = data[0];

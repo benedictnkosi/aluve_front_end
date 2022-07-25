@@ -9,7 +9,7 @@ $(document).ready(function () {
     }
 
     $("#create_invoice_tab").click(function (event) {
-        localStorage.setItem("property_manager_action", "create");
+        sessionStorage.setItem("property_manager_action", "create");
         $("#submit_create_invoice").prop("value", "Create Invoice");
         //in case it was disabled by stayover and checkout update
         $("#rooms_select").prop('disabled', false);

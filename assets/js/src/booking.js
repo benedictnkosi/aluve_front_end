@@ -46,18 +46,18 @@ $(document).ready(function () {
     let date = new Date();
     let endDate = new Date(date.getTime());
     //get available rooms for today if previous date not set
-    if (localStorage.getItem("checkInDate") == null) {
+    if (sessionStorage.getItem("checkInDate") == null) {
         endDate.setDate(date.getDate() + 1);
         const strToday = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         const strTomorrow = endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate();
-        localStorage.setItem('checkInDate', strToday);
-        localStorage.setItem('checkOutDate', strTomorrow);
+        sessionStorage.setItem('checkInDate', strToday);
+        sessionStorage.setItem('checkOutDate', strTomorrow);
         getAvailableRooms(strToday, strTomorrow);
     } else {
-        date = new Date(localStorage.getItem('checkInDate'));
-        endDate = new Date(localStorage.getItem('checkOutDate'));
-        $(this).val(localStorage.getItem('checkInDate') + ' - ' + localStorage.getItem('checkOutDate'));
-        getAvailableRooms(localStorage.getItem('checkInDate'), localStorage.getItem('checkOutDate'));
+        date = new Date(sessionStorage.getItem('checkInDate'));
+        endDate = new Date(sessionStorage.getItem('checkOutDate'));
+        $(this).val(sessionStorage.getItem('checkInDate') + ' - ' + sessionStorage.getItem('checkOutDate'));
+        getAvailableRooms(sessionStorage.getItem('checkInDate'), sessionStorage.getItem('checkOutDate'));
     }
 
     //date picker
@@ -77,17 +77,16 @@ $(document).ready(function () {
 
                 $('#checkindate').on('apply.daterangepicker', function (event, picker) {
                     getAvailableRooms(picker.startDate.format("YYYY-MM-DD"), picker.endDate.format("YYYY-MM-DD"));
-                    localStorage.setItem('checkInDate', picker.startDate.format("YYYY-MM-DD"));
-                    localStorage.setItem('checkOutDate', picker.endDate.format("YYYY-MM-DD"));
+                    sessionStorage.setItem('checkInDate', picker.startDate.format("YYYY-MM-DD"));
+                    sessionStorage.setItem('checkOutDate', picker.endDate.format("YYYY-MM-DD"));
 
                     let checkInDate = new Date(picker.startDate.format("YYYY-MM-DD"));
                     let checkOutDate = new Date(picker.endDate.format("YYYY-MM-DD"))
                     let difference = checkOutDate - checkInDate;
                     let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
                     console.log("date diff is " + totalDays);
-                    localStorage.setItem('numberOfNights', totalDays);
+                    sessionStorage.setItem('numberOfNights', totalDays);
                 });
-
             });
         });
     });
@@ -100,7 +99,7 @@ function isEmail(email) {
 }
 
 function displayTotal() {
-    let numberOfNights = parseInt(localStorage.getItem('numberOfNights'));
+    let numberOfNights = parseInt(sessionStorage.getItem('numberOfNights'));
     let total = 0;
     let nightsMessage = "";
     let roomIdArray = [];
@@ -181,7 +180,7 @@ function getAvailableRooms(checkInDate, checkOutDate) {
         let difference = checkOutDateDate - checkInDateDate;
         let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
         console.log("date diff is " + totalDays);
-        localStorage.setItem('numberOfNights', totalDays);
+        sessionStorage.setItem('numberOfNights', totalDays.toString());
 
         if (room_id.localeCompare("0") !== 0) {
             displayTotal();
@@ -210,8 +209,8 @@ function createReservation() {
         const guestName = $('#guestName').val();
         const phoneNumber = $('#phoneNumber').val().trim().replaceAll(" ", "");
         const email = $('#email').val();
-        const checkInDate = localStorage.getItem('checkInDate');
-        const checkOutDate = localStorage.getItem('checkOutDate');
+        const checkInDate = sessionStorage.getItem('checkInDate');
+        const checkOutDate = sessionStorage.getItem('checkOutDate');
 
         if (guestName.length < 1) {
             $("#reservation_message").text("Please provide guest name")
@@ -247,7 +246,7 @@ function createReservation() {
                 $("#reservation_message").text(data[0].result_message)
                 $("#reservation_error_message_div").removeClass("display-none");
             } else {
-                localStorage.setItem("reservation_id", JSON.stringify(data[0].reservation_id));
+                sessionStorage.setItem("reservation_id", JSON.stringify(data[0].reservation_id));
                 window.location.href = "/confirmation.html";
             }
         });
@@ -258,7 +257,7 @@ function createReservation() {
 }
 
 function getCustomer() {
-    localStorage.setItem('customer_state', 'clear');
+    sessionStorage.setItem('customer_state', 'clear');
     $("#phoneNumber").val($("#phoneNumber").val().replaceAll(" ", ""));
     let url = hostname + "/api/guests/" + $("#phoneNumber").val();
     $.ajax({

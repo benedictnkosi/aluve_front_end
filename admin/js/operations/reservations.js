@@ -75,8 +75,8 @@ function setBindings() {
                 });
 
                 $('input[name="check_in_date"]').on('show.daterangepicker', function (event, picker) {
-                    localStorage.setItem('original_check_in_date', picker.startDate.format('MM/DD/YYYY'));
-                    localStorage.setItem('original_check_out_date', picker.endDate.format('MM/DD/YYYY'));
+                    sessionStorage.setItem('original_check_in_date', picker.startDate.format('MM/DD/YYYY'));
+                    sessionStorage.setItem('original_check_out_date', picker.endDate.format('MM/DD/YYYY'));
                 });
 
 

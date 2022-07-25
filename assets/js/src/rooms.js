@@ -8,8 +8,8 @@ $(document).ready(function () {
     tomorrow.setDate(date.getDate() + 2);
     const strToday = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const strTomorrow = tomorrow.getFullYear() + "-" + (tomorrow.getMonth() + 1) + "-" + tomorrow.getDate();
-    localStorage.setItem('checkInDate', strToday);
-    localStorage.setItem('checkOutDate', strTomorrow);
+    sessionStorage.setItem('checkInDate', strToday);
+    sessionStorage.setItem('checkOutDate', strTomorrow);
 
     //date picker
     $.getScript("https://cdn.jsdelivr.net/jquery/latest/jquery.min.js", function () {
@@ -27,8 +27,8 @@ $(document).ready(function () {
 
                 $('#rooms_checkindate').on('apply.daterangepicker', function (event, picker) {
                     $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-                    localStorage.setItem('checkInDate', picker.startDate.format("YYYY-MM-DD"));
-                    localStorage.setItem('checkOutDate', picker.endDate.format("YYYY-MM-DD"));
+                    sessionStorage.setItem('checkInDate', picker.startDate.format("YYYY-MM-DD"));
+                    sessionStorage.setItem('checkOutDate', picker.endDate.format("YYYY-MM-DD"));
                     filterRooms(picker.startDate.format("YYYY-MM-DD"), picker.endDate.format("YYYY-MM-DD"));
                 });
             });
