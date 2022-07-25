@@ -1,4 +1,25 @@
 $(document).ready(function () {
+
+});
+
+function loadConfigurationPageData() {
+    getConfigRooms();
+    getConfigRoomsDropDown();
+    getConfigRoomStatusesDropDown();
+    getConfigRoomBedSizesDropDown();
+    getAddOns();
+    getEmployees();
+    getScheduledMessages();
+    getSchedules();
+    getVariables();
+    getRoomsForMessages();
+    getConfigRoomTvsDropDown();
+    getTemplates();
+    getTerms();
+    bindConfigElements();
+}
+
+function bindConfigElements(){
     $('.filter-configuration').unbind('click')
     $(".filter-configuration").click(function (event) {
         filterConfiguration(event);
@@ -97,24 +118,7 @@ $(document).ready(function () {
             createMessageTemplate();
         }
     });
-});
-
-function loadConfigurationPageData() {
-    getConfigRooms();
-    getConfigRoomsDropDown();
-    getConfigRoomStatusesDropDown();
-    getConfigRoomBedSizesDropDown();
-    getAddOns();
-    getEmployees();
-    getScheduledMessages();
-    getSchedules();
-    getVariables();
-    getRoomsForMessages();
-    getConfigRoomTvsDropDown();
-    getTemplates();
-    getTerms();
 }
-
 
 const uploader = $('#ssi-upload').ssi_uploader({
     url: '/admin/UploadController.php',
