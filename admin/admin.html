@@ -50,6 +50,40 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="css/ssi-uploader.css"/>
     <link rel="stylesheet" href="css/mobile-menu.css"/>
 
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-top: 1px solid grey;
+        }
+
+        td,
+        th {
+            margin: 0;
+            border: 1px solid grey;
+            white-space: nowrap;
+            border-top-width: 0px;
+        }
+
+        calendar-table-div {
+            width: 500px;
+            overflow-x: scroll;
+            margin-left: 5em;
+            overflow-y: visible;
+            padding: 0;
+        }
+
+        .headcol {
+            position: absolute;
+            /* width: 5em; */
+            /* left: 0; */
+            top: auto;
+            border-top-width: 1px;
+            margin-top: -1px;
+            border: none;
+        }
+
+    </style>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="js/bootstrap.js"></script>
@@ -181,7 +215,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="clearfix"></div>
             </div>
 
-            <div class="profile-ser scrollable">
+            <div class="profile-ser scrollable calendar-table-div">
                 <table id="calendar-table" style="width: 100%">
                 </table>
 
