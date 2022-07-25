@@ -149,12 +149,21 @@ function setBindings() {
     $(".reservations_actions_link").click(function (event) {
         showRightDivForMobile(event);
     });
+
 }
 
 function showRightDivForMobile(event) {
     let reservationID = event.target.getAttribute("data-res-id");
     $('.right-div').css("display", "none");
-    $('#right-div-' + reservationID).css("display", "block");
+
+    if(event.target.innerHTML.localeCompare("more...") === 0){
+        $('#right-div-' + reservationID).css("display", "block");
+        event.target.innerHTML = "less...";
+    }else{
+        $('#right-div-' + reservationID).css("display", "none");
+        event.target.innerHTML = "more...";
+    }
+
 }
 
 function changeBookingStatus(event) {
