@@ -1,4 +1,11 @@
 <?php
+$command = "git config --global user.email nkosi.benedict@gmail.com";
+exec($command.' 2>&1', $tmp, $return_code); // Execute the command
+
+$command = "git config --global user.name nkosibenedict";
+exec($command.' 2>&1', $tmp, $return_code); // Execute the command
+
+
 $command = "git pull origin main --force";
 //$command = "git clone https://github.com/benedictnkosi/aluve_front_end.git --branch main";
 
