@@ -64,7 +64,7 @@ class Uploader
         $size = $_FILES[$fileBrowse]["size"];
         $name = $_FILES[$fileBrowse]["name"];
         $ext = $this->getExtension($name);
-        echo 'test 1';
+
         if (!is_dir($this->destinationPath)) {
             $this->setMessage("Destination folder is not a directory ");
         } else if (!is_writable($this->destinationPath)) {
@@ -75,7 +75,7 @@ class Uploader
             $this->setMessage("Too large file !");
         } else if ($this->allowAll || (in_array($ext, $this->extensions))) {
             $this->uploadName = $this->imageSeq . "-" . substr(md5(rand(1111, 9999)), 0, 8) . $this->getRandom() . rand(1111, 1000) . rand(99, 9999) . "." . $ext;
-            echo 'test 2';
+
             //set new dimensions
             $maxDim = 5000;
             $minDim = 320;
@@ -121,7 +121,9 @@ class Uploader
 
                 $result = true;
                 if (isset($_COOKIE['room_id'])) {
-                    $this->curl(API_SERVER."/api/rooms/addimage/" . $_COOKIE['room_id'] . "/" . $this->uploadName);
+                    if(!$this->curl(API_SERVER."/api/rooms/addimage/" . $_COOKIE['room_id'] . "/" . $this->uploadName)){
+                        $result = false;
+                    }
                 } else {
                     $this->setMessage('Room ID cookie value not set');
                 }
@@ -129,7 +131,9 @@ class Uploader
                 if (move_uploaded_file($_FILES[$fileBrowse]["tmp_name"], $this->destinationPath . $this->uploadName)) {
                     $result = true;
                     if (isset($_COOKIE['room_id'])) {
-                        $this->curl(API_SERVER."/api/rooms/addimage/" . $_COOKIE['room_id'] . "/" . $this->uploadName);
+                        if(!$this->curl(API_SERVER."/api/rooms/addimage/" . $_COOKIE['room_id'] . "/" . $this->uploadName)){
+                            $result = false;
+                        }
                     } else {
                         $this->setMessage('Room ID cookie value not set');
                     }
@@ -146,22 +150,31 @@ class Uploader
 
     function curl($url)
     {
-        // create curl resource
-        $ch = curl_init();
-        // set url
-        echo $url;
-        curl_setopt($ch, CURLOPT_URL, $url);
+        try{
+            // create curl resource
+            $ch = curl_init();
+            // set url
+            echo $url;
+            curl_setopt($ch, CURLOPT_URL, $url);
 
-        //return the transfer as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            //return the transfer as a string
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        // $output contains the output string
+            // $output contains the output string
 
-        $output = curl_exec($ch);
+            $output = curl_exec($ch);
 
-        echo $output;
-        // close curl resource to free up system resources
-        curl_close($ch);
+            curl_close($ch);
+
+            if(str_contains("Successfully linked image to the room", $output)){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+            return false;
+        }
     }
 
 }
