@@ -121,7 +121,7 @@ class Uploader
 
                 $result = true;
                 if (isset($_COOKIE['room_id'])) {
-                    $this->curl("http://".API_SERVER."/api/rooms/addimage/" . $_COOKIE['room_id'] . "/" . $this->uploadName);
+                    $this->curl(API_SERVER."/api/rooms/addimage/" . $_COOKIE['room_id'] . "/" . $this->uploadName);
                 } else {
                     $this->setMessage('Room ID cookie value not set');
                 }
