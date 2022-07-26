@@ -19,7 +19,7 @@ function loadConfigurationPageData() {
     bindConfigElements();
 }
 
-function bindConfigElements(){
+function bindConfigElements() {
     $('.filter-configuration').unbind('click')
     $(".filter-configuration").click(function (event) {
         event.stopImmediatePropagation();
@@ -120,26 +120,28 @@ function bindConfigElements(){
             createMessageTemplate();
         }
     });
+
+    const uploader = $('#ssi-upload').ssi_uploader({
+        url: '/admin/UploadController.php',
+        allowed: ['jpg', 'jpeg', 'png', 'bmp', 'gif'],
+        maxNumberOfFiles: '10',
+        errorHandler: {
+            method: function (msg, type) {
+                showResErrorMessage("configuration", msg)
+                //ssi_modal.notify(type, {content: msg});
+            },
+            success: 'success',
+            error: 'error'
+        },
+        maxFileSize: 5,//mb,
+    });
+
+    uploader.on('onEachUpload.ssi-uploader', function () {
+        uploader.data('ssi_upload').uploadFiles();
+    });
 }
 
-const uploader = $('#ssi-upload').ssi_uploader({
-    url: '/admin/UploadController.php',
-    allowed: ['jpg', 'jpeg', 'png', 'bmp', 'gif'],
-    maxNumberOfFiles: '10',
-    errorHandler: {
-        method: function (msg, type) {
-            showResErrorMessage("configuration", msg)
-            //ssi_modal.notify(type, {content: msg});
-        },
-        success: 'success',
-        error: 'error'
-    },
-    maxFileSize: 5,//mb,
-});
 
-uploader.on('onEachUpload.ssi-uploader', function () {
-    uploader.data('ssi_upload').uploadFiles();
-});
 
 function createUpdateRoom() {
     const room_id = $("#room_id").val().trim();
