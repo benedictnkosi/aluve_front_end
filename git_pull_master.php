@@ -8,7 +8,6 @@ exec($command.' 2>&1', $tmp, $return_code); // Execute the command
 $command = "git stash";
 exec($command.' 2>&1', $tmp, $return_code); // Execute the command
 
-
 $command = "git pull origin main --force";
 //$command = "git clone https://github.com/benedictnkosi/aluve_front_end.git --branch main";
 
