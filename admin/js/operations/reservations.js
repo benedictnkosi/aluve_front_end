@@ -265,7 +265,7 @@ function filterReservations(event) {
             $('#reservations-heading').text("Upcoming Reservations");
             break;
         case "reservations_checkouts":
-            $('#checkouts-list').removeClass("display-none");
+            $('#checkout-list').removeClass("display-none");
             $('#reservations-heading').text("Check Outs");
             break;
         case "reservations_stay_overs":
