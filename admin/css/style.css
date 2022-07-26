@@ -5,6 +5,11 @@
 	License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
+.not_default_image{
+	opacity: 0.5;
+	cursor: pointer;
+}
+
 .desktopOnlyMenu{
 	font-style: normal !important;
 }
@@ -173,7 +178,10 @@ hr {
 
 .default_image_star {
 	width: 20px !important;
-	height: 20px !important;;
+	height: 20px !important;
+	margin: 1px !important;
+	margin-left: 5em !important;
+	margin-top: 13px  !important;
 }
 
 .image-thumbnail img {

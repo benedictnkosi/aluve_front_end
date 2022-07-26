@@ -128,7 +128,8 @@ const uploader = $('#ssi-upload').ssi_uploader({
     maxNumberOfFiles: '10',
     errorHandler: {
         method: function (msg, type) {
-            ssi_modal.notify(type, {content: msg});
+            showResErrorMessage("configuration", msg)
+            //ssi_modal.notify(type, {content: msg});
         },
         success: 'success',
         error: 'error'
@@ -388,7 +389,7 @@ function populateFormWithRoom(event) {
                     });
                 });
 
-                $(".default_image_star").click(function (event) {
+                $(".not_default_image").click(function (event) {
                     event.stopImmediatePropagation();
                     const imageId = event.target.getAttribute("data-image-id");
                     let url = hostname + "/api/configuration/markdefault/" + imageId;
@@ -396,8 +397,8 @@ function populateFormWithRoom(event) {
                     $.getJSON(url + "?callback=?", null, function (response) {
                         if (response[0].result_code === 0) {
                             //remove the yellow start from previous default image
-                            $(".default_image_star").attr("src", "images/star_gray.png");
-                            $(event.target).attr("src", "images/star_yellow.png");
+                            $(".room_images").addClass("not_default_image");
+                            $(event.target).removeClass("not_default_image");
                         }
                     });
                 });

@@ -5851,6 +5851,7 @@ button.list-group-item-danger.active:focus {
   filter: alpha(opacity=20);
   /* opacity: .2; */
   position: absolute;
+  cursor: pointer;
 }
 .close:hover,
 .close:focus {
