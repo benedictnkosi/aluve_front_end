@@ -22,6 +22,7 @@ function loadConfigurationPageData() {
 function bindConfigElements(){
     $('.filter-configuration').unbind('click')
     $(".filter-configuration").click(function (event) {
+        event.stopImmediatePropagation();
         filterConfiguration(event);
     });
 
@@ -73,6 +74,7 @@ function bindConfigElements(){
 
     $('#messages_submit').unbind('click')
     $("#messages_submit").click(function (event) {
+        event.stopImmediatePropagation();
         createScheduleMessage(event);
     });
 
@@ -221,6 +223,7 @@ function getConfigRooms() {
             $("#config_rooms_list").html(data.html);
             $('.roomsMenu').unbind('click')
             $(".roomsMenu").click(function (event) {
+                event.stopImmediatePropagation();
                 populateFormWithRoom(event);
             });
         },
@@ -374,6 +377,7 @@ function populateFormWithRoom(event) {
 
                 $('.close').unbind('click')
                 $(".close").click(function (event) {
+                    event.stopImmediatePropagation();
                     const imageId = event.target.getAttribute("data-image-id");
                     const roomId = event.target.getAttribute("data-room-id");
                     let url = hostname + "/api/configuration/removeimage/" + imageId;
@@ -385,6 +389,7 @@ function populateFormWithRoom(event) {
                 });
 
                 $(".default_image_star").click(function (event) {
+                    event.stopImmediatePropagation();
                     const imageId = event.target.getAttribute("data-image-id");
                     let url = hostname + "/api/configuration/markdefault/" + imageId;
 
@@ -398,6 +403,7 @@ function populateFormWithRoom(event) {
                 });
 
                 $(".remove_link_button").click(function (event) {
+                    event.stopImmediatePropagation();
                     removeChannel(event);
                 });
 
@@ -440,11 +446,13 @@ function getAddOns() {
 
             $('.addon_field').unbind('click')
             $(".addon_field").change(function (event) {
+                event.stopImmediatePropagation();
                 updateAddOn(event);
             });
 
             $('.remove_addon_button').unbind('click')
             $(".remove_addon_button").click(function (event) {
+                event.stopImmediatePropagation();
                 deleteAddOn(event);
             });
         },
@@ -528,6 +536,7 @@ function getEmployees() {
 
             $('.remove_employee_button').unbind('click')
             $(".remove_employee_button").click(function (event) {
+                event.stopImmediatePropagation();
                 deleteEmployee(event);
             });
         },
@@ -755,6 +764,7 @@ function getScheduledMessages() {
             $("#messages_div").html(data.html);
             $('.deleteScheduledMessage').unbind('click')
             $(".deleteScheduledMessage").click(function (event) {
+                event.stopImmediatePropagation();
                 deleteScheduledMessage(event);
             });
         },

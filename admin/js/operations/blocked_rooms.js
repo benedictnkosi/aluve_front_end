@@ -40,6 +40,7 @@ $(document).ready(function() {
 	});
 
 $(".filter-block-room-tabs").click(function(event) {
+	event.stopImmediatePropagation();
 	filterBlockedRoomsTabs(event);
 	});
 	
@@ -64,6 +65,7 @@ function getBlockedRooms() {
 			$("body").removeClass("loading");
 			$("#block-list").html(data.html);
 			$(".deleteBlockRoom").click(function(event) {
+				event.stopImmediatePropagation();
 				deleteBlockRoom(event);
 			});
 		},

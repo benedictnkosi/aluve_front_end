@@ -33,6 +33,7 @@ function getReservationsByPeriod(period) {
             setBindings();
         },
         error: function (xhr) {
+            setBindings();
             console.log("request for "+period+" is " + xhr.status);
             if (!isRetry(""+period+"")) {
                 return;
@@ -48,6 +49,7 @@ function getReservationsByPeriod(period) {
 function setBindings() {
     $('.changeBookingStatus').unbind('click')
     $(".changeBookingStatus").click(function (event) {
+        event.stopImmediatePropagation();
         changeBookingStatus(event);
     });
 
@@ -86,67 +88,80 @@ function setBindings() {
 
     $('.check_in_time_input').unbind('change')
     $(".check_in_time_input").change(function (event) {
+        event.stopImmediatePropagation();
         updateCheckInOutTime(event, "check_in_time")
     });
 
     $('.check_out_time_input').unbind('change')
     $(".check_out_time_input").change(function (event) {
+        event.stopImmediatePropagation();
         updateCheckInOutTime(event, "check_out_time")
     });
 
     $('.reservation_room_input').unbind('change')
     $(".reservation_room_input").change(function (event) {
+        event.stopImmediatePropagation();
         const roomId = $(this).find(':selected').val()
         updateReservationRoom(event, roomId)
     });
 
     $('.blockGuest').unbind('click')
     $(".blockGuest").click(function (event) {
+        event.stopImmediatePropagation();
         blockGuest(event);
     });
 
     $('.phone_number_input').unbind('change')
     $(".phone_number_input").change(function (event) {
+        event.stopImmediatePropagation();
         captureGuestPhoneNumber(event);
     });
 
     $('.NotCheckedIn').unbind('click')
     $(".NotCheckedIn").click(function (event) {
+        event.stopImmediatePropagation();
         markReservationAsCheckedInOut(event, "checked_in");
     });
 
     $('.res_add_payment').unbind('click')
     $(".res_add_payment").click(function (event) {
+        event.stopImmediatePropagation();
         addPayment(event);
     });
 
     $('.res_add_guest_id').unbind('click')
     $(".res_add_guest_id").click(function (event) {
+        event.stopImmediatePropagation();
         addGuestID(event);
     });
 
     $('.res_add_note').unbind('click')
     $(".res_add_note").click(function (event) {
+        event.stopImmediatePropagation();
         addNote(event);
     });
 
     $('.res_mark_cleaned').unbind('click')
     $(".res_mark_cleaned").click(function (event) {
+        event.stopImmediatePropagation();
         markAsCleaned(event);
     });
 
     $('.res_block_guest').unbind('click')
     $(".res_block_guest").click(function (event) {
+        event.stopImmediatePropagation();
         blockGuest(event);
     });
 
     $('.res_add_add_on').unbind('click')
     $(".res_add_add_on").click(function (event) {
+        event.stopImmediatePropagation();
         addAddOn(event);
     });
 
     $('.reservations_actions_link').unbind('click')
     $(".reservations_actions_link").click(function (event) {
+        event.stopImmediatePropagation();
         showRightDivForMobile(event);
     });
 
