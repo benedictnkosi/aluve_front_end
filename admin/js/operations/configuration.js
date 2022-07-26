@@ -141,8 +141,6 @@ function bindConfigElements() {
     });
 }
 
-
-
 function createUpdateRoom() {
     const room_id = $("#room_id").val().trim();
     const room_name = $("#room_name").val().trim();
