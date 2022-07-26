@@ -64,6 +64,7 @@ class Uploader
         $size = $_FILES[$fileBrowse]["size"];
         $name = $_FILES[$fileBrowse]["name"];
         $ext = $this->getExtension($name);
+        echo 'test 1';
         if (!is_dir($this->destinationPath)) {
             $this->setMessage("Destination folder is not a directory ");
         } else if (!is_writable($this->destinationPath)) {
@@ -74,7 +75,7 @@ class Uploader
             $this->setMessage("Too large file !");
         } else if ($this->allowAll || (in_array($ext, $this->extensions))) {
             $this->uploadName = $this->imageSeq . "-" . substr(md5(rand(1111, 9999)), 0, 8) . $this->getRandom() . rand(1111, 1000) . rand(99, 9999) . "." . $ext;
-
+            echo 'test 2';
             //set new dimensions
             $maxDim = 800;
             $minDim = 320;
@@ -83,6 +84,7 @@ class Uploader
             echo 'image width ' . $width;
             if ($width < $minDim || $height < $minDim) {
                 $this->setMessage('Image is too small. Please upload an image with a better quality');
+                echo $this->getMessage();
                 return false;
             }
 

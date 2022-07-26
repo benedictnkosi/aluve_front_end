@@ -11,6 +11,7 @@ if($uploader->uploadFile('files')){   //txtFile is the filebrowse element name /
     $image  =   $uploader->getUploadName(); //get uploaded file name, renames on upload//
 
 }else{//upload failed
+    echo 'upload failed';
     header("HTTP/1.1 500 Internal Server Error");
     print_r($uploader->getMessage()); //get upload error message
 }
