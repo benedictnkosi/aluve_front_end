@@ -505,7 +505,7 @@ function deleteAddOn(event) {
     $("body").addClass("loading");
 
     let url = hostname + "/api/addon/delete/" + addOnId;
-    $.getJSON(url + "?callback=?", null, function (data) {
+    $.getJSON(url + "?callback=?", null, function (response) {
         $("body").removeClass("loading");
         if (response[0].result_code === 0) {
             getAddOns();

@@ -5,6 +5,9 @@
 	License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
+.desktopOnlyMenu{
+	font-style: normal !important;
+}
 .guest-name{
 	margin-top: auto;
 }
