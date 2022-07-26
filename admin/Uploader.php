@@ -77,7 +77,7 @@ class Uploader
             $this->uploadName = $this->imageSeq . "-" . substr(md5(rand(1111, 9999)), 0, 8) . $this->getRandom() . rand(1111, 1000) . rand(99, 9999) . "." . $ext;
             echo 'test 2';
             //set new dimensions
-            $maxDim = 800;
+            $maxDim = 5000;
             $minDim = 320;
             $file_name = $_FILES[$fileBrowse]['tmp_name'];
             list($width, $height, $type, $attr) = getimagesize($file_name);
