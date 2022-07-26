@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    clearSessionData();
-    //$("body").addClass("startup-loading");
     window.setTimeout(hideLoader, 15000);
     if (sessionStorage.getItem("current_page") === null) {
         updateView('calendar');
@@ -53,16 +51,6 @@ function updateView(selectedDiv) {
     sessionStorage.setItem("current_page", selectedDiv);
     isUserLoggedIn();
     loadDataOnFirstClick(selectedDiv);
-}
-
-function clearSessionData() {
-    sessionStorage.removeItem("calendar");
-    sessionStorage.removeItem("notifications");
-    sessionStorage.removeItem("upcoming-reservations");
-    sessionStorage.removeItem("blocked-rooms");
-    sessionStorage.removeItem("occupancy");
-    sessionStorage.removeItem("cleaning");
-    sessionStorage.removeItem("configuration");
 }
 
 function loadDataOnFirstClick(selectedDiv) {
