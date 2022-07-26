@@ -12,6 +12,7 @@ img {
   position: relative;
   margin: auto;
   max-height: 400px !important;
+  overflow: hidden;
 }
 
 .next {
