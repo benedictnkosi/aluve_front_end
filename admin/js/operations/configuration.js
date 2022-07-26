@@ -437,10 +437,13 @@ function getAddOns() {
         contentType: "application/json; charset=UTF-8",
         success: function (data) {
             $("#add_ons_div").html(data);
+
+            $('.addon_field').unbind('click')
             $(".addon_field").change(function (event) {
                 updateAddOn(event);
             });
 
+            $('.remove_addon_button').unbind('click')
             $(".remove_addon_button").click(function (event) {
                 deleteAddOn(event);
             });
@@ -518,10 +521,12 @@ function getEmployees() {
         contentType: "application/json; charset=UTF-8",
         success: function (data) {
             $("#employee_div").html(data.html);
+            $('.employee_field').unbind('click')
             $(".employee_field").change(function (event) {
                 updateEmployee(event);
             });
 
+            $('.remove_employee_button').unbind('click')
             $(".remove_employee_button").click(function (event) {
                 deleteEmployee(event);
             });

@@ -394,7 +394,7 @@ function markAsCleaned(event) {
 }
 
 function addAddOn(event) {
-
+    console.log("addAddOn event fired");
     const id = event.target.id.replace("add_add_on_button_", "");
     if ($("#div_add_on_" + id).hasClass("display-none")) {
         //hide other opened reservation inputs
