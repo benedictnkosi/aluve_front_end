@@ -180,7 +180,7 @@ function getAvailableRooms(checkInDate, checkOutDate) {
         let difference = checkOutDateDate - checkInDateDate;
         let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
         console.log("date diff is " + totalDays);
-        sessionStorage.setItem('numberOfNights', totalDays.toString());
+        sessionStorage.setItem('numberOfNights', totalDays);
 
         if (room_id.localeCompare("0") !== 0) {
             displayTotal();

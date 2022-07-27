@@ -16,8 +16,10 @@ function loadConfigurationPageData() {
     getConfigRoomTvsDropDown();
     getTemplates();
     getTerms();
+    getChannelSynchLogs();
     bindConfigElements();
 }
+
 
 function bindConfigElements() {
     $('.filter-configuration').unbind('click')
@@ -206,6 +208,10 @@ function filterConfiguration(event) {
             $('#configuration-terms').removeClass("display-none");
             $('#configuration-heading').text("Terms & Conditions");
             break;
+        case "configuration_synch_logs":
+            $('#configuration-synch_logs').removeClass("display-none");
+            $('#configuration-heading').text("Channel Synch Logs");
+            break;
         default:
         // code block
     }
@@ -234,6 +240,28 @@ function getConfigRooms() {
                 return;
             }
             getConfigRooms();
+        }
+    });
+}
+
+function getChannelSynchLogs() {
+    let url = hostname + "/api/ical/logs/" + sessionStorage.getItem("PROPERTY_UID");
+    $.ajax({
+        type: "get",
+        url: url,
+        crossDomain: true,
+        cache: false,
+        dataType: "jsonp",
+        contentType: "application/json; charset=UTF-8",
+        success: function (data) {
+            $("#synch_logs_div").html(data.html);
+        },
+        error: function (xhr) {
+            console.log("request for getChannelSynchLogs is " + xhr.status);
+            if (!isRetry("getChannelSynchLogs")) {
+                return;
+            }
+            getChannelSynchLogs();
         }
     });
 }
@@ -349,10 +377,12 @@ function populateFormWithRoom(event) {
         $('#room_sleeps').val("2");
         $("#select_room_status").val($("#select_room_status option:first").val());
         $("#select_linked_room").val($("#select_linked_room option:first").val());
+
         $('#room_size').val("");
         $("#select_bed").val($("#select_bed option:first").val());
         $("#select_tv").val($("#select_tv option:first").val());
         $("#select_Stairs").val($("#select_Stairs option:first").val());
+
     } else {
         let url = hostname + "/api/rooms/" + roomId;
         $("body").addClass("loading");
@@ -365,12 +395,15 @@ function populateFormWithRoom(event) {
                 $('#room_price').val(response[0].price);
                 $('#room_sleeps').val(response[0].sleeps);
                 $('#select_room_status').val(response[0].status);
+                $("#select_linked_room option[value='" + roomId + "']").remove();
                 $('#select_linked_room').val(response[0].linked_room);
                 $('#room_size').val(response[0].room_size);
                 $('#select_bed').val(response[0].bed);
                 $('#select_tv').val(response[0].tv);
                 $('#select_Stairs').val(response[0].stairs);
                 $("#links_div").html(response[0].ical_links);
+                $("#room_export_link").html("Room Export Link: " + response[0].export_link);
+
                 //show uploaded images
                 $("#uploaded_images_div").html(response[0].uploaded_images);
                 $('#imageUploaderDiv').removeClass("display-none");
@@ -408,11 +441,11 @@ function populateFormWithRoom(event) {
                     removeChannel(event);
                 });
 
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $("#manage_room_h3").offset().top
-                }, 2000);
-
-
+                if (screen.width < 960) {
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: $("#manage_room_h3").offset().top
+                    }, 2000);
+                }
             } else {
                 showResErrorMessage("reservation", response[0].result_message);
             }
@@ -910,7 +943,9 @@ function addNewChannel() {
             $("body").removeClass("loading");
             const jsonObj = data[0];
             if (jsonObj.result_code === 0) {
+                $('#icalLink').val('');
                 populateFormWithRoom(room_id);
+                showResSuccessMessage("configuration", jsonObj.result_message)
             } else {
                 showResErrorMessage("configuration", jsonObj.result_message)
             }

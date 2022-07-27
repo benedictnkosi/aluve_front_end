@@ -5,6 +5,11 @@
 	License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
+#add_new_room_button {
+	background-color: #f57b51 !important;
+	border-color: #f57b51 !important;
+}
+
 .not_default_image{
 	opacity: 0.5;
 	cursor: pointer;
@@ -946,6 +951,30 @@ body {
 	width: 33.3%;
 	text-align: center;
 	border-right: 1px solid #000;
+	padding: 10px 0;
+	transition: 0.5s all;
+	webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+}
+
+.profile-ser-grids-15 {
+	float: left;
+	width: 15%;
+	text-align: center;
+	padding: 10px 0;
+	transition: 0.5s all;
+	webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+}
+
+.profile-ser-grids-20 {
+	float: left;
+	width: 20%;
+	text-align: center;
 	padding: 10px 0;
 	transition: 0.5s all;
 	webkit-transition: 0.5s all;

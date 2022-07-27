@@ -304,34 +304,40 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
 
             <div class="profile-ser">
-                <div class="profile-ser-grids-20 filter-configuration clickable"
+                <div class="profile-ser-grids-15 filter-configuration clickable"
                      id="configuration_rooms">
                     <img class="menu_icon_image" src="images/menu_rooms.png" title="Rooms"></img>
                     <i class="desktopOnlyMenu">Rooms</i>
                 </div>
-                <div class="profile-ser-grids-20 filter-configuration clickable"
+                <div class="profile-ser-grids-15 filter-configuration clickable"
                      id="configuration_add_ons">
                     <img class="menu_icon_image" src="images/menu_add_ons.png" title="Add-Ons"></img><i
                         class="desktopOnlyMenu">Add
                     Ons</i>
                 </div>
                 <div
-                        class="profile-ser-grids-20 agileinfo  filter-configuration clickable"
+                        class="profile-ser-grids-15 agileinfo  filter-configuration clickable"
                         id="configuration_employees">
                     <img class="menu_icon_image" src="images/employee.png" title="Employees"></img><i
                         class="desktopOnlyMenu">Employees</i>
                 </div>
                 <div
-                        class="profile-ser-grids-20 agileinfo  filter-configuration clickable"
+                        class="profile-ser-grids-15 agileinfo  filter-configuration clickable"
                         id="configuration_messages">
                     <img class="menu_icon_image" src="images/messages.jpg" title="Messages"></img><i
                         class="desktopOnlyMenu">Messages</i>
                 </div>
                 <div
-                        class="profile-ser-grids-20 agileinfo  filter-configuration clickable"
+                        class="profile-ser-grids-15 agileinfo  filter-configuration clickable"
                         id="configuration_terms">
                     <img class="menu_icon_image" src="images/terms.png" title="Terms & Conditions"></img><i
                         class="desktopOnlyMenu">Terms & Conditions</i>
+                </div>
+                <div
+                        class="profile-ser-grids-15 agileinfo  filter-configuration clickable"
+                        id="configuration_synch_logs">
+                    <img class="menu_icon_image" src="images/logs.png" title="Channel Logs"></img><i
+                        class="desktopOnlyMenu">Channel Logs</i>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -431,6 +437,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     <div id="icalDiv" class="display-none">
                         <h3>Manage Calendar Sync</h3>
+
+                        <h5 id="room_export_link"></h5>
 
                         <div id="links_div"></div>
 
@@ -552,7 +560,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                 </form>
             </div>
-
             <div id="configuration-terms" class='configuration_tabs display-none'>
 
                 <h3>Terms & Conditions</h3>
@@ -564,6 +571,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <span><input type="submit" value="Save" id="terms_submit"></span>
                     </div>
                 </form>
+
+            </div>
+            <div id="configuration-synch_logs" class='configuration_tabs display-none'>
+
+                <h3>Channel Sync Logs</h3>
+                <div id="synch_logs_div"></div>
 
             </div>
         </div>
