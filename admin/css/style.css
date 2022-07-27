@@ -5,6 +5,10 @@
 	License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
+.image_checkin{
+	max-width: 23px;
+}
+
 #add_new_room_button {
 	background-color: #f57b51 !important;
 	border-color: #f57b51 !important;
