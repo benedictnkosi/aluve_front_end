@@ -759,7 +759,6 @@ padding:0.3em;
 	border-collapse: collapse;
 	border-spacing: 0;
 	width: 100%;
-	margin-left: 3em;
 }
 
 .booked {
@@ -863,8 +862,8 @@ body {
 }
 
 .main-w3 {
-	width: 88%;
-	margin: 0 auto;
+	width: 95%;
+	margin: 1em;
 }
 
 .main-w3 h1 {
@@ -3022,7 +3021,7 @@ span.middle-text {
 
 @media ( max-width :1280px) {
 	.main-w3 {
-		width: 100%;
+		width: 95%;
 	}
 	.progress {
 		margin-bottom: 1.2em;
@@ -3339,7 +3338,7 @@ span.middle-text {
 
 @media ( max-width :568px) {
 	.main-w3 {
-		margin: 0;
+		margin: 1em;
 	}
 	.main-w3 h1 {
 		font-size: 40px;
