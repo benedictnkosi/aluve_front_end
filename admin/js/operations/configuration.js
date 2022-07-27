@@ -190,27 +190,21 @@ function filterConfiguration(event) {
     switch (id) {
         case "configuration_rooms":
             $('#configuration-rooms-list').removeClass("display-none");
-            $('#configuration-heading').text("Rooms");
             break;
         case "configuration_add_ons":
             $('#configuration-add_on-list').removeClass("display-none");
-            $('#configuration-heading').text("Add-Ons");
             break;
         case "configuration_employees":
             $('#configuration-employees-list').removeClass("display-none");
-            $('#configuration-heading').text("Employees");
             break;
         case "configuration_messages":
             $('#configuration-messages').removeClass("display-none");
-            $('#configuration-heading').text("Schedule Messages");
             break;
         case "configuration_terms":
             $('#configuration-terms').removeClass("display-none");
-            $('#configuration-heading').text("Terms & Conditions");
             break;
         case "configuration_synch_logs":
             $('#configuration-synch_logs').removeClass("display-none");
-            $('#configuration-heading').text("Channel Synch Logs");
             break;
         default:
         // code block
