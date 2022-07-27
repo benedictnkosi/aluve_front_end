@@ -134,24 +134,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                    class="active menuICons mobileMenuIcon" title="Bookings">
                 <i style="display: inline;" class="desktopOnlyMenu">Reservations</i>
             </a></li>
-            <li><a href="javascript:void(0)" onclick="updateView('blocked-rooms');"
-                   class="active menuICons mobileMenuIcon" title="Blocked Rooms">
-
-                <i style="display: inline;" class="desktopOnlyMenu">Blocked
-                    Rooms</i>
-            </a></li>
-            <li><a href="javascript:void(0)" onclick="updateView('occupancy');"
-                   class="active menuICons mobileMenuIcon" title="Occupancy">
-                <i style="display: inline;" class="desktopOnlyMenu">Occupancy</i>
-            </a></li>
-            <li><a href="javascript:void(0)" onclick="updateView('cleaning');"
-                   class="active menuICons mobileMenuIcon" title="Cleaning">
-                <i style="display: inline;" class="desktopOnlyMenu">Cleaning</i>
-            </a></li>
             <li><a href="javascript:void(0)"
                    onclick="updateView('configuration');"
                    class="active menuICons mobileMenuIcon" title="Configuration">
                 <i style="display: inline;" class="desktopOnlyMenu">Configuration</i>
+            </a></li>
+            <li><a href="javascript:void(0)" onclick="updateView('other-tabs');"
+                   class="active menuICons mobileMenuIcon" title="Other">
+                <i style="display: inline;" class="desktopOnlyMenu">Other</i>
             </a></li>
             <li><a href="javascript:void(0)" onclick="logout();"
                    class="active menuICons mobileMenuIcon" title="signout">
@@ -172,36 +162,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <div class="clearfix"></div>
     <div class="col-md-4 left-w3l">
-        <div class="profile-w3layouts dashboard-div toggleable display-none"
-             id="div-whatapp-chat">
-            <div class="profile-top">
-                <div class="col-md-7 profile-top-right">
-                    <h5>
-                        New Whatsapp Chat</i>
-                    </h5>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="profile-ser ">
-                <form class="contact-form" action="#" autocomplete="off"
-                      method="post" id="formStartChat">
-                    <input name="whatapp_chat" type="text" id="whatapp_chat"
-                           placeholder="Phone Number" class="textbox">
-
-                    <div>
-							<span> <input type="submit" value="Start Chat"
-                                          id="cmdStartChat">
-							</span>
-
-                    </div>
-                </form>
-
-                <div class="clearfix"></div>
-            </div>
-        </div>
-
-
         <div class="profile-w3layouts dashboard-div toggleable display-none"
              id="div-calendar">
 
@@ -583,29 +543,45 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
         <div class="profile-w3layouts toggleable display-none"
-             id="div-blocked-rooms">
+             id="div-other-tabs">
             <div class="profile-top">
                 <div class="col-md-7 profile-top-right">
-                    <h5>Blocked Rooms</h5>
+                    <h5>Other Features</h5>
                 </div>
                 <div class="clearfix"></div>
             </div>
 
+
             <div class="profile-ser">
-                <div class="profile-ser-grids-50 filter-block-room-tabs clickable"
+                <div class="profile-ser-grids-20 filter-other-tabs clickable"
                      id="view_blocked_rooms_tab">
-						<span class="glyphicon glyphicon-asterisk clickable"
-                              aria-hidden="true"></span>
-                    <h4>Blocked Rooms</h4>
+                    <img class="menu_icon_image" src="images/menu_blocked.png" title="Block Room"></img>
+                    <i class="desktopOnlyMenu">Blocked Rooms</i>
                 </div>
-                <div class="profile-ser-grids-50 agileinfo filter-block-room-tabs clickable"
+                <div class="profile-ser-grids-20 filter-other-tabs clickable"
                      id="block_a_room_tab">
-						<span class="glyphicon glyphicon-asterisk clickable"
-                              aria-hidden="true"></span>
-                    <h4>Block A Room</h4>
+                    <img class="menu_icon_image" src="images/menu_block_room.png" title="Block A room"></img><i
+                        class="desktopOnlyMenu">Block A Room</i>
                 </div>
+                <div class="profile-ser-grids-20 filter-other-tabs clickable"
+                     id="cleaning_tab">
+                    <img class="menu_icon_image" src="images/menu_cleaning.png" title="Cleaning"></img><i
+                        class="desktopOnlyMenu">Cleaning</i>
+                </div>
+                <div class="profile-ser-grids-20 filter-other-tabs clickable"
+                     id="whatsapp_tab">
+                    <img class="menu_icon_image" src="images/whatsapp.png" title="Whatsapp"></img><i
+                        class="desktopOnlyMenu">Whatsapp</i>
+                </div>
+                <div class="profile-ser-grids-20 filter-other-tabs clickable"
+                     id="occupancy_tab">
+                    <img class="menu_icon_image" src="images/menu_stats.png" title="Occupancy"></img><i
+                        class="desktopOnlyMenu">Occupancy</i>
+                </div>
+
                 <div class="clearfix"></div>
             </div>
+
 
             <div class="flexible">
                 <div class="flex-bottom">
@@ -619,9 +595,38 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
 
-            <div id="block-list" class="blocked_rooms_tab"></div>
 
-            <div class="profile-w3layouts toggleable blocked_rooms_tab display-none"
+            <div class="profile-ser other_feature_tab" id="div-occupancy">
+
+                <div class="profile-ser-grids-50 agileinfo">
+                    <a href="javascript:void(0)">
+                    <h5>Last <input name="occupancy_days"
+                                    id="occupancy_days" class="input-as-text" value="30">
+                    </input> Days</h5>
+                    <h2 id="overall-30-occupancy"></h2>
+                    </a>
+                </div>
+                <div class="profile-ser-grids-50 agileinfo">
+                    <a href="javascript:void(0)"
+                       onclick="getOccupancyPerRoomForMonth();">
+                        <h5>This Month</h5>
+                        <h2 id="overall-month-occupancy"></h2>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class=" bar-grids">
+                    <div class="skills-top">
+                        <h5>Per Room</h5>
+                    </div>
+                    <div class="skills-btm" id="occupancy-div"></div>
+                </div>
+
+            </div>
+
+            <div id="block-list" class="other_feature_tab"></div>
+
+            <div class="profile-w3layouts toggleable other_feature_tab display-none"
                  id="div-block-room">
                 <div class="resp-tabs-container">
 
@@ -668,6 +673,48 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
 
+            <div class="profile-ser other_feature_tab" id="div-cleaning">
+                <div class="em1-margin em1-top-padding">
+                    Select room to get cleanings
+                    <select class="block-display em1-margin" id="cleaning_rooms_select">
+                    </select>
+                </div>
+                <div class="clearfix"></div>
+
+                <div id="cleaning-list"></div>
+
+            </div>
+
+            <div class="profile-w3layouts other_feature_tab toggleable"
+                 id="div-whatapp-chat">
+                <div class="profile-top">
+                    <div class="col-md-7 profile-top-right">
+                        <h5>
+                            New Whatsapp Chat</i>
+                        </h5>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="profile-ser ">
+                    <form class="contact-form" action="#" autocomplete="off"
+                          method="post" id="formStartChat">
+                        <input name="whatapp_chat" type="text" id="whatapp_chat"
+                               placeholder="Phone Number" class="textbox">
+
+                        <div>
+                            <span>
+                                <input type="submit" value="Start Chat"
+                                       id="cmdStartChat">
+                            </span>
+
+                        </div>
+                    </form>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
         </div>
 
 
@@ -690,76 +737,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         </div>
 
-
-        <div class="profile-w3layouts topMargin toggleable display-none"
-             id="div-occupancy">
-            <div class="profile-top">
-                <div class="col-md-7 profile-top-right">
-                    <h5>Occupancy</h5>
-
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="profile-ser">
-
-                <div class="profile-ser-grids-50 agileinfo">
-                    <a href="javascript:void(0)"">
-                    <h5>Last <input name="occupancy_days"
-                                    id="occupancy_days" class="input-as-text" value="30">
-                    </input> Days</h5>
-                    <h2 id="overall-30-occupancy"></h2>
-                    </a>
-                </div>
-                <div class="profile-ser-grids-50 agileinfo">
-                    <a href="javascript:void(0)"
-                       onclick="getOccupancyPerRoomForMonth();">
-                        <h5>This Month</h5>
-                        <h2 id="overall-month-occupancy"></h2>
-                    </a>
-                </div>
-                <div class="clearfix"></div>
-
-                <div class=" bar-grids">
-                    <div class="skills-top">
-                        <h5>Per Room</h5>
-                    </div>
-                    <div class="skills-btm" id="occupancy-div"></div>
-                </div>
-
-            </div>
-
-
-        </div>
-
     </div>
 
     <div class="col-md-4 right-w3l">
-
-
-        <div class="profile-w3layouts toggleable display-none"
-             id="div-cleaning">
-            <div class="profile-top">
-                <div class="col-md-7 profile-top-right">
-                    <h5>Cleaning</h5>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="profile-ser">
-                <div class="em1-margin em1-top-padding">
-                    Select room to get cleanings
-                    <select class="block-display em1-margin" id="cleaning_rooms_select">
-                    </select>
-                </div>
-                <div class="clearfix"></div>
-
-                <div id="cleaning-list"></div>
-
-            </div>
-
-        </div>
-
         <div class="profile-w3layouts toggleable display-none"
              id="div-information">
             <div class="profile-top">
