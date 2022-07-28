@@ -21,7 +21,7 @@ li {
 }
 /* LOGO */
 .logo {
-    font-size: 2em;
+    font-size: 1em;
     font-family: 'Josefin Sans', sans-serif;
 }
 /* NAVBAR MENU */
@@ -87,6 +87,7 @@ input[type=checkbox]{
         left: 0;
         text-align: center;
         padding: 16px 0;
+        z-index: 1;
     }
     .menu li:hover {
         display: inline-block;

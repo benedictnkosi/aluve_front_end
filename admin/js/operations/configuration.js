@@ -10,11 +10,11 @@ function loadConfigurationPageData() {
     getAddOns();
     getEmployees();
     getScheduledMessages();
-    getSchedules();
-    getVariables();
+    getMessageSchedules();
+    getMessageVariables();
     getRoomsForMessages();
     getConfigRoomTvsDropDown();
-    getTemplates();
+    getMessageTemplates();
     getTerms();
     getChannelSynchLogs();
     bindConfigElements();
@@ -627,7 +627,7 @@ function deleteEmployee(event) {
     });
 }
 
-function getTemplates() {
+function getMessageTemplates() {
     $("body").addClass("loading");
     let url = hostname + "/api/schedulemessages/templates" + "/" + sessionStorage.getItem("PROPERTY_UID");
 
@@ -652,13 +652,13 @@ function getTemplates() {
             if (!isRetry("getTemplates")) {
                 return;
             }
-            getTemplates();
+            getMessageTemplates();
 
         }
     });
 }
 
-function getSchedules() {
+function getMessageSchedules() {
     let url = hostname + "/api/schedulemessages/schedules";
 
     $.ajax({
@@ -685,12 +685,12 @@ function getSchedules() {
             if (!isRetry("getSchedules")) {
                 return;
             }
-            getSchedules();
+            getMessageSchedules();
         }
     });
 }
 
-function getVariables() {
+function getMessageVariables() {
     let url = hostname + "/api/schedulemessages/variables";
 
     $.ajax({
@@ -712,7 +712,7 @@ function getVariables() {
             if (!isRetry("getVariables")) {
                 return;
             }
-            getVariables();
+            getMessageVariables();
         }
     });
 }

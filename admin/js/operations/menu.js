@@ -38,6 +38,11 @@ $(document).ready(function () {
         filterOtherTabs(event);
     });
 
+    $('.nav-links').unbind('click')
+    $(".nav-links").click(function (event) {
+        event.stopImmediatePropagation();
+        $(".headcol").css("position", "absolute");
+    });
 });
 
 function hideLoader() {
@@ -53,6 +58,7 @@ const guid = a => (a ?
 function updateView(selectedDiv) {
     //check if javascript loaded for div
     $(".toggleable").addClass("display-none");
+    $(".headcol").css("position", "absolute");
     $("#checkbox_toggle").prop("checked", false);
     $("#div-" + selectedDiv).removeClass("display-none");
     sessionStorage.setItem("current_page", selectedDiv);

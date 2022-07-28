@@ -3021,7 +3021,7 @@ span.middle-text {
 
 @media ( max-width :1280px) {
 	.main-w3 {
-		width: 95%;
+		width: 100%;
 	}
 	.progress {
 		margin-bottom: 1.2em;
