@@ -68,9 +68,10 @@ li {
 
 /*RESPONSIVE NAVBAR MENU STARTS*/
 /* CHECKBOX HACK */
-input[type=checkbox]{
+#checkbox_toggle{
     display: none;
 }
+
 /*HAMBURGER MENU*/
 .hamburger {
     display: none;

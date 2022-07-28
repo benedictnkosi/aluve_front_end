@@ -168,19 +168,41 @@ hr {
 	overflow: hidden;
 }
 
-.addon-left-div{
-	float: left;
-	width: 50%;
-	padding: 1em;
-	background: #fff;
+@media (max-width: 768px) {
+	.addon-left-div{
+		float: left;
+		width: 100%;
+		padding: 1em;
+		background: #fff;
+	}
+
+	.addon-right-div{
+		float: right;
+		width: 100%;
+		padding: 1em;
+		background: #fff;
+	}
+
 }
 
-.addon-right-div{
-	float: right;
-	width: 50%;
-	padding: 1em;
-	background: #fff;
+@media (min-width: 769px) {
+	.addon-left-div{
+		float: left;
+		width: 50%;
+		padding: 1em;
+		background: #fff;
+	}
+
+	.addon-right-div{
+		float: right;
+		width: 50%;
+		padding: 1em;
+		background: #fff;
+	}
+
 }
+
+
 
 .default_image_star_div{
 	float: right;
