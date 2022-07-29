@@ -131,7 +131,7 @@ function displayTotal() {
 }
 
 function getAvailableRooms(checkInDate, checkOutDate) {
-    let url = hostname + "/api/availablerooms/" + checkInDate + "/" + checkOutDate;
+    let url = hostname + "/public/availablerooms/" + checkInDate + "/" + checkOutDate;
     $.getJSON(url + "?callback=?", null, function (data) {
         let roomIndex;
         $("#availableRoomsDropdown").html(data.html);
@@ -239,7 +239,7 @@ function createReservation() {
         }
 
         $("body").addClass("loading");
-        let url = hostname + "/api/reservations/create/" + sessionStorage.getItem("selected_rooms_array") + '/' + guestName + '/' + phoneNumber + '/' + checkInDate + '/' + checkOutDate + '/' + email;
+        let url = hostname + "/public/reservations/create/" + sessionStorage.getItem("selected_rooms_array") + '/' + guestName + '/' + phoneNumber + '/' + checkInDate + '/' + checkOutDate + '/' + email;
         $.getJSON(url + "?callback=?", null, function (data) {
             $("body").removeClass("loading");
             if (data[0].result_code !== 0) {
@@ -259,7 +259,7 @@ function createReservation() {
 function getCustomer() {
     sessionStorage.setItem('customer_state', 'clear');
     $("#phoneNumber").val($("#phoneNumber").val().replaceAll(" ", ""));
-    let url = hostname + "/api/guests/" + $("#phoneNumber").val();
+    let url = hostname + "/public/guests/" + $("#phoneNumber").val();
     $.ajax({
         type: "get",
         url: url,

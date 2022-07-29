@@ -39,7 +39,7 @@ $(document).ready(function () {
 
 function getAllRooms() {
     $("body").addClass("loading");
-    let url = hostname + "/api/allrooms/";
+    let url = hostname + "/public/allrooms/";
     $.ajax({
         type: "get",
         url: url,
@@ -66,7 +66,7 @@ function getAllRooms() {
 
 function filterRooms(checkIn, checkOut) {
     $("body").addClass("loading");
-    let url = hostname + "/api/roomspage/" + checkIn + "/" + checkOut;
+    let url = hostname + "/public/roomspage/" + checkIn + "/" + checkOut;
     $.ajax({
         type: "get",
         url: url,

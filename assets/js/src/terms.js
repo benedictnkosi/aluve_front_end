@@ -4,7 +4,7 @@ $(document).ready(function () {
 });
 
 function getTerms() {
-    let url = hostname + "/api/property/terms/";
+    let url = hostname + "/public/property/terms/";
     $.ajax({
         type: "get",
         url: url,

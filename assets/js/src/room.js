@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
 function getRoomDetails() {
-    let url = hostname + "/api/rooms/" + getUrlParameter("id");
+    let url = hostname + "/public/rooms/" + getUrlParameter("id");
     $.ajax({
         type: "get",
         url: url,
@@ -38,7 +38,7 @@ function getRoomDetails() {
 }
 
 function getRoomSlide() {
-    let url = hostname + "/api/roomslide/" + getUrlParameter("id");
+    let url = hostname + "/public/roomslide/" + getUrlParameter("id");
     $.ajax({
         type: "get",
         url: url,

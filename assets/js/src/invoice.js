@@ -4,7 +4,7 @@ $(document).ready(function () {
 });
 
 function getInvoice() {
-    let url = hostname + "/api/invoice/" + getUrlParameter("id");
+    let url = hostname + "/public/invoice/" + getUrlParameter("id");
     $.ajax({
         type: "get",
         url: url,

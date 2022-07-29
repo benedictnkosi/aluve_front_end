@@ -15,7 +15,7 @@ function sendMessage() {
     const phoneNumber = $('#phoneNumber').val();
     const message = $('#message').val();
 
-    let url = hostname + "/api/property/contact/" + guestName + "/" + email + "/" + phoneNumber+ "/" + encodeURIComponent(message);
+    let url = hostname + "/public/property/contact/" + guestName + "/" + email + "/" + phoneNumber+ "/" + encodeURIComponent(message);
     $("body").addClass("loading");
     $("#success_message_div").addClass("display-none");
     $("#error_message_div").addClass("display-none");
